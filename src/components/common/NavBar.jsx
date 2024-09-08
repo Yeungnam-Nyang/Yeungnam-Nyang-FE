@@ -12,6 +12,7 @@ export default function NavBar() {
   ];
   return (
     <nav className="h-20 max-w-[768px] flex py-2 gap-3 fixed bottom-0 w-full justify-evenly  bg-orange">
+        {/* 하단바 스타일링 및 경로 설정 */}
       {itemArray.map((item, idx) => {
         return (
           <Link key={idx} to={item[2]} className="hover:scale-125 duration-500">
