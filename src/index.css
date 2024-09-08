@@ -1,3 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'BagelFatOne';
+    src: url('./assets/font/BagelFatOne-Regular.ttf');
+}
+@font-face {
+    font-family: 'Bungee';
+    src: url("./assets/font/Bungee-Regular.ttf");
+}
