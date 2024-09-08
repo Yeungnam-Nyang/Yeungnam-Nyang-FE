@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
 import SignUp1 from "./pages/SignUp/SignUP1";
@@ -11,10 +10,10 @@ import EditProfile from "./pages/Profile/EditProfile";
 import MyProfile from "./pages/Profile/MyProfile";
 import MyCat from "./pages/Profile/MyCats";
 import SavedPosts from "./pages/Profile/SavedPosts";
-
+import "./index.css";
 function App() {
   return (
-    <>
+    <div className="max-w-[768px] min-h-screen mx-auto my-0 px-4 bg-yellow shadow-global">
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/signup1" element={<SignUp1 />}></Route>
@@ -28,7 +27,7 @@ function App() {
         <Route path="/profile/mycat" element={<MyCat />}></Route>
         <Route path="/profile/posts" element={<SavedPosts />}></Route>
       </Routes>
-    </>
+    </div>
   );
 }
 
