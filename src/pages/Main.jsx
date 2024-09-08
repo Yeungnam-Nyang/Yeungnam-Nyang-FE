@@ -1,4 +1,5 @@
 import Header from "../components/common/Header";
+import NavBar from "../components/common/NavBar";
 import Title from "../components/common/title";
 
 export default function Main() {
@@ -6,6 +7,7 @@ export default function Main() {
     <>
       <Header />
       <Title text={"NEW"} />
+      <NavBar />
     </>
   );
 }
