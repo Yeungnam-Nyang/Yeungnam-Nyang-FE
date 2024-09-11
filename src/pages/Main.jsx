@@ -1,7 +1,7 @@
 import Button from "../components/common/Button";
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
-import Title from "../components/common/title";
+import Title from "../components/common/Title";
 
 export default function Main() {
   return (
