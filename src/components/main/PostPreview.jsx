@@ -2,6 +2,7 @@ import defalut from "../../assets/images/profile_default.png";
 import example from "../../assets/images/ex01.jpeg";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
+import { useNavigate, useParams } from "react-router-dom";
 export default function PostPreview() {
   return (
     <div className="flex flex-start flex-col p-3">
@@ -18,7 +19,11 @@ export default function PostPreview() {
       {/* 게시물 사진 */}
       <section className="flex flex-col  cursor-pointer shadow-lg rounded-3xl">
         <div className="rounded-3xl bg-white  align-middle">
-          <img src={example} alt="example" className="rounded-3xl m-auto mt-5" />
+          <img
+            src={example}
+            alt="example"
+            className="rounded-3xl m-auto mt-5"
+          />
           <div className="m-auto flex gap-3 p-4">
             <img src={defalut} className="rounded-full w-6 bg-black" />
             <p>tkv00 :</p>
