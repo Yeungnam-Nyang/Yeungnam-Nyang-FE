@@ -2,8 +2,9 @@ import defalut from "../../assets/images/profile_default.png";
 import example from "../../assets/images/ex01.jpeg";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
-import { useNavigate, useParams } from "react-router-dom";
-export default function PostPreview() {
+export default function PostPreview({postData}) {
+
+
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
