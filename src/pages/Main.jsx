@@ -1,4 +1,5 @@
 import Button from "../components/common/Button";
+import Error from "../components/common/Error";
 import Header from "../components/common/Header";
 import Loading from "../components/common/Loading";
 import NavBar from "../components/common/NavBar";
@@ -20,34 +21,28 @@ export default function Main() {
     error: hotPostError,
   } = useFetch("/api/post/popular");
 
-  const loding = true;
-  const error = newPostError || hotPostError;
+  const loding = newPostLoading || hotPostLoading;
+  const error = false;
 
-  if (error) {
-    <>
-      <MdOutlineReportGmailerrorred size={100} color={"red"} className="m-auto" />
-    </>;
-  }
   return (
     <>
       <Header />
-      {
-        /* 로딩중이라면 */
-        !loding ? (
-          <>
-            <div className="h-20" />
-            <Title text={"NEW"} padding={28} />
-            {/* <Button type={"submit"} text={"ID찾기"} isValid={true} /> */}
-            <PostPreview />
-            <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
-            <Title text={"HOT"} select="fire" />
-            <PostPreview />
-            <div className="h-20" />
-          </>
-        ) : (
-          <Loading />
-        )
-      }
+      {error ? (
+        <Error />
+      ) : loding ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="h-20" />
+          <Title text={"NEW"} padding={28} />
+          {/* <Button type={"submit"} text={"ID찾기"} isValid={true} /> */}
+          <PostPreview postData={newPostData}/>
+          <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
+          <Title text={"HOT"} select="fire" />
+          <PostPreview postData={hotPostData}/>
+          <div className="h-20" />
+        </>
+      )}
       <NavBar />
     </>
   );
