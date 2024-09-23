@@ -8,7 +8,6 @@ const useFileUpload = () => {
   const [error, setError] = useState(null);
   //파일 올리는 함수
   const onSaveFiles = (uploadFiles) => {
-  
     //이미지는 5개까지
     if (uploadFiles.length + files.length > 5) {
       alert("이미지는 최대 5개까지 업로드 가능합니다.");
@@ -25,7 +24,7 @@ const useFileUpload = () => {
     });
 
     formData.append("postRequestDTO", JSON.stringify(postRequestDTO));
-
+    
     try {
       const response = await api.post("/api/write/post", formData);
       console.log("파일 업로드 성공", response);

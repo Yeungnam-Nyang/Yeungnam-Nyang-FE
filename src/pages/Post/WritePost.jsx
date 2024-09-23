@@ -70,6 +70,7 @@ export default function WritePost() {
       };
 
       await onFileUpload(formData);
+      
     } catch (error) {
       console.error("게시물 작성 실패", error);
     }
@@ -220,7 +221,10 @@ export default function WritePost() {
                 {userLocation === null
                   ? "'위치 가져오기'버튼을 클릭해주세요."
                   : `${userLocation}`}
-                <button className="text-sm flex rounded-3xl bg-orange text-white p-1"  onClick={onhandleLocation}>
+                <button
+                  className="text-sm flex rounded-3xl bg-orange text-white p-1"
+                  onClick={onhandleLocation}
+                >
                   위치 가져오기
                 </button>
               </div>
@@ -230,7 +234,7 @@ export default function WritePost() {
         <Button
           type={"submit"}
           text={"등록하기"}
-          isValid={isValid}
+          isValid={true}
           onClick={onSubmit}
         />
       </form>
