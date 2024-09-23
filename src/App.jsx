@@ -14,6 +14,7 @@ import WritePost from "./pages/Post/WritePost";
 import "./index.css";
 import FriendList from "./pages/FriendList";
 import NotFound from "./pages/NotFound";
+import DetailPost from "./pages/Post/DetailPost";
 function App() {
   return (
     <div className="max-w-[768px] min-h-screen mx-auto my-0  bg-yellow shadow-global">
@@ -30,6 +31,7 @@ function App() {
         <Route path="/profile/mycat" element={<MyCat />}></Route>
         <Route path="/profile/posts" element={<SavedPosts />}></Route>
         <Route path="/post/write" element={<WritePost />}></Route>
+        <Route path="/post/:idx" element={<DetailPost />}></Route>
         <Route path="/friend" element={<FriendList />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
       </Routes>
