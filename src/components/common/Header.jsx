@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <>
-      <nav className="max-w-[768px] fixed top-0  w-full h-20 bg-yellow shadow-global flex gap-4 justify-between align-middle items-center px-3">
+      <nav className="max-w-[768px] fixed top-0  w-full h-20 bg-yellow shadow-global flex gap-4 justify-between align-middle items-center px-3 z-10">
         {/* 홈으로 이동 */}
         <Link to="/" className="">
           <img src={logo} alt="logo" className="h-16 w-auto" />
