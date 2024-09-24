@@ -11,7 +11,7 @@ export default function NavBar() {
     [icon_account, "PROFILE", "/profile"],
   ];
   return (
-    <nav className="h-20 max-w-[768px] flex py-2 gap-3 fixed bottom-0 w-full justify-evenly  bg-orange">
+    <nav className="z-10 h-20 max-w-[768px] flex py-2 gap-3 fixed bottom-0 w-full justify-evenly  bg-orange">
         {/* 하단바 스타일링 및 경로 설정 */}
       {itemArray.map((item, idx) => {
         return (
