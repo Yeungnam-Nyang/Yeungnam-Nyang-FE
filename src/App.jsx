@@ -33,7 +33,7 @@ function App() {
         <Route path="/profile/mycat" element={<MyCat />}></Route>
         <Route path="/profile/posts" element={<SavedPosts />}></Route>
         <Route path="/post/write" element={<WritePost />}></Route>
-        <Route path="/post/:idx" element={<DetailPost />}></Route>
+        <Route path="/post/:id" element={<DetailPost />}></Route>
         <Route path="/friend" element={<FriendList />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
         <Route path="/api/signuptest" element={<SignUpTest />}></Route>
