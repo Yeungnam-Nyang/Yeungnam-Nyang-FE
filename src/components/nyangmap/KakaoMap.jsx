@@ -9,13 +9,30 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Error from "../common/Error";
 import Marker from "../../assets/images/marker.png";
 import { io } from "socket.io-client";
+import CatMarker from "./CatMarker";
 export default function KakoMap() {
   //현재 위치 가져오기
   const { location, error, getLocation } = useGeoLocation();
   //socket
   const [socket, setSocket] = useState(null);
   //불러온 고양이 게시물
-  const [catPosts, setCatPosts] = useState([]);
+  const [catPosts, setCatPosts] = useState([
+    {
+      latitude: 35.8264595,
+      longitude: 128.754132,
+      catName:"야옹이1",
+      pictureUrl: [
+        "https://cdn.sisain.co.kr/news/photo/202405/53124_99734_5711.jpg",
+      ],
+    },
+    {
+      latitude: 35.9264595,
+      longitude: 128.754132,
+      pictureUrl: [
+        "https://cdn.sisain.co.kr/news/photo/202405/53124_99734_5711.jpg",
+      ],
+    },
+  ]);
 
   //현재 위치 소켓으로 서버 전송
   const sendLocationToServer = useCallback(
@@ -70,7 +87,7 @@ export default function KakoMap() {
             : defaultLocation
         }
         style={{ width: "100%", height: "40rem", borderRadius: "1rem" }}
-        level={2}
+        level={1}
       >
         <MapTypeControl position={"TOPRIGHT"} />
         <ZoomControl position={"RIGHT"} />
@@ -88,10 +105,7 @@ export default function KakoMap() {
           ></MapMarker>
         )}
         {catPosts.map((post, idx) => (
-          <MapMarker
-            key={idx}
-            position={{ lat: post.latitude, lng: post.longitude }}
-          ></MapMarker>
+          <CatMarker key={idx} post={post} />
         ))}
       </Map>
     </div>
