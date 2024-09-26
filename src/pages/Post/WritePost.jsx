@@ -142,7 +142,6 @@ export default function WritePost() {
   return (
     <div className="pb-24">
       <Header />
-      <div className="h-20"></div>
       <Title text="POST" />
 
       <form onSubmit={handleSubmit(onSubmit)}>
