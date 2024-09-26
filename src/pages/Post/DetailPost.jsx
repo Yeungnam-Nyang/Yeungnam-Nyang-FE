@@ -6,11 +6,13 @@ import Loading from "../../components/common/Loading";
 import Error from "../../components/common/Error";
 import DetailPostHeader from "../../components/post/DetailPostHeader";
 import axios from "axios";
+import { FaPen } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import DetailPostImage from "../../components/post/DetailPostImage";
 import DetailPostContent from "../../components/post/DetailPostContent";
 import DetailPostComment from "../../components/post/DetailPostComment";
+import DetailPostCommentInput from "../../components/post/DetailPostCommentInput";
 export default function DetailPost() {
   //데이터 가져오기
   //const {data,error,isLoading}=useFetch(`/api/post/${id}`);
@@ -21,6 +23,9 @@ export default function DetailPost() {
   const [isLoading, setIsLoading] = useState(true);
 
   const [comment, setComment] = useState(null);
+
+  //하단 댓글쓰기 인풋
+  const [isInput, setIsInput] = useState(false);
 
   useEffect(() => {
     const fetchPostData = async () => {
@@ -50,9 +55,17 @@ export default function DetailPost() {
       <DetailPostImage postData={postData} />
       <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
       <DetailPostContent postData={postData} />
-      <Title text={"COMMENT"} />
+      <div className="flex justify-between">
+        <Title text={"COMMENT"} />
+        <button
+          onClick={() => setIsInput(!isInput)}
+          className="hover:scale-125 duration-500 px-5"
+        >
+          <FaPen size={25} color="#000000" />
+        </button>
+      </div>
       <DetailPostComment commentData={comment} />
-      <NavBar />
+      {isInput ? <DetailPostCommentInput /> : <NavBar />}
     </div>
   );
 }
