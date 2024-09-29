@@ -1,0 +1,50 @@
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 90vh;
+    padding: 20x;
+    
+  }
+  .logo {
+    margin-top: 10%;
+    width: 200px; /* 로고 크기 조정 */
+    margin-bottom: 30px; /* 로고와 LOGIN 텍스트 사이의 여백 */
+  }
+  .login-title {
+    color: #000000;
+    font-Size: 40px;
+    font-family: 'Bungee';
+    font-weight: 400;
+    line-height: 28px;
+    opacity: 0.94,
+  }
+.options  {
+    display: flex;
+    gap: 70px; /* 버튼 간의 간격 설정 (기본값에서 증가) */
+    justify-content: center; /* 버튼들을 중앙 정렬 */
+}
+  h2.text-id {
+  margin-left: 10px;
+  width: 85%; 
+  font-size: 25px;
+  font-weight: 600;
+  }
+  h2.text-pw {
+    margin-left: 10px;
+    width: 85%; 
+    font-size: 25px;
+    font-weight: 600;
+  }
+  /* 입력 필드 스타일 */
+  .input-field {
+    width: 85%;
+    padding: 25px;
+    border: 1px solid #676767; /* 경계선 색상 설정 */
+    border-radius: 50px; /* 경계선 둥글게 */
+    font-size: 16px; /* 폰트 크기 설정 */
+    margin: 10px;
+  }
+  
+  
