@@ -79,7 +79,7 @@ export default function SignUp1() {
         />
         <div className='errorMesage'>
           {!StudentIdValid && studentId.length > 0 && (
-            <div>숫자만 입력 해 주세요.       </div>
+            <div>숫자만 입력 해 주세요.</div>
           )}
         </div>
 
