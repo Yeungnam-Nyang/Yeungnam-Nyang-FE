@@ -10,7 +10,7 @@
   .logo {
     margin-top: 10%;
     width: 200px; /* 로고 크기 조정 */
-    margin-bottom: 30px; /* 로고와 LOGIN 텍스트 사이의 여백 */
+    margin-bottom: 10px; /* 로고와 LOGIN 텍스트 사이의 여백 */
   }
   .login-title {
     color: #000000;

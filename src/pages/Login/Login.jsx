@@ -8,21 +8,30 @@ export default function Login() {
   
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
-  const [isValid, setIsValid] = useState(false);
-   // 더미 데이터
-   const dummyId = 'testuser';
-   const dummyPassword = 'Test@1234';
  
-   // 유효성 검사 및 상태 업데이트
-   const checkValidity = () => {
-     setIsValid(id === dummyId && password === dummyPassword);
-   };
- 
-   const handleLogin = () => {
-     if (isValid) {
-       console.log('ID:', id, 'Password:', password);
-     }
-   };
+   // 로그인 처리 함수
+   const handleLogin = async () => {
+    if (id === '' || password === '') {
+      alert('로그인 실패! 빈 칸이 있습니다.');
+    } else {
+      try {
+        const response = await axios.post('http://localhost:8080/api/login', {
+          userId: id, 
+          userPassword: password 
+        });
+
+        // 성공적인 로그인 응답 시
+        
+        localStorage.setItem('token', response.data.token); // JWT 토큰 저장
+
+        // 성공 후 홈 페이지로 이동
+        nav('/');
+      } catch (error) {
+        // 로그인 실패 시 메시지
+        alert('로그인 실패! ID 또는 비밀번를 확인 해 주세요.');
+      }
+    }
+  };
 
   const buttonConfigs = [
     { text: 'ID 찾기', onClick: () => {} },
@@ -65,8 +74,8 @@ export default function Login() {
         className="input-field"
       />
       
-      <Button type="button" text="확인" isValid={isValid} onClick={handleLogin}/>
-
+      <Button type="button" text="확인" isValid={true} onClick={handleLogin}/>
+  
       <div className="options">
         {buttonConfigs.map((button, index) => (
           <Button
