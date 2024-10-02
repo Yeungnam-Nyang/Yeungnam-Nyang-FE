@@ -1,6 +1,8 @@
 export default function test(){
     return<>
-    <a/>
-sdfsdfx
+    <div>
+        sadasd
+    </div>
+    <div><a>,</a></div>
     </>
 }
