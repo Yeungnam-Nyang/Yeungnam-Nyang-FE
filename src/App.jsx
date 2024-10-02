@@ -14,9 +14,12 @@ import WritePost from "./pages/Post/WritePost";
 import "./index.css";
 import FriendList from "./pages/FriendList";
 import NotFound from "./pages/NotFound";
+import DetailPost from "./pages/Post/DetailPost";
+import SignUpTest from "./test/signup-test";
+
 function App() {
   return (
-    <div className="max-w-[768px] min-h-screen mx-auto my-0  bg-yellow shadow-global">
+    <div className="max-w-[768px] min-h-screen mx-auto my-0  bg-yellow shadow-global ">
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/signup1" element={<SignUp1 />}></Route>
@@ -30,8 +33,10 @@ function App() {
         <Route path="/profile/mycat" element={<MyCat />}></Route>
         <Route path="/profile/posts" element={<SavedPosts />}></Route>
         <Route path="/post/write" element={<WritePost />}></Route>
+        <Route path="/post/:id" element={<DetailPost />}></Route>
         <Route path="/friend" element={<FriendList />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/api/signuptest" element={<SignUpTest />}></Route>
       </Routes>
     </div>
   );
