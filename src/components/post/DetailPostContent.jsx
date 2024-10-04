@@ -1,19 +1,79 @@
-import { BiSolidLike } from "react-icons/bi";
+import { useEffect, useState } from "react";
+import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaCommentAlt } from "react-icons/fa";
+import useSound from "use-sound";
+import catSound from "../../assets/sounds/cat.mp3";
+import { useMutation, useQueryClient } from "react-query";
+import api from "../../api/api";
+
 export default function DetailPostContent({ postData }) {
+  const [post, setPost] = useState(postData);
+  const queryClient = useQueryClient();
+  //고양이 소리 효과음
+  const [play] = useSound(catSound);
+
+  //query설정
+  const { mutate: toggleLike } = useMutation({
+    //좋아요
+    mutationFn: ({ postId }) =>
+      api.post("/api/like/toggle", { postId: postId }),
+
+    //mutation 발생 시
+    onMutate: async ({ postId }) => {
+      await queryClient.cancelQueries(["post", postId]);
+      const previousPost = queryClient.getQueryData(["post", postId]);
+
+      setPost((prevPost) => ({
+        ...prevPost,
+        likedByUser: !prevPost?.likedByUser,
+        likeCnt: prevPost?.likedByUser
+          ? prevPost.likeCnt - 1
+          : prevPost.likeCnt + 1,
+      }));
+
+      return { previousPost };
+    },
+
+    onError: (error, newPost,context, ) => {
+      setPost(context.previousPost);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries(["post", post?.postId]);
+    },
+  });
+
+  const handleLikeClick = () => {
+    toggleLike({ postId: post?.postId });
+    play();
+  };
+
+
   return (
     <div className="flex flex-col p-5 gap-4">
       {/* 좋아요, 댓글 */}
       <section className="flex gap-3 mt-6">
         {/* 좋아요 */}
-        <BiSolidLike size={25} className="custom-hover" />
-        <p className="font-bold">{postData?.likeCnt}</p>
+        {post?.likedByUser ? (
+          <AiFillLike
+            size={25}
+            className="custom-hover"
+            onClick={handleLikeClick}
+          />
+        ) : (
+          <AiOutlineLike
+            size={25}
+            className="custom-hover"
+            onClick={handleLikeClick}
+          />
+        )}
+        <p className="font-bold">{post?.likeCnt}</p>
         {/* 댓글 */}
         <FaCommentAlt size={25} />
         <p className="font-bold">{postData?.commentCnt}</p>
       </section>
       <div className="bg-white rounded-3xl shadow-xl h-80 w-full p-4 ">
-        {postData?.content}
+        {post?.content}
       </div>
     </div>
   );
