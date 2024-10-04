@@ -19,6 +19,9 @@ export default function Modal({
       .post(url, { [keyName]: input })
       .then((response) => alert(response.data.message))
       .catch((error) => alert(error.message));
+
+    //input상자 초기화
+    setInput("");
   };
 
   if (!isOpen) return null;
