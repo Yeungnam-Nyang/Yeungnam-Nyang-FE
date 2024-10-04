@@ -1,5 +1,5 @@
 export default function DetailPostImage({ postData }) {
-  console.log(postData);
+  
   return (
     <div className="flex flex-col gap-4 p-6">
       {postData?.pictureUrl.map((url, idx) => (
