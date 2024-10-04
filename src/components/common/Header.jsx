@@ -3,9 +3,9 @@ import { FaPen, FaUserPlus } from "react-icons/fa";
 import logo from "../../assets/images/logo.png";
 import Modal from "./Modal";
 import { useState } from "react";
+import api from "../../api/api";
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
-  const onClick = () => {};
 
   //모달창 닫기
   const onClose = () => {
@@ -37,10 +37,12 @@ export default function Header() {
       <Modal
         title="친구 추가"
         inputText="친구의 아이디를 입력하세요."
-        onClick={onClick}
         type="submit"
         onClose={onClose}
         isOpen={openModal}
+        isInputBox={true}
+        url="/api/friend/add"
+        keyName="friendId"
       />
     </>
   );

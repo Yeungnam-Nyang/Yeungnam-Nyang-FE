@@ -1,7 +1,7 @@
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import NavBar from "../../components/common/NavBar";
-import Title from "../../components/common/Title";
+import Title from "../../components/common/title";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFileUpload from "../../hooks/useFileUpload";
@@ -11,20 +11,28 @@ import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoIosCloseCircle } from "react-icons/io";
 import { CiCirclePlus } from "react-icons/ci";
 import api from "../../api/api";
+import getAddressApi from "../../utils/getAddressApi";
+import { useNavigate } from "react-router-dom";
 export default function WritePost() {
+  //게시물 작성 완료 시 이전 페이지 이동
+  const nav = useNavigate();
+  const goToBack = () => {
+    nav(-1);
+  };
   //버튼 클릭 유효성 검사
   const [isValid, setValid] = useState(false);
   //위치불러오기
   const [requestLocation, setRequestLocation] = useState(false);
   //위치 정보
-  const [userLocation, setUserLocation] = useState(null);
+  const [userLocation, setUserLocation] = useState("");
   //이미지 미리보기 위한 이미지 상태 저장
   const [imgFiles, setImgFiles] = useState([]);
 
   //useForm 라이브러리 사용
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid: formValid },
+    handleSubmit,
   } = useForm();
   const inputFileRef = useRef(null);
 
@@ -39,6 +47,8 @@ export default function WritePost() {
     error: locationError,
     getLocation,
   } = useGeoLocation(geolocationOptions);
+
+  //주소 저장
 
   //파일 업로더 생성
   const {
@@ -56,21 +66,26 @@ export default function WritePost() {
         !errors.catName &&
         !errors.content &&
         !locationError &&
-        files.length > 0
+        files.length > 0 &&
+        formValid
     );
-  }, [errors, locationError, files, uploadError]);
+  }, [errors, locationError, files, uploadError, formValid]);
 
   const onSubmit = async (data) => {
     try {
       const formData = {
         content: data.content,
         catName: data.catName,
-        latitude: location?.latitude,
-        longitude: location?.longitude,
+        latitude: Number(location?.latitude),
+        longitude: Number(location?.longitude),
+        address: userLocation,
       };
 
-      await onFileUpload(formData);
-      
+      const response = await onFileUpload(formData);
+      if (response && response.status === 200) {
+        console.log(formData);
+        goToBack();
+      }
     } catch (error) {
       console.error("게시물 작성 실패", error);
     }
@@ -80,19 +95,27 @@ export default function WritePost() {
   const onhandleLocation = async (e) => {
     e.preventDefault();
     setRequestLocation(true);
-    getLocation();
-    if (!locationError) {
-      //위치 정보 서버로 보내기
-      const data = {
-        latitude: location.latitude,
-        longitude: location.longitude,
-      };
-      await api.post("/api/location", JSON.stringify(data));
-      //서버로부터 도로명 주소 불러오기
-      const response = await api.get("/api/location_get");
-      setUserLocation(response.data);
+
+    try {
+      await getLocation(); // 위치 가져오기 시도
+    } catch (error) {
+      console.error("위치 정보를 가져오는 중 오류 발생:", error);
     }
   };
+  // 위치 정보가 업데이트될 때 주소를 가져오도록 useEffect 설정
+  useEffect(() => {
+    const fetchAddress = async () => {
+      if (location) {
+        try {
+          const address = await getAddressApi({ location });
+          setUserLocation(address);
+        } catch (error) {
+          console.error("주소 정보를 가져오는 중 오류 발생:", error);
+        }
+      }
+    };
+    fetchAddress();
+  }, [location]); // location 상태가 업데이트될 때마다 실행
 
   const handleFileUpload = (event) => {
     event.preventDefault();
@@ -102,7 +125,7 @@ export default function WritePost() {
       // 수정된 부분: 미리보기 배열 업데이트
       const imageUrlLists = files.map((file) => URL.createObjectURL(file)); // 파일 URL 생성
       setImgFiles((prev) => [...prev, ...imageUrlLists]); // 기존 미리보기와 결합
-      onSaveFiles(imgFiles); // 선택된 파일을 저장
+      onSaveFiles(files); // 선택된 파일을 저장
     } else {
       console.error("파일이 선택되지 않았습니다.");
     }
@@ -122,7 +145,7 @@ export default function WritePost() {
       <div className="h-20"></div>
       <Title text="POST" />
 
-      <form>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col items-center w-11/12 bg-white h-auto m-auto rounded-3xl ">
           {imgFiles.length > 0 ? (
             <div>
@@ -197,6 +220,7 @@ export default function WritePost() {
                   value: 1,
                   message: "1자리 이상 고양이 이름을 입력해 주세요.",
                 },
+                required: "필수 입력 칸입니다.",
               })}
             ></input>
           </div>
@@ -211,6 +235,7 @@ export default function WritePost() {
                   value: 1,
                   message: "1자리 이상 내용을 작성해 주세요.",
                 },
+                required: "필수 입력 칸입니다.",
               })}
             ></textarea>
           </div>
@@ -231,12 +256,7 @@ export default function WritePost() {
             </div>
           </div>
         </section>
-        <Button
-          type={"submit"}
-          text={"등록하기"}
-          isValid={true}
-          onClick={onSubmit}
-        />
+        <Button type={"submit"} text={"등록하기"} isValid={isValid} />
       </form>
       <NavBar />
     </div>

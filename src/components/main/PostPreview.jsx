@@ -2,7 +2,18 @@ import defalut from "../../assets/images/profile_default.png";
 import example from "../../assets/images/ex01.jpeg";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
+import useFetch from "../../hooks/useFetch";
+import { useNavigate } from "react-router-dom";
+
 export default function PostPreview({ postData }) {
+  //댓글 불러오기
+  const {
+    data: commentData,
+    isLoading: commentLoading,
+    error: commentError,
+  } = useFetch(`/api/comment/post/${postData?.postId}`);
+
+  const nav = useNavigate();
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
@@ -16,17 +27,24 @@ export default function PostPreview({ postData }) {
       </section>
 
       {/* 게시물 사진 */}
-      <section className="flex flex-col  cursor-pointer shadow-lg rounded-3xl">
+      <section
+        className="flex flex-col  cursor-pointer shadow-lg rounded-3xl"
+        onClick={() => nav(`/post/${postData?.postId}`)}
+      >
         <div className="rounded-3xl bg-white  align-middle">
           <img
-            src={postData?.pictureUrl[0]}
+            src={postData ? `${postData.pictureUrl[0]}` : null}
             alt="post-picture"
             className="rounded-3xl m-auto mt-5"
           />
           <div className="m-auto flex gap-3 p-4">
-            <img src={defalut} className="rounded-full w-6 bg-black" />
-            <p>tkv00 :</p>
-            <p>고양이 귀여워!!</p>
+            {commentData && commentData.length > 0 ? (
+              <>
+                <img src={defalut} className="rounded-full w-6 bg-black" />
+                <p>{commentData[0].userId}</p>
+                <p>{commentData[0].content}</p>
+              </>
+            ) : null}
           </div>
         </div>
       </section>
