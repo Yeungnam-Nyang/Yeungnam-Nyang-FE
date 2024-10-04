@@ -1,74 +1,80 @@
 import default_img from "../../assets/images/profile_default.png";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../../api/api";
+import { useNavigate } from "react-router-dom";
+import DropMenu from "../common/DropMenu";
 
-const initialState = {};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case "DELETE":
-      return api.delete(`/api/post/${action.id}-delete`).then(() => ({
-        ...state,
-        status: "Deleted",
-      }));
-    case "UPDATE":
-      return api.put(`/api/post/${action.id}-delete`).then(() => ({
-        ...state,
-        status: "Updated",
-      }));
-    case "SCRAP":
-      return api.post(`/api/post/${action.id}-scrap`).then(() => ({
-        ...state,
-        status: "Scrapped",
-      }));
-    default:
-      throw new Error(`Unknown action type: ${action.type}`);
-  }
-}
 export default function DetailPostHeader({ postData }) {
   //자기 게시물 -> 삭제하기 , 수정하기
   //자기 게시물이 아니면 -> 저장하기
   const myOptions = ["삭제하기", "수정하기"];
   const otherOptions = ["저장하기"];
-  const ITEM_HEIGHT = 48;
+  const [options, setOptions] = useState(otherOptions);
+  const [anchorEl, setAnchorEl] = useState(null);
 
+  const nav = useNavigate();
   //게시물 판단 불리언 값
-  const userId = localStorage.getItem("userId");
-  const [options, setOptions] = useState(null);
+  const myPost = async () => {
+    const response = await api.get(`/api/post/my/${postData?.postId}`);
+    //내 게시물인 경우
+    if (response.data.message === 200) {
+      setOptions(myOptions);
+    }
+  };
+
+  //삭제하기
+  const handleDelete = async () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        await api.delete(`/api/post/${postData?.postId}`);
+        alert("삭제되었습니다.");
+        nav(-1);
+      } catch (error) {
+        alert("오류가 발생했습니다.");
+      }
+    }
+  };
+
+  //저장하기
+  const handleScrap = async () => {
+    if (window.confirm("게시물을 저장하시겠습니까?")) {
+      try {
+        const response = await api.post(`/api/post/${postData?.postId}/scrap`);
+        //이미 저장된 게시물
+        if (response.data.code === "FAIL") {
+          alert("이미 저장된 게시물입니다.");
+        } else if (response.data.code === "SUCCESS") {
+          alert("게시물이 저장되었습니다.");
+        }
+      } catch (e) {
+        alert("오류가 발생했습니다.");
+      }
+    }
+  };
+
+  //수정하기
+  const handleUpdate = () => {
+    nav("/");
+  };
   useEffect(() => {
     // //내 게시물이라면
-    // if (postData?.userId === userId) {
-    //   setOptions(myOptions);
-    // }
-    // //내 게시물이 아닌 경우
-    // else {
-    //   setOptions(otherOptions);
-    // }
-    //일단은 옵션값 임의 지정
-    setOptions(myOptions);
-  }, [postData, userId]);
-
-  //useReducer
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (e) => {
-    setAnchorEl(e.currentTarget);
-  };
+    myPost();
+  }, []);
 
   const handleClose = (option) => {
     setAnchorEl(null);
-
-    if (option === "삭제하기") {
-      dispatch({ type: "DELETE", id: postData?.postId });
-    } else if (option === "수정하기") {
-      dispatch({ type: "UPDATE", id: postData?.postId });
-    } else if (option === "저장하기") {
-      dispatch({ type: "SCRAP", id: postData?.postId });
+    switch (option) {
+      case "삭제하기":
+        handleDelete();
+        break;
+      case "수정하기":
+        handleUpdate();
+        break;
+      case "저장하기":
+        handleScrap();
+        break;
+      default:
+        break;
     }
   };
 
@@ -84,43 +90,12 @@ export default function DetailPostHeader({ postData }) {
           {postData?.userId ? postData?.userId : "아이디"}
         </p>
       </div>
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls={open ? "long-menu" : undefined}
-        aria-expanded={open ? "true" : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        <MoreVertIcon />
-      </IconButton>
-      <Menu
-        id="long-menu"
-        MenuListProps={{
-          "aria-labelledby": "long-button",
-        }}
+      <DropMenu
+        options={options}
+        setAnchorEl={setAnchorEl}
         anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        slotProps={{
-          paper: {
-            style: {
-              maxHeight: ITEM_HEIGHT * 4.5,
-              width: "20ch",
-            },
-          },
-        }}
-      >
-        {options?.map((option) => (
-          <MenuItem
-            key={option}
-            selected={option === "Pyxis"}
-            onClick={() => handleClose(option)}
-          >
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
+        handleClose={(options) => handleClose(options)}
+      />
     </section>
   );
 }

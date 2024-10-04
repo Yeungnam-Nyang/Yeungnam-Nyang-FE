@@ -15,7 +15,7 @@ import "./index.css";
 import FriendList from "./pages/FriendList";
 import NotFound from "./pages/NotFound";
 import DetailPost from "./pages/Post/DetailPost";
-import React from 'react';
+import React from "react";
 import SignUpTest from "./test/signup-test";
 class ErrorBoundary extends React.Component {
   constructor(props) {

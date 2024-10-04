@@ -3,7 +3,8 @@ import example from "../../assets/images/ex01.jpeg";
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
-const BASE_IMAGE_URL = 'http://localhost:8080';
+import { useNavigate } from "react-router-dom";
+
 export default function PostPreview({ postData }) {
   //댓글 불러오기
   const {
@@ -12,6 +13,7 @@ export default function PostPreview({ postData }) {
     error: commentError,
   } = useFetch(`/api/comment/post/${postData?.postId}`);
 
+  const nav = useNavigate();
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
@@ -25,10 +27,13 @@ export default function PostPreview({ postData }) {
       </section>
 
       {/* 게시물 사진 */}
-      <section className="flex flex-col  cursor-pointer shadow-lg rounded-3xl">
+      <section
+        className="flex flex-col  cursor-pointer shadow-lg rounded-3xl"
+        onClick={() => nav(`/post/${postData?.postId}`)}
+      >
         <div className="rounded-3xl bg-white  align-middle">
           <img
-            src={postData ? `${BASE_IMAGE_URL}${postData.pictureUrl[0]}`:null}
+            src={postData ? `${postData.pictureUrl[0]}` : null}
             alt="post-picture"
             className="rounded-3xl m-auto mt-5"
           />
