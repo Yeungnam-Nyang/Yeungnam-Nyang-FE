@@ -20,6 +20,7 @@
     "http-proxy-middleware": "^3.0.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
     "react-hook-form": "^7.53.0",
     "react-icons": "^5.3.0",
     "react-kakao-maps-sdk": "^1.1.27",
@@ -27,6 +28,18 @@
     "react-router-dom": "^6.26.2",
     "socket.io-client": "^4.8.0",
     "sockjs-client": "^1.6.1"
+=======
+<<<<<<< HEAD
+    "react-router-dom": "^6.26.2",
+    "tailwindcss": "^3.4.11"
+=======
+    "react-kakao-maps-sdk": "^1.1.27",
+    "socket.io-client": "^4.8.0"
+    "react-hook-form": "^7.53.0",
+    "react-icons": "^5.3.0"
+
+>>>>>>> a0ed1278214d01e9e203a5be736da1ef734374e2
+>>>>>>> daedf2a6a1f129beebdb3d0761b28ad36d7c334f
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
