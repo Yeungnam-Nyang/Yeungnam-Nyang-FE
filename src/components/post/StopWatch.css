@@ -1,0 +1,66 @@
+.bowl-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2rem;
+    position: relative;
+  }
+  
+  .bowl-icon {
+    font-size: 5rem;
+    transition: all 0.3s ease;
+    /* 진한 갈색 계열로 변경 */
+    background: linear-gradient(145deg, #8B4513, #654321);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: #aaaaaa;
+    filter: drop-shadow(3px 3px 2px rgba(139, 69, 19, 0.3))
+           drop-shadow(0 0 5px rgba(139, 69, 19, 0.2));
+  }
+  
+  .bowl-icon.feeding {
+    animation: feedingAnimation 1s ease;
+    /* 밥을 줄 때는 더 밝은 갈색으로 변경 */
+    background: linear-gradient(145deg, #D2691E, #8B4513);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: #ff9f43;
+    filter: drop-shadow(3px 3px 2px rgba(139, 69, 19, 0.4))
+           drop-shadow(0 0 8px rgba(210, 105, 30, 0.3));
+  }
+  
+  @keyframes feedingAnimation {
+    0% {
+      transform: scale(1) translateY(0);
+      filter: drop-shadow(3px 3px 2px rgba(139, 69, 19, 0.3));
+    }
+    25% {
+      transform: scale(1.3) translateY(-15px) rotate(-15deg);
+      filter: drop-shadow(5px 5px 3px rgba(139, 69, 19, 0.4));
+    }
+    50% {
+      transform: scale(1.3) translateY(-10px) rotate(15deg);
+      filter: drop-shadow(5px 5px 3px rgba(139, 69, 19, 0.4));
+    }
+    75% {
+      transform: scale(1.2) translateY(-12px) rotate(-10deg);
+      filter: drop-shadow(4px 4px 2px rgba(139, 69, 19, 0.35));
+    }
+    100% {
+      transform: scale(1) translateY(0) rotate(0);
+      filter: drop-shadow(3px 3px 2px rgba(139, 69, 19, 0.3));
+    }
+  }
+  
+  /* 밥그릇 아래 그림자 효과 */
+  .bowl-container::after {
+    content: '';
+    position: absolute;
+    bottom: 1.5rem;
+    width: 4rem;
+    height: 0.5rem;
+    background: radial-gradient(ellipse at center, rgba(139, 69, 19, 0.25) 0%, rgba(139, 69, 19, 0) 70%);
+    border-radius: 50%;
+    z-index: -1;
+  }
