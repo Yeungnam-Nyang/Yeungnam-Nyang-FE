@@ -17,6 +17,7 @@ import DetailPostCommentInput from "../../components/post/DetailPostCommentInput
 import api from "../../api/api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useCommentInputStore } from "../../store/commentInputStore";
+import StopWatch from "../../components/post/StopWatch";
 export default function DetailPost() {
   //zustand에서 input값 가져오기
   const { inputText, clearInputText } = useCommentInputStore();
@@ -134,6 +135,9 @@ export default function DetailPost() {
           <DetailPostImage postData={postData} />
           <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
           <DetailPostContent postData={postData} />
+          <StopWatch
+            postId={postData?.postId}
+          />
           <div className="flex justify-between pb-8">
             <Title text={"COMMENT"} />
             <button
