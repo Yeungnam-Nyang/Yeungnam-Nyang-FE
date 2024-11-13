@@ -12,11 +12,11 @@ import MyCat from "./pages/Profile/MyCats";
 import SavedPosts from "./pages/Profile/SavedPosts";
 import WritePost from "./pages/Post/WritePost";
 import "./index.css";
-import FriendList from "./pages/FriendList";
 import NotFound from "./pages/NotFound";
 import DetailPost from "./pages/Post/DetailPost";
 import React from "react";
 import SignUpTest from "./test/signup-test";
+import Friend from "./pages/Friend";
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -60,7 +60,7 @@ function App() {
           <Route path="/profile/posts" element={<SavedPosts />}></Route>
           <Route path="/post/write" element={<WritePost />}></Route>
           <Route path="/post/:id" element={<DetailPost />}></Route>
-          <Route path="/friend" element={<FriendList />}></Route>
+          <Route path="/friend" element={<Friend />}></Route>
           <Route path="/*" element={<NotFound />}></Route>
           <Route path="/api/signuptest" element={<SignUpTest />}></Route>
         </Routes>
