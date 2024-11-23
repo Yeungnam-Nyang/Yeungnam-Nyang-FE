@@ -7,4 +7,12 @@ export default defineConfig({
   define: {
     global: "window", // global 변수를 window로 설정
   },
+  resolve: {
+    alias: {
+      "react-router-dom": "react-router-dom",
+    },
+  },
+  optimizeDeps: {
+    include: ["react-router-dom"],
+  },
 });
