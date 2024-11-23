@@ -1,0 +1,70 @@
+.Findid-Container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    min-height: 100vh;
+    
+}
+    
+
+.input-field {
+    width: 85%;
+    padding: 25px;
+    border: 1px solid #ddd; /* 경계선 색상 설정 */
+    border-radius: 30px; /* 경계선 둥글게 */
+    font-size: 16px; /* 폰트 크기 설정 */
+    
+    
+}
+  .Findid-tittle {
+    font-family: 'Bungee'; /* 저장된 폰트로 설정 */
+    font-size: 40px; /* 폰트 크기 설정 */
+    color: #000000; /* 글자 색상 설정 */
+    margin-bottom: 50px;
+  
+}
+
+  .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .popup {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column; /* 세로로 쌓이도록 설정 */
+    border-radius: 8px;
+    width: 500px;
+    height: 300px;
+  }
+  
+  .popup-title {
+    margin: 0; /* 기본 마진 제거 */
+    margin-bottom: 50px; /* 제목과 아이디 간 간격 */
+  }
+  
+  .popup-id {
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 30px; /* 아이디 글자 크기 설정 (원하는 크기로 조정 가능) */
+    font-weight: bold; /* 아이디 볼드 설정 */
+  }
+  
+  .popup-user-id {
+    text-align: center; /* 텍스트 중앙 정렬 */
+  }
+  
+  .popup-button {
+    margin-top: 20px; /* 버튼과 다른 요소 간 간격 */
+  }

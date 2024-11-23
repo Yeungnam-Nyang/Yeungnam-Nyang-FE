@@ -12,4 +12,5 @@ createRoot(document.getElementById("root")).render(
       <ReactQueryDevtools />
     </BrowserRouter>
   </QueryClientProvider>
+
 );

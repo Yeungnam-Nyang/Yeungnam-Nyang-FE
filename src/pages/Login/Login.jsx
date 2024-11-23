@@ -3,9 +3,10 @@ import './Login.css';
 import logo from '../../assets/images/logo-big.png';
 import Button from "../../components/common/Button";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 export default function Login() {
-  
+  const serverUrl=import.meta.env.VITE_SERVER_URL;
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
  
@@ -15,10 +16,11 @@ export default function Login() {
       alert('로그인 실패! 빈 칸이 있습니다.');
     } else {
       try {
-        const response = await axios.post('http://localhost:8080/api/login', {
+        const response = await axios.post(`${serverUrl}/api/login`, {
           userId: id, 
           userPassword: password 
         });
+        console.log(response.data)
 
         // 성공적인 로그인 응답 시
         
@@ -28,6 +30,7 @@ export default function Login() {
         nav('/');
       } catch (error) {
         // 로그인 실패 시 메시지
+        console.error(error);
         alert('로그인 실패! ID 또는 비밀번를 확인 해 주세요.');
       }
     }
@@ -56,7 +59,7 @@ export default function Login() {
         value={id}
         onChange={(e) => {
           setId(e.target.value);
-          checkValidity();
+  
         }}
         className="input-field"
       />
@@ -69,7 +72,7 @@ export default function Login() {
         value={password}
         onChange={(e) => {
           setPassword(e.target.value);
-          checkValidity();
+          
         }}
         className="input-field"
       />
