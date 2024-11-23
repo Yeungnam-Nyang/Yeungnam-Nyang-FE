@@ -1,7 +1,7 @@
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import NavBar from "../../components/common/NavBar";
-import Title from "../../components/common/title";
+import Title from "../../components/common/Title";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useFileUpload from "../../hooks/useFileUpload";
