@@ -1,6 +1,11 @@
 import { useState } from "react";
 import api from "../api/api";
+import { useNavigate } from "react-router-dom";
+
 const useFileUpload = () => {
+  //임시 토큰
+  const initialAccessToken = import.meta.env.VITE_ACCESS_TOKEN;
+  localStorage.setItem("accessToken", initialAccessToken);
   //파일 저장 배열
   const [files, setFiles] = useState([]);
 
@@ -23,15 +28,24 @@ const useFileUpload = () => {
       formData.append("files", file);
     });
 
-    formData.append("postRequestDTO", JSON.stringify(postRequestDTO));
-    
+    formData.append(
+      "postRequestDTO",
+      new Blob([JSON.stringify(postRequestDTO)], {
+        type: "application/json",
+      })
+    );
+
     try {
-      const response = await api.post("/api/write/post", formData);
-      console.log("파일 업로드 성공", response);
+      const response=await api.post("/api/post/write", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data", // multipart/form-data 형식 지정
+        },
+      });
+      alert("게시물 작성 완료!");
       return response;
-    } catch (error) {
-      setError(error.message);
-      throw error;
+    } catch (err) {
+      alert("게시물 작성 실패");
+      setError(err);
     }
   };
   return { files, onSaveFiles, onFileUpload, error };
