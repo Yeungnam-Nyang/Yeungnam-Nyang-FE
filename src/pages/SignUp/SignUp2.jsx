@@ -4,7 +4,7 @@ import Button from "../../components/common/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./SignUP1.css";
 import axios from 'axios';
-
+import { FaEyeSlash ,FaEye } from "react-icons/fa";
 export default function SignUp2() {
   const router = useNavigate();
   const [Id, setId] = useState('');
@@ -44,14 +44,16 @@ export default function SignUp2() {
       interval = setInterval(() => {
         setTimer((prev) => prev - 1);
       }, 1000);
-    } else if (timer === 0) {
+    } else if (timer === 0 && isTimerRunning) {
       clearInterval(interval);
       setIsTimerRunning(false);
-      alert("타이머가 만료되었습니다. 인증번호를 다시 요청하세요.");
-      setIsCertificationSent(false); // 인증번호 요청 초기화
+      if (!isCertificationSent) {  // 인증번호가 성공적으로 확인되지 않은 경우에만 알림
+        alert("타이머가 만료되었습니다. 인증번호를 다시 요청하세요.");
+      }
+      setIsCertificationSent(false); // 인증번호 요청 상태 초기화
     }
     return () => clearInterval(interval);
-  }, [timer, isTimerRunning]);
+  }, [timer, isTimerRunning, isCertificationSent]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -92,15 +94,16 @@ export default function SignUp2() {
       const data = {
         userId: Id,
         userPassword: Pw,
-        userPhoneNumber: Phone,
+        userPhoneNumber: String(Phone),
         userQuestion: selectedQuestion,
         userAnswer: Answer,
-        studentNumber: studentId,
+        studentNumber: String(studentId),
         studentName: Name,
         schoolName: schoolName,
       };
+      console.log(data);
 
-      axios.post('http://localhost:8080/api/signup', data)
+      axios.post(`${import.meta.VITE_SERVER_URL}/api/signup`, data)
         .then(response => {
           console.log('회원 가입 성공:', response.data);
           router('/login');
@@ -121,7 +124,7 @@ export default function SignUp2() {
       setIsCertificationSent(true);
 
       // 여기에 실제로 인증번호를 전송하는 API 호출을 추가
-      axios.post('http://localhost:8080/api/sms/send-Verification', { userPhoneNumber: Phone })
+      axios.post(`${import.meta.VITE_SERVER_URL}/api/sms/send-Verification`, { userPhoneNumber: Phone })
         .then(response => {
           alert("인증번호가 전송되었습니다.");
         })
@@ -135,12 +138,13 @@ export default function SignUp2() {
   };
 
   const handleVerifyCertification = () => {
-    // 인증번호 확인 로직 추가
+    // 인증번호 확인 로직
     const enteredCode = document.querySelector('.certification input[type="text"]').value; // 입력한 인증번호
-    axios.post('http://localhost:8080/api/sms/confirm-Verification', { userPhoneNumber: Phone, verificationNumber: enteredCode })
+    axios.post(`${import.meta.VITE_SERVER_URL}/api/sms/confirm-Verification`, { userPhoneNumber: Phone, verificationNumber: enteredCode })
       .then(response => {
         alert("인증번호가 확인되었습니다.");
         setIsTimerRunning(false); // 타이머 멈춤
+        setIsCertificationSent(false); // 인증 성공 시 인증 상태 초기화
       })
       .catch(error => {
         alert("인증번호 확인 실패. 다시 시도하세요.");
@@ -179,7 +183,7 @@ export default function SignUp2() {
             className="toggle-password"
             onClick={togglePasswordVisibility}
           >
-            {showPassword ? "👁️" : "👁️‍🗨️"}
+            {showPassword ? <FaEye /> :<FaEyeSlash  />}
           </button>
         </div>
         <div className='errorMesage'>
