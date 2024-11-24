@@ -1,6 +1,6 @@
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
-import Title from "../components/common/title";
+import Title from "../components/common/Title";
 import KakoMap from "../components/nyangmap/KakaoMap";
 import NyangBox from "../components/nyangmap/NyangBox";
 import { useCatMapPosts } from "../store/useCatMapPosts";
