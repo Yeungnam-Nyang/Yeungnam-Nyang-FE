@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -83,7 +82,13 @@ export default function DetailPostHeader({ postData }) {
       <div className="cursor-pointer flex flex-row items-center gap-4">
         <img
           alt="profile_img"
-          src={postData?.profileUrl ? postData.profileUrl : `${process.env.VITE_PUBLIC_URL}/assets/images/profile_default.png`}
+          src={
+            postData?.profileUrl
+              ? postData.profileUrl
+              : `${
+                  import.meta.env.VITE_PUBLIC_URL
+                }/assets/images/profile_default.png`
+          }
           className="rounded-full w-10 h-auto bg-white"
         />
         <p className="flex text-2xl font-bold">

@@ -18,7 +18,7 @@ export default function Header() {
         {/* 홈으로 이동 */}
         <Link to="/" className="">
           <img
-            src={`${process.env.VITE_PUBLIC_URL}/assets/images/logo.png`}
+            src={`${import.meta.env.VITE_PUBLIC_URL}/assets/images/logo.png`}
             alt="logo"
             className="h-16 w-auto"
           />

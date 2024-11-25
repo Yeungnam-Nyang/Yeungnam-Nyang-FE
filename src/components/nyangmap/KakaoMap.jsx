@@ -104,7 +104,9 @@ export default function KakoMap() {
           <MapMarker
             position={{ lat: location.latitude, lng: location.longitude }}
             image={{
-              src: `${`${process.env.VITE_PUBLIC_URL}/assets/images/marker.png`}`,
+              src: `${`${
+                import.meta.env.VITE_PUBLIC_URL
+              }/assets/images/marker.png`}`,
               size: {
                 width: 64,
                 height: 69,

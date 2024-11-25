@@ -15,7 +15,9 @@ export default function Button({ text, type, isValid, onClick }) {
     >
       <img
         alt="img-button"
-        src={`${process.env.VITE_PUBLIC_URL}/assets/images/Icon_paw-white.png`}
+        src={`${
+          import.meta.env.VITE_PUBLIC_URL
+        }/assets/images/Icon_paw-white.png`}
         className="w-10"
       />
       {text}
@@ -30,7 +32,9 @@ export default function Button({ text, type, isValid, onClick }) {
     >
       <img
         alt="img-button"
-        src={`${process.env.VITE_PUBLIC_URL}/assets/images/icon_pow.png`}
+        src={`${
+          import.meta.env.VITE_PUBLIC_URL
+        }/assets/images/icon_pow.png`}
       />
       {text}
     </button>

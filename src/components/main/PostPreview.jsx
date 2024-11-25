@@ -1,4 +1,3 @@
-
 import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
@@ -19,7 +18,9 @@ export default function PostPreview({ postData }) {
       <section className="flex flex-row gap-4  items-center py-4 cursor-pointer">
         <img
           alt="profile_img"
-          src={`${process.env.VITE_PUBLIC_URL}/assets/images/profile_default.png`}
+          src={`${
+            import.meta.env.VITE_PUBLIC_URL
+          }/assets/images/profile_default.png`}
           className="rounded-full w-10 h-auto bg-white"
         />
         <p className="flex text-2xl font-bold">{postData?.userId}</p>
@@ -39,7 +40,12 @@ export default function PostPreview({ postData }) {
           <div className="m-auto flex gap-3 p-4">
             {commentData && commentData.length > 0 ? (
               <>
-                <img src={`${process.env.VITE_PUBLIC_URL}/assets/images/profile_default.png`} className="rounded-full w-6 bg-black" />
+                <img
+                  src={`${
+                    import.meta.env.VITE_PUBLIC_URL
+                  }/assets/images/profile_default.png`}
+                  className="rounded-full w-6 bg-black"
+                />
                 <p>{commentData[0].userId}</p>
                 <p>{commentData[0].content}</p>
               </>
