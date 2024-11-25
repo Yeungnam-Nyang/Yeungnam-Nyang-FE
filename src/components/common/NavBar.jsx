@@ -2,10 +2,10 @@
 import { Link } from "react-router-dom";
 export default function NavBar() {
   const itemArray = [
-    [`${process.env.PUBLIC_URL}/assets/images/Icon_house.png`, "HOME", "/"],
-    [`${process.env.PUBLIC_URL}/assets/images/Icon_cat.png`, "MAP", "/catmap"],
-    [`${process.env.PUBLIC_URL}/assets/images/Icon_people.png`, "FRIEND", "/friend"],
-    [`${process.env.PUBLIC_URL}/assets/images/Icon_account.png`, "PROFILE", "/profile"],
+    [`${process.env.VITE_PUBLIC_URL}/assets/images/Icon_house.png`, "HOME", "/"],
+    [`${process.env.VITE_PUBLIC_URL}/assets/images/Icon_cat.png`, "MAP", "/catmap"],
+    [`${process.env.VITE_PUBLIC_URL}/assets/images/Icon_people.png`, "FRIEND", "/friend"],
+    [`${process.env.VITE_PUBLIC_URL}/assets/images/Icon_account.png`, "PROFILE", "/profile"],
   ];
   return (
     <nav className="z-10 h-20 max-w-[768px] flex py-2 gap-3 fixed bottom-0 w-full justify-evenly  bg-orange">

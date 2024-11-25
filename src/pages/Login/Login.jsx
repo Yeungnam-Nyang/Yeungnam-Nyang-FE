@@ -46,7 +46,7 @@ export default function Login() {
   
   return <>
  <div className='login-container'>
-  <img src={`${process.env.PUBLIC_URL}/assets/images/logo-big.png`} alt="Logo" className="logo" />
+  <img src={`${process.env.VITE_PUBLIC_URL}/assets/images/logo-big.png`} alt="Logo" className="logo" />
   
   <h2 className='login-title'>LOGIN</h2>
  

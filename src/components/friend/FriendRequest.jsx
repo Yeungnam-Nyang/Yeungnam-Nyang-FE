@@ -77,7 +77,7 @@ export default function FriendRequest({ requestList }) {
             <div className="flex justify-between px-6">
               <div className="flex gap-4">
                 <img
-                  src={`${process.env.PUBLIC_URL}/assets/images/profile_default.png`}
+                  src={`${process.env.VITE_PUBLIC_URL}/assets/images/profile_default.png`}
                   alt="profile-img"
                   className="rounded-full w-20 bg-white"
                 />

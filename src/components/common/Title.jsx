@@ -6,8 +6,8 @@ export default function Title({ text, select = "paw" }) {
         alt="foot"
         src={
           select === "fire"
-            ? `${process.env.PUBLIC_URL}/assets/images/icon_fire.png`
-            : `${process.env.PUBLIC_URL}/assets/images/icon_pow.png`
+            ? `${process.env.VITE_PUBLIC_URL}/assets/images/icon_fire.png`
+            : `${process.env.VITE_PUBLIC_URL}/assets/images/icon_pow.png`
         }
         className="w-12 h-auto"
       />

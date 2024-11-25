@@ -7,7 +7,7 @@ const logoStyle = {
 const Logo = () => {
   return (
     <img
-      src={`${process.env.PUBLIC_URL}/assets/images/logo-big.png`}
+      src={`${process.env.VITE_PUBLIC_URL}/assets/images/logo-big.png`}
       alt="Logo"
       style={logoStyle}
     />

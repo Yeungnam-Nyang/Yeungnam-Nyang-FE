@@ -12,7 +12,7 @@ export default function FriendList({ friendList }) {
           <section key={idx} className="flex px-6 gap-5 justify-between py-4">
             <div className="flex gap-4">
               <img
-                src={`${process.env.PUBLIC_URL}/assets/images/profile_default.png`}
+                src={`${process.env.VITE_PUBLIC_URL}/assets/images/profile_default.png`}
                 alt="profile-img"
                 className="rounded-full w-20 bg-white"
               />
@@ -29,7 +29,7 @@ export default function FriendList({ friendList }) {
               >
                 <img
                   alt="img-button"
-                  src={`${process.env.PUBLIC_URL}/assets/images/Icon_paw-white.png`}
+                  src={`${process.env.VITE_PUBLIC_URL}/assets/images/Icon_paw-white.png`}
                   className="w-10"
                 />
                 상세보기
