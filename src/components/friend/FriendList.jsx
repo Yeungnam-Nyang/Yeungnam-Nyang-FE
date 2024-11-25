@@ -1,5 +1,4 @@
-import defaultImg from "../../assets/images/profile_default.png";
-import icon2 from "../../assets/images/Icon_paw-white.png";
+
 export default function FriendList({ friendList }) {
   console.log(friendList);
   return (
@@ -13,7 +12,7 @@ export default function FriendList({ friendList }) {
           <section key={idx} className="flex px-6 gap-5 justify-between py-4">
             <div className="flex gap-4">
               <img
-                src={defaultImg}
+                src={`${process.env.PUBLIC_URL}/assets/images/profile_default.png`}
                 alt="profile-img"
                 className="rounded-full w-20 bg-white"
               />
@@ -28,7 +27,11 @@ export default function FriendList({ friendList }) {
       items-center shadow-2xl hover:scale-110 duration-500 rounded-[40px]
       "
               >
-                <img alt="img-button" src={icon2} className="w-10" />
+                <img
+                  alt="img-button"
+                  src={`${process.env.PUBLIC_URL}/assets/images/Icon_paw-white.png`}
+                  className="w-10"
+                />
                 상세보기
               </button>
             </div>

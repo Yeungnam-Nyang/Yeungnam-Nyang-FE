@@ -7,7 +7,7 @@ import Loading from "../common/Loading";
 import api from "../../api/api";
 import useFetch from "../../hooks/useFetch";
 import useSound from "use-sound";
-import catSound from "../../assets/sounds/cat.mp3";
+import catSound from "../../../public/assets/sounds/cat.mp3";
 
 const Timer = memo(({ value, label }) => (
   <div className="timer w-16">

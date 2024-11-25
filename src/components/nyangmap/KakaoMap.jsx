@@ -8,7 +8,7 @@ import {
 import { useGeoLocation } from "../../hooks/useGeoLocation";
 import { useEffect, useState } from "react";
 import Error from "../common/Error";
-import Marker from "../../assets/images/marker.png";
+
 import CatMarker from "./CatMarker";
 import { MdMyLocation } from "react-icons/md";
 import Loading from "../common/Loading";
@@ -104,7 +104,7 @@ export default function KakoMap() {
           <MapMarker
             position={{ lat: location.latitude, lng: location.longitude }}
             image={{
-              src: `${Marker}`,
+              src: `${`${process.env.PUBLIC_URL}/assets/images/marker.png`}`,
               size: {
                 width: 64,
                 height: 69,

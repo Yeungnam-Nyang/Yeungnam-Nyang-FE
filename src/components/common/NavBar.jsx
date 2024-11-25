@@ -1,14 +1,11 @@
-import icon_cat from "../../assets/images/Icon_cat.png";
-import icon_house from "../../assets/images/Icon_house.png";
-import icon_people from "../../assets/images/Icon_people.png";
-import icon_account from "../../assets/images/Icon_account.png";
+
 import { Link } from "react-router-dom";
 export default function NavBar() {
   const itemArray = [
-    [icon_house, "HOME", "/"],
-    [icon_cat, "MAP", "/catmap"],
-    [icon_people, "FRIEND", "/friend"],
-    [icon_account, "PROFILE", "/profile"],
+    [`${process.env.PUBLIC_URL}/assets/images/Icon_house.png`, "HOME", "/"],
+    [`${process.env.PUBLIC_URL}/assets/images/Icon_cat.png`, "MAP", "/catmap"],
+    [`${process.env.PUBLIC_URL}/assets/images/Icon_people.png`, "FRIEND", "/friend"],
+    [`${process.env.PUBLIC_URL}/assets/images/Icon_account.png`, "PROFILE", "/profile"],
   ];
   return (
     <nav className="z-10 h-20 max-w-[768px] flex py-2 gap-3 fixed bottom-0 w-full justify-evenly  bg-orange">

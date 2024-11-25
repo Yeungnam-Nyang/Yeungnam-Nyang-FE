@@ -1,5 +1,4 @@
-import defaultImg from "../../assets/images/profile_default.png";
-import icon2 from "../../assets/images/Icon_paw-white.png";
+
 import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import { useMutation, useQueryClient } from "react-query";
 import api from "../../api/api";
@@ -78,7 +77,7 @@ export default function FriendRequest({ requestList }) {
             <div className="flex justify-between px-6">
               <div className="flex gap-4">
                 <img
-                  src={defaultImg}
+                  src={`${process.env.PUBLIC_URL}/assets/images/profile_default.png`}
                   alt="profile-img"
                   className="rounded-full w-20 bg-white"
                 />

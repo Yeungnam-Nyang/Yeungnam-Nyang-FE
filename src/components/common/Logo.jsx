@@ -1,13 +1,16 @@
-import React from 'react';
-import logo from '../../assets/images/logo-big.png'; // 로고 이미지 경로
+import React from "react";
 
 const logoStyle = {
-  width: '200px',
-  marginTop: '10%',
-  };
+  width: "200px",
+  marginTop: "10%",
+};
 const Logo = () => {
   return (
-    <img src={logo} alt="Logo" style={logoStyle} />
+    <img
+      src={`${process.env.PUBLIC_URL}/assets/images/logo-big.png`}
+      alt="Logo"
+      style={logoStyle}
+    />
   );
 };
 

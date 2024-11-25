@@ -15,7 +15,6 @@ import "./index.css";
 import NotFound from "./pages/NotFound";
 import DetailPost from "./pages/Post/DetailPost";
 import React from "react";
-import SignUpTest from "./test/signup-test";
 import Friend from "./pages/Friend";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./store/AuthProvider";

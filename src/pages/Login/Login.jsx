@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './Login.css';
-import logo from '../../assets/images/logo-big.png';
 import Button from "../../components/common/Button";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios"
@@ -47,7 +46,7 @@ export default function Login() {
   
   return <>
  <div className='login-container'>
-  <img src={logo} alt="Logo" className="logo" />
+  <img src={`${process.env.PUBLIC_URL}/assets/images/logo-big.png`} alt="Logo" className="logo" />
   
   <h2 className='login-title'>LOGIN</h2>
  
