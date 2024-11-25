@@ -11,7 +11,7 @@ WORKDIR /app
 RUN mkdir ./build
 
 # 현재 경로의 build 폴더를 이전에 생성한 build 폴더에 복사
-ADD ./build ./build
+ADD ./dist ./build
 
 # nginx 기본 설정 환경 파일 삭제
 RUN rm /etc/nginx/conf.d/default.conf
