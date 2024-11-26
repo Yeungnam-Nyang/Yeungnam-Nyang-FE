@@ -19,7 +19,7 @@ export default function Login() {
           userId: id,
           userPassword: password,
         });
-        console.log(response.data);
+        
 
         // 성공적인 로그인 응답 시
 
@@ -30,7 +30,7 @@ export default function Login() {
       } catch (error) {
         // 로그인 실패 시 메시지
         console.error(error);
-        alert("로그인 실패! ID 또는 비밀번를 확인 해 주세요.");
+        alert("로그인 실패! ID 또는 비밀번호를 확인 해 주세요.");
       }
     }
   };

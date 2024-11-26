@@ -10,7 +10,7 @@ const api = axios.create({
 });
 
 //임시 토큰
-const initialAccessToken = import.meta.env.VITE_ACCESS_TOKEN;
+const initialAccessToken = localStorage.getItem("token");
 localStorage.setItem("accessToken", initialAccessToken);
 
 //요청 인터셉터
