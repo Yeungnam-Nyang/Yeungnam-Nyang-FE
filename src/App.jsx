@@ -52,11 +52,11 @@ function App() {
           <Routes>
             <Route path="/signup1" element={<SignUp1 />}></Route>
             <Route path="/signup2" element={<SignUp2 />}></Route>
-            <Route path="/login" element={<Login />}></Route>
+            <Route path="/" element={<Login />}></Route>
             <Route path="/login/findid" element={<FindId />}></Route>
             <Route path="/login/findpwd" element={<FindPassword />}></Route>
             <Route element={<PrivateRoutes />}>
-              <Route path="/" element={<Main />}></Route>
+              <Route path="/home" element={<Main />}></Route>
               <Route path="/catmap" element={<CatsMap />}></Route>
               <Route path="/profile" element={<MyProfile />}></Route>
               <Route path="/profile/edit" element={<EditProfile />}></Route>

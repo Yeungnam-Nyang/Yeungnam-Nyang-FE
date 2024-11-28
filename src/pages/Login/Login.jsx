@@ -26,7 +26,7 @@ export default function Login() {
         localStorage.setItem("token", response.data.token); // JWT 토큰 저장
 
         // 성공 후 홈 페이지로 이동
-        nav("/");
+        nav("/home");
       } catch (error) {
         // 로그인 실패 시 메시지
         console.error(error);
