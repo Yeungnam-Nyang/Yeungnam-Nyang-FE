@@ -8,11 +8,9 @@ import {
 import { useGeoLocation } from "../../hooks/useGeoLocation";
 import { useEffect, useState } from "react";
 import Error from "../common/Error";
-import Marker from "../../assets/images/marker.png";
+
 import CatMarker from "./CatMarker";
 import { MdMyLocation } from "react-icons/md";
-import Loading from "../common/Loading";
-import useFetch from "../../hooks/useFetch";
 import { useCatMapPosts } from "../../store/useCatMapPosts";
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
@@ -65,8 +63,8 @@ export default function KakoMap() {
       try {
         const response = await api(
           `/api/map?latitude=${
-            location ? location.latitude : defaultLocation.lat
-          }&longitude=${location ? location.longitude : defaultLocation.lng}`
+            location ? Number(location.latitude) : Number(defaultLocation.lat)
+          }&longitude=${location ? Number(location.longitude) : Number(defaultLocation.lng)}`
         );
         setPostsCount(response.data.length);
         setMapData(response.data);
@@ -104,7 +102,9 @@ export default function KakoMap() {
           <MapMarker
             position={{ lat: location.latitude, lng: location.longitude }}
             image={{
-              src: `${Marker}`,
+              src: `${`${
+                import.meta.env.VITE_PUBLIC_URL
+              }/assets/images/marker.png`}`,
               size: {
                 width: 64,
                 height: 69,

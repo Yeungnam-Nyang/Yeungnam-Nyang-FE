@@ -1,4 +1,3 @@
-import defaultProfile from "../../assets/images/profile_default.png";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
@@ -51,7 +50,12 @@ export default function DetailPostComment({ commentData, postId }) {
           <div className="flex justify-between items-start">
             <div className="flex items-start">
               <img
-                src={item.userProfilUrl || defaultProfile}
+                src={
+                  item.userProfilUrl ||
+                  `${
+                    import.meta.env.VITE_PUBLIC_URL
+                  }/assets/images/profile_default.png`
+                }
                 alt={`${item.userId} 프로필`}
                 className="w-10 h-10 rounded-full mr-3 bg-white"
               />

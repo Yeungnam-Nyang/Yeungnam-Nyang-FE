@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Logo from "../../components/common/Logo";
 import Button from "../../components/common/Button";
 import { useNavigate, useLocation } from "react-router-dom";
-import "./SignUP1.css";
+import "./SignUp1.css";
 import axios from 'axios';
 import { FaEyeSlash ,FaEye } from "react-icons/fa";
 export default function SignUp2() {

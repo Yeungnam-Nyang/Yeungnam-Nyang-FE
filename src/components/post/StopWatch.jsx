@@ -7,7 +7,7 @@ import Loading from "../common/Loading";
 import api from "../../api/api";
 import useFetch from "../../hooks/useFetch";
 import useSound from "use-sound";
-import catSound from "../../assets/sounds/cat.mp3";
+import catSound from "../../../public/assets/sounds/cat.mp3";
 
 const Timer = memo(({ value, label }) => (
   <div className="timer w-16">
@@ -129,8 +129,8 @@ export default function StopWatch({ postId }) {
   if (!post || loading) return <Loading />;
 
   return (
-    <div className="py-10">
-      <div className="flex items-center justify-center w-full gap-4 count-down-main">
+    <div className="py-10 w-auto">
+      <div className="flex items-center justify-center w-auto gap-4 count-down-main">
         <FoodBowl count={post.catFoodCnt} isFeeding={isFeeding} />
         <Timer value={time.days} label="일" />
         <h3 className="font-manrope font-semibold text-2xl text-gray-900">:</h3>

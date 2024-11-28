@@ -18,7 +18,7 @@
     font-family: 'Bungee';
     font-weight: 400;
     line-height: 28px;
-    opacity: 0.94,
+    opacity: 0.94;
   }
 .options  {
     display: flex;

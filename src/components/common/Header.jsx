@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaPen, FaUserPlus } from "react-icons/fa";
-import logo from "../../assets/images/logo.png";
+
 import Modal from "./Modal";
 import { useState } from "react";
 import api from "../../api/api";
@@ -17,7 +17,11 @@ export default function Header() {
       <nav className="max-w-[768px] fixed top-0  w-full h-20 bg-yellow shadow-global flex gap-4 justify-between align-middle items-center px-3 z-10">
         {/* 홈으로 이동 */}
         <Link to="/" className="">
-          <img src={logo} alt="logo" className="h-16 w-auto" />
+          <img
+            src={`${import.meta.env.VITE_PUBLIC_URL}/assets/images/logo.png`}
+            alt="logo"
+            className="h-16 w-auto"
+          />
         </Link>
         <div className="flex flex-row gap-4 ">
           <Link to="/post/write" className="hover:scale-125 duration-500">
