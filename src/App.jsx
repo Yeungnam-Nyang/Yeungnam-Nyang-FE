@@ -18,6 +18,7 @@ import React from "react";
 import Friend from "./pages/Friend";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./store/AuthProvider";
+import Scrap from "./pages/Scrap";
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +66,7 @@ function App() {
               <Route path="/post/:id" element={<DetailPost />}></Route>
               <Route path="/friend" element={<Friend />}></Route>
               <Route path="/*" element={<NotFound />}></Route>
+              <Route path="/scrap" element={<Scrap />} />
             </Route>
           </Routes>
         </div>

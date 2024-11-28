@@ -4,9 +4,11 @@
 
 @font-face {
   font-family: "BagelFatOne";
-  src: url(`/assets/font/BagelFatOne-Regular.ttf`) format("truetype");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/BagelFatOne-Regular.woff2")
+    format("woff2");
 }
 @font-face {
   font-family: "Bungee";
-  src: url(`/assets/font/Bungee-Regular.ttf`) format("truetype");
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2")
+    format("woff2");
 }
