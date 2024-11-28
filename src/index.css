@@ -12,3 +12,20 @@
   src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2")
     format("woff2");
 }
+
+/* 기본 폰트 크기 */
+html {
+  font-size: 16px; /* 기본 폰트 크기 */
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; 
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
+}
