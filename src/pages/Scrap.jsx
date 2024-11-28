@@ -35,6 +35,7 @@ export default function Scrap() {
                 <h1 className="font-['BagelFatOne'] text-3xl p-4">
                   {post?.catName}
                 </h1>
+                <div className="h-20" />
               </div>
             ))}
         </div>
