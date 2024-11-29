@@ -10,7 +10,7 @@ export default function FindPassword() {
   const [userAnswer, setAnswer] = useState('');
   const [tempPassword, setTempPassword] = useState('');
   const [showPopup, setShowPopup] = useState(false);
-
+  const API_URL=import.meta.env.VITE_SERVER_URL;
   const questions = [
     "당신이 태어난 도시의 이름은 무엇입니까?",
     "당신의 첫 번째 학교 이름은 무엇입니까?",
@@ -29,7 +29,7 @@ export default function FindPassword() {
       };
 
       // 서버로 POST 요청 보내기
-      const response = await axios.post('http://43.202.47.254:8080/api/send/new-password', requestData);
+      const response = await axios.post(`${API_URL}/api/send/new-password`, requestData);
       
       // 서버로부터 임시 비밀번호 받기
       setTempPassword(response.data.tempPassword);

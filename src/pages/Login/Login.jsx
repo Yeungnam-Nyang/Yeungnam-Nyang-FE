@@ -9,7 +9,7 @@ export default function Login() {
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [isValid, setIsValid] = useState(false); // 유효성 검사 상태 추가
-
+  const API_URL=import.meta.env.VITE_SERVER_URL;
   const nav = useNavigate();
   const paths = ["/login/findid", "/login/findpwd", "/signup1"];
 
@@ -19,7 +19,7 @@ export default function Login() {
       alert('로그인 실패! 빈 칸이 있습니다.');
     } else {
       try {
-        const response = await axios.post('http://43.202.47.254:8080/api/login', {
+        const response = await axios.post(`${API_URL}/api/login`, {
           userId: id,
           userPassword: password
         });

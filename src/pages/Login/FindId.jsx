@@ -22,11 +22,11 @@ export default function FindId() {
   const [name, setName] = useState(""); // 사용자 이름
   const [schoolName, setSchoolName] = useState(""); // 학교 이름
   const [studentNumber, setStudentNumber] = useState(""); // 학번
-
+  const API_URL=import.meta.env.VITE_SERVER_URL;
   const handleButtonClick = async () => {
     // 서버에 요청을 보내고 응답을 확인
     try {
-      const response = await fetch('http://43.202.47.254:8080/api/find/id', {
+      const response = await fetch(`${API_URL}/api/find/id`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

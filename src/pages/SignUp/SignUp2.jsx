@@ -38,7 +38,7 @@ export default function SignUp2() {
     "당신의 첫 번째 애완동물 이름은 무엇입니까?",
     "당신의 어머니의 이름은 무엇입니까?",
   ];
-
+  const API_URL=import.meta.env.VITE_SERVER_URL;
   useEffect(() => {
     let interval = null;
   
@@ -108,7 +108,7 @@ export default function SignUp2() {
         departmentName: departmentName,
       };
 
-      axios.post('http://43.202.47.254:8080/api/signup', data)
+      axios.post(`${API_URL}/api/signup`, data)
         .then(response => {
           console.log('회원 가입 성공:', response.data);
           router('/login');
@@ -137,7 +137,7 @@ export default function SignUp2() {
         setIsCertificationSent(true);
     
         // 실제로 인증번호를 전송하는 API 호출
-        axios.post('http://43.202.47.254:8080/api/sms/send-Verification', { userPhoneNumber: Phone })
+        axios.post(`${API_URL}/api/sms/send-Verification`, { userPhoneNumber: Phone })
           .then(response => {
             alert("인증번호가 전송되었습니다.");
           })
@@ -152,7 +152,7 @@ export default function SignUp2() {
   };
   
   const handleVerifyCertification = () => {
-  axios.post('http://43.202.47.254:8080/api/sms/confirm-Verification', { userPhoneNumber: Phone, verificationNumber: enteredCode })
+  axios.post(`${API_URL}/api/sms/confirm-Verification`, { userPhoneNumber: Phone, verificationNumber: enteredCode })
   .then(response => {
     alert("인증번호가 확인되었습니다.");
     setIsTimerRunning(false); // 타이머 멈춤
