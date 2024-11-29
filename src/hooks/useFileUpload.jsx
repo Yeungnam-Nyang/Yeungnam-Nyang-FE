@@ -1,11 +1,8 @@
 import { useState } from "react";
 import api from "../api/api";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const useFileUpload = () => {
-  //임시 토큰
-  const initialAccessToken = import.meta.env.VITE_ACCESS_TOKEN;
-  localStorage.setItem("accessToken", initialAccessToken);
   //파일 저장 배열
   const [files, setFiles] = useState([]);
 
@@ -36,15 +33,24 @@ const useFileUpload = () => {
     );
 
     try {
-      const response=await api.post("/api/post/write", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data", // multipart/form-data 형식 지정
-        },
-      });
+      const serverUrl = import.meta.env.VITE_SERVER_URL;
+      const token = localStorage.getItem("token");
+      const response = await axios.post(
+        `${serverUrl}/api/post/write`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // multipart/form-data 형식 지정
+            Authorization: `Bearer ` + token,
+          },
+        }
+      );
       alert("게시물 작성 완료!");
+
       return response;
     } catch (err) {
       alert("게시물 작성 실패");
+      console.error(err);
       setError(err);
     }
   };

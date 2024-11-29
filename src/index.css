@@ -3,10 +3,29 @@
 @tailwind utilities;
 
 @font-face {
-    font-family: 'BagelFatOne';
-    src: url('./assets/font/BagelFatOne-Regular.ttf');
+  font-family: "BagelFatOne";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/BagelFatOne-Regular.woff2")
+    format("woff2");
 }
 @font-face {
-    font-family: 'Bungee';
-    src: url("./assets/font/Bungee-Regular.ttf");
+  font-family: "Bungee";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/RiaSans-ExtraBold.woff2")
+    format("woff2");
+}
+
+/* 기본 폰트 크기 */
+html {
+  font-size: 16px; /* 기본 폰트 크기 */
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 12px;
+  }
 }

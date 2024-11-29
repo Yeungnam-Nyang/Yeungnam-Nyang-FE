@@ -4,7 +4,7 @@ import Button from "../../components/common/Button";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./SignUp1.css";
 import axios from 'axios';
-import { FaEyeSlash ,FaEye } from "react-icons/fa";
+import { FaEyeSlash,FaEye } from "react-icons/fa";
 export default function SignUp2() {
   const router = useNavigate();
   const [Id, setId] = useState('');
@@ -29,7 +29,8 @@ export default function SignUp2() {
   const schoolName = state?.schoolName;
   const studentId = state?.studentId;
   const Name = state?.Name;
-
+  const departmentName = state?.departmentName;
+  const [enteredCode, setEnteredCode] = useState('');
   const questions = [
     "당신이 태어난 도시의 이름은 무엇입니까?",
     "당신의 첫 번째 학교 이름은 무엇입니까?",
@@ -37,23 +38,27 @@ export default function SignUp2() {
     "당신의 첫 번째 애완동물 이름은 무엇입니까?",
     "당신의 어머니의 이름은 무엇입니까?",
   ];
-
+  const API_URL=import.meta.env.VITE_SERVER_URL;
   useEffect(() => {
     let interval = null;
+
+    // 타이머가 시작되었고 남은 시간이 있을 경우 타이머를 시작
     if (isTimerRunning && timer > 0) {
       interval = setInterval(() => {
         setTimer((prev) => prev - 1);
       }, 1000);
-    } else if (timer === 0 && isTimerRunning) {
-      clearInterval(interval);
-      setIsTimerRunning(false);
-      if (!isCertificationSent) {  // 인증번호가 성공적으로 확인되지 않은 경우에만 알림
-        alert("타이머가 만료되었습니다. 인증번호를 다시 요청하세요.");
-      }
-      setIsCertificationSent(false); // 인증번호 요청 상태 초기화
+    } else if (timer === 0 && isTimerRunning) {  // 타이머가 0에 도달했을 때
+      clearInterval(interval);  // 타이머 정지
+      setIsTimerRunning(false);  // 타이머 동작 상태 종료
+      alert("타이머가 만료되었습니다. 인증번호를 다시 요청하세요.");
+      setIsCertificationSent(false);  // 인증번호 전송 상태 초기화
     }
+
+    // 컴포넌트가 언마운트되거나 타이머가 변경될 때마다 interval을 정리
     return () => clearInterval(interval);
-  }, [timer, isTimerRunning, isCertificationSent]);
+  }, [timer, isTimerRunning]); // timer와 isTimerRunning이 변경될 때마다 실행
+
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -94,16 +99,16 @@ export default function SignUp2() {
       const data = {
         userId: Id,
         userPassword: Pw,
-        userPhoneNumber: String(Phone),
+        userPhoneNumber: Phone,
         userQuestion: selectedQuestion,
         userAnswer: Answer,
-        studentNumber: String(studentId),
+        studentNumber: studentId,
         studentName: Name,
         schoolName: schoolName,
+        departmentName: departmentName,
       };
-      console.log(data);
 
-      axios.post(`${import.meta.VITE_SERVER_URL}/api/signup`, data)
+      axios.post(`${API_URL}/api/signup`, data)
         .then(response => {
           console.log('회원 가입 성공:', response.data);
           router('/login');
@@ -116,138 +121,148 @@ export default function SignUp2() {
     }
   };
 
-  // 인증번호 전송 핸들러
+  useEffect(() => {
+    // 타이머를 0으로 초기화하지 않고, 초기 상태를 설정합니다.
+    setIsTimerRunning(false);  // 타이머 동작 여부 초기화
+    setIsCertificationSent(false);  // 인증번호 전송 여부 초기화
+  }, []);  // 빈 배열을 넣어 컴포넌트가 처음 마운트될 때만 실행되도록 함
+
   const handleSendCertification = () => {
     if (PhoneValid) {
-      setTimer(180); // 3분 (180초) 타이머 시작
-      setIsTimerRunning(true);
-      setIsCertificationSent(true);
+      if (isCertificationSent) {
+        alert("인증번호가 이미 전송되었습니다.");
+      } else {
+        setTimer(180);  // 3분 (180초) 타이머 시작
+        setIsTimerRunning(true);
+        setIsCertificationSent(true);
 
-      // 여기에 실제로 인증번호를 전송하는 API 호출을 추가
-      axios.post(`${import.meta.VITE_SERVER_URL}/api/sms/send-Verification`, { userPhoneNumber: Phone })
-        .then(response => {
-          alert("인증번호가 전송되었습니다.");
-        })
-        .catch(error => {
-          alert("인증번호 전송 중 오류 발생.");
-          console.error(error);
-        });
+        // 실제로 인증번호를 전송하는 API 호출
+        axios.post(`${API_URL}/api/sms/send-Verification`, { userPhoneNumber: Phone })
+          .then(response => {
+            alert("인증번호가 전송되었습니다.");
+          })
+          .catch(error => {
+            alert("인증번호 전송 중 오류 발생.");
+            console.error(error);
+          });
+      }
     } else {
       alert("유효한 전화번호를 입력하세요.");
     }
   };
-
+  
   const handleVerifyCertification = () => {
-    // 인증번호 확인 로직
-    const enteredCode = document.querySelector('.certification input[type="text"]').value; // 입력한 인증번호
-    axios.post(`${import.meta.VITE_SERVER_URL}/api/sms/confirm-Verification`, { userPhoneNumber: Phone, verificationNumber: enteredCode })
-      .then(response => {
-        alert("인증번호가 확인되었습니다.");
-        setIsTimerRunning(false); // 타이머 멈춤
-        setIsCertificationSent(false); // 인증 성공 시 인증 상태 초기화
-      })
-      .catch(error => {
-        alert("인증번호 확인 실패. 다시 시도하세요.");
-        console.error(error);
-      });
+  axios.post(`${API_URL}/api/sms/confirm-Verification`, { userPhoneNumber: Phone, verificationNumber: enteredCode })
+  .then(response => {
+    alert("인증번호가 확인되었습니다.");
+    setIsTimerRunning(false); // 타이머 멈춤
+  })
+  .catch(error => {
+    alert("인증번호 확인 실패. 다시 시도하세요.");
+    console.error(error);
+  });
+
   };
 
-  return (
-    <>
-      <div className="signup-container">
-        <Logo />
-        <h2 className="signup-title">SIGN UP</h2>
 
+  return (
+    <div className="signup-container">
+      <Logo />
+      <h2 className="signup-title">SIGN UP</h2>
+
+      <input
+        type="text"
+        placeholder="아이디를 입력하세요."
+        value={Id}
+        onChange={handleId}
+        className="ID"
+      />
+      <div className='errorMesage'>
+        {!IdValid && Id.length > 0 && (
+          <div>최소 6자 이상, 최대 10자 이하의 알파벳 소문자 및 숫자를 입력하세요</div>
+        )}
+      </div>
+
+      <div className="PW-container">
         <input
-          type="text"
-          placeholder="아이디를 입력하세요."
-          value={Id}
-          onChange={handleId}
-          className="ID"
+          type={showPassword ? "text" : "password"}
+          placeholder="비밀번호를 입력하세요."
+          value={Pw}
+          onChange={handlePw}
+          className="PW"
         />
-        <div className='errorMesage'>
-          {!IdValid && Id.length > 0 && (
-            <div>최소 6자 이상, 최대 10자 이하의 알파벳 소문자 및 숫자를 입력하세요</div>
-          )}
-        </div>
-        <div className="PW-container">
+        <button
+          type="button"
+          className="toggle-password"
+          onClick={togglePasswordVisibility}
+        >
+          {showPassword ? <FaEye /> : <FaEyeSlash />}
+        </button>
+      </div>
+      <div className='errorMesage'>
+        {!PwValid && Pw.length > 0 && (
+          <div>최소 8자 이상, 최대 20자 이하의 알파벳 소문자, 숫자, 특수문자를 입력하세요.</div>
+        )}
+      </div>
+
+      <div className="certification">
+        <div className="input-container">
           <input
-            type={showPassword ? "text" : "password"}
-            placeholder="비밀번호를 입력하세요."
-            value={Pw}
-            onChange={handlePw}
-            className="PW"
+            type="text"
+            placeholder="휴대폰 번호를 입력하세요.(숫자만)"
+            value={Phone}
+            onChange={handlePhone}
+            className="Phone"
           />
-          <button
-            type="button"
-            className="toggle-password"
-            onClick={togglePasswordVisibility}
-          >
-            {showPassword ? <FaEye /> :<FaEyeSlash  />}
+          <button type="button" className="sendCertification" onClick={handleSendCertification}>
+            인증번호
           </button>
         </div>
-        <div className='errorMesage'>
-          {!PwValid && Pw.length > 0 && (
-            <div>최소 8자 이상, 최대 20자 이하의 알파벳 소문자, 숫자, 특수문자를 입력하세요.</div>
-          )}
-        </div>
+      </div>
+      <div className='errorMesage'>
+        {!PhoneValid && Phone.length > 0 && (
+          <div>올바른 전화 번호를 입력하세요.</div>
+        )}
+      </div>
+
+      {isCertificationSent && (
         <div className="certification">
           <div className="input-container">
             <input
               type="text"
-              placeholder="휴대폰 번호를 입력하세요.(숫자만)"
-              value={Phone}
-              onChange={handlePhone}
+              placeholder="인증번호를 입력하세요."
+              value={enteredCode}
+              onChange={(e) => setEnteredCode(e.target.value)}
               className="Phone"
             />
-            <button type="button" className="sendCertification" onClick={handleSendCertification}>
-              인증번호
+            <button type="button" className="sendCertification" onClick={handleVerifyCertification}>
+              인증 확인
+              ({Math.floor(timer / 60)}:{String(timer % 60).padStart(2, '0')})
             </button>
           </div>
         </div>
-        <div className='errorMesage'>
-          {!PhoneValid && Phone.length > 0 && (
-            <div>올바른 전화 번호를 입력하세요.</div>
-          )}
-        </div>
+      )}
 
-        {isCertificationSent && (
-          <div className="certification">
-            <div className="input-container">
-              <input
-                type="text"
-                placeholder="인증번호를 입력하세요."
-                className="Phone"
-              />
-              <button type="button" className="sendCertification" onClick={handleVerifyCertification}>
-                확인 {timer > 0 && `(${Math.floor(timer / 60)}:${timer % 60 < 10 ? `0${timer % 60}` : timer % 60})`}
-              </button>
-            </div>
-          </div>
-        )}
 
-        <select id="questionDropdown" className="Select" onChange={handleChange}>
-          <option value="">질문을 선택하세요.</option>
+        <select value={selectedQuestion} onChange={handleChange} className="Select">
+          <option value="">질문을 선택하세요</option>
           {questions.map((question, index) => (
-            <option key={index} value={question}>{question}</option>
+            <option key={index} value={question}>
+              {question}
+            </option>
           ))}
         </select>
+      
 
+      <input
+        type="text"
+        placeholder="답변을 입력하세요."
+        value={Answer}
+        onChange={handleAnswer}
+        className="Answer"
+      />
 
-        <input
-          type="text"
-          placeholder="답변을 입력하세요."
-          value={Answer}
-          onChange={handleAnswer}
-          className="inputAnswer"
-        />
-
-        <div className='errorMesage'>
-          {Answer.length === 0 && (<div>질문 대답은 필수입니다.</div>)}
-        </div>
-
-        <Button text={"회원 가입"} isValid={true} className="button" onClick={handleSubmit} />
-      </div>
-    </>
+      <Button text="다음" onClick={handleSubmit} isValid={IdValid && PwValid && PhoneValid && Answer.length > 0 && selectedQuestion} />
+    </div>
   );
 }

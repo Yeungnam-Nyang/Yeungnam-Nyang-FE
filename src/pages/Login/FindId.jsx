@@ -6,7 +6,7 @@ import './FindId.css';
 function Popup({ name, id, onClose }) {
   return (
     <div className="popup-overlay">
-      <div className="popup">
+      <div className="popupid">
         <h3 className="popup-title">{name} 님의 아이디</h3>
         <p className="popup-id"><span className="popup-user-id">{id}</span></p>
         <Button text='확인' isValid={true} onClick={onClose} className='popup-button' />
@@ -22,11 +22,11 @@ export default function FindId() {
   const [name, setName] = useState(""); // 사용자 이름
   const [schoolName, setSchoolName] = useState(""); // 학교 이름
   const [studentNumber, setStudentNumber] = useState(""); // 학번
-
+  const API_URL=import.meta.env.VITE_SERVER_URL;
   const handleButtonClick = async () => {
     // 서버에 요청을 보내고 응답을 확인
     try {
-      const response = await fetch('http://localhost:8080/api/find/id', {
+      const response = await fetch(`${API_URL}/api/find/id`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -60,9 +60,9 @@ export default function FindId() {
 
   return (
     <>
-      <div className='Findid-Container'>
+      <div className='Find-Container'>
         <Logo />
-        <h2 className='Findid-tittle'>FIND ID</h2>
+        <h2 className='Find-tittle'>FIND ID</h2>
         <input
           type="text"
           value={schoolName}
@@ -91,3 +91,4 @@ export default function FindId() {
     </>
   );
 }
+  

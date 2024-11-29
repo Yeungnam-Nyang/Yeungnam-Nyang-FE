@@ -31,7 +31,6 @@ export default function DetailPost() {
   } = useQuery(["post", id], () =>
     api.get(`/api/post/${id}`).then((res) => res.data)
   );
-
   //하단 댓글쓰기 인풋
   const isInputOpen = useCommentInputStore((state) => state.isInputOpen);
   const toggleInput = useCommentInputStore((state) => state.toggleInput);
