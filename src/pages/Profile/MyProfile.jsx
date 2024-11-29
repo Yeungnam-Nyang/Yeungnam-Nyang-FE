@@ -39,7 +39,7 @@ export default function MyProfile() {
         <img src={iconPow} alt="Icon" className="profile-icon" />
         <h2 className="profile-title">MY PROFILE</h2>
       </div>
-      
+
       <div className="profile-img profile-image-container">
   <img src={userData.profileURL} alt="Profile" className="profile-image" />
   <button className="profile-change-button">

@@ -1,16 +1,12 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
 import { FaCommentAlt } from "react-icons/fa";
-import useSound from "use-sound";
-import catSound from "../../assets/sounds/cat.mp3";
 import { useMutation, useQueryClient } from "react-query";
 import api from "../../api/api";
 
 export default function DetailPostContent({ postData }) {
   const [post, setPost] = useState(postData);
   const queryClient = useQueryClient();
-  //고양이 소리 효과음
-  const [play] = useSound(catSound);
 
   //query설정
   const { mutate: toggleLike } = useMutation({
@@ -34,7 +30,7 @@ export default function DetailPostContent({ postData }) {
       return { previousPost };
     },
 
-    onError: (error, newPost,context, ) => {
+    onError: (error, newPost, context) => {
       setPost(context.previousPost);
     },
 
@@ -45,9 +41,7 @@ export default function DetailPostContent({ postData }) {
 
   const handleLikeClick = () => {
     toggleLike({ postId: post?.postId });
-    play();
   };
-
 
   return (
     <div className="flex flex-col p-5 gap-4">
@@ -57,13 +51,13 @@ export default function DetailPostContent({ postData }) {
         {post?.likedByUser ? (
           <AiFillLike
             size={25}
-            className="custom-hover"
+            className="custom-hover cursor-pointer"
             onClick={handleLikeClick}
           />
         ) : (
           <AiOutlineLike
             size={25}
-            className="custom-hover"
+            className="custom-hove cursor-pointer"
             onClick={handleLikeClick}
           />
         )}

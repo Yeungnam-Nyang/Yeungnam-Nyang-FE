@@ -5,7 +5,7 @@ import './FindPassword.css';
 import axios from 'axios';
 
 export default function FindPassword() {
-  const [userId, setUserId] = useState(""); 
+  const [userId, setUserId] = useState("");
   const [userQuestion, setQuestion] = useState('');
   const [userAnswer, setAnswer] = useState('');
   const [tempPassword, setTempPassword] = useState('');
@@ -30,7 +30,7 @@ export default function FindPassword() {
 
       // 서버로 POST 요청 보내기
       const response = await axios.post(`${API_URL}/api/send/new-password`, requestData);
-      
+
       // 서버로부터 임시 비밀번호 받기
       setTempPassword(response.data.tempPassword);
       setShowPopup(true); // 팝업 띄우기
@@ -52,10 +52,10 @@ export default function FindPassword() {
           placeholder="아이디를 입력하세요."
           className="input-field"
         />
-        <select 
-          id="questionDropdown" 
-          value={userQuestion} 
-          onChange={(e) => setQuestion(e.target.value)} 
+        <select
+          id="questionDropdown"
+          value={userQuestion}
+          onChange={(e) => setQuestion(e.target.value)}
           className="Select"
         >
           <option value="">질문을 선택하세요.</option>
@@ -77,7 +77,7 @@ export default function FindPassword() {
       {showPopup && (
         <div className="popup">
           <div className="popup-inner">
-            
+
             <p>{tempPassword}</p> {/* 서버에서 받은 임시 비밀번호 표시 */}
 
             <Button text={"닫기"} isValid={true} onClick={() => setShowPopup(false)}/>

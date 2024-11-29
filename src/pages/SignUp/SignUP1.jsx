@@ -90,7 +90,7 @@ export default function SignUp1() {
           )}
         </div>
 
-        <input 
+        <input
           type="text"
           placeholder="학과를 입력 해 주세요."
           value={departmentName}

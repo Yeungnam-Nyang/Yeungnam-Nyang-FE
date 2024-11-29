@@ -41,7 +41,7 @@ export default function SignUp2() {
   const API_URL=import.meta.env.VITE_SERVER_URL;
   useEffect(() => {
     let interval = null;
-  
+
     // 타이머가 시작되었고 남은 시간이 있을 경우 타이머를 시작
     if (isTimerRunning && timer > 0) {
       interval = setInterval(() => {
@@ -53,12 +53,12 @@ export default function SignUp2() {
       alert("타이머가 만료되었습니다. 인증번호를 다시 요청하세요.");
       setIsCertificationSent(false);  // 인증번호 전송 상태 초기화
     }
-  
+
     // 컴포넌트가 언마운트되거나 타이머가 변경될 때마다 interval을 정리
     return () => clearInterval(interval);
   }, [timer, isTimerRunning]); // timer와 isTimerRunning이 변경될 때마다 실행
-  
-  
+
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -126,7 +126,7 @@ export default function SignUp2() {
     setIsTimerRunning(false);  // 타이머 동작 여부 초기화
     setIsCertificationSent(false);  // 인증번호 전송 여부 초기화
   }, []);  // 빈 배열을 넣어 컴포넌트가 처음 마운트될 때만 실행되도록 함
-  
+
   const handleSendCertification = () => {
     if (PhoneValid) {
       if (isCertificationSent) {
@@ -135,7 +135,7 @@ export default function SignUp2() {
         setTimer(180);  // 3분 (180초) 타이머 시작
         setIsTimerRunning(true);
         setIsCertificationSent(true);
-    
+
         // 실제로 인증번호를 전송하는 API 호출
         axios.post(`${API_URL}/api/sms/send-Verification`, { userPhoneNumber: Phone })
           .then(response => {
@@ -163,7 +163,7 @@ export default function SignUp2() {
   });
 
   };
-  
+
 
   return (
     <div className="signup-container">
@@ -243,7 +243,7 @@ export default function SignUp2() {
         </div>
       )}
 
-    
+
         <select value={selectedQuestion} onChange={handleChange} className="Select">
           <option value="">질문을 선택하세요</option>
           {questions.map((question, index) => (

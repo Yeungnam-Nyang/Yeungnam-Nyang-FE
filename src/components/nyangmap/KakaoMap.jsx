@@ -4,104 +4,42 @@ import {
   ZoomControl,
   MapMarker,
 } from "react-kakao-maps-sdk";
-import SockJS from "sockjs-client";
+
 import { useGeoLocation } from "../../hooks/useGeoLocation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Error from "../common/Error";
-import Marker from "../../assets/images/marker.png";
+
 import CatMarker from "./CatMarker";
 import { MdMyLocation } from "react-icons/md";
-import { Client } from "@stomp/stompjs";
-import Loading from "../common/Loading";
-
+import { useCatMapPosts } from "../../store/useCatMapPosts";
+import api from "../../api/api";
+import { useNavigate } from "react-router-dom";
 export default function KakoMap() {
+  //고양이 게시물 개수 저장
+  const { setPostsCount } = useCatMapPosts();
+  //기본 위치 - lat, lng 형식으로 변경
+  const defaultLocation = { lat: 35.8264595, lng: 128.754132 };
   //현재 위치 가져오기
-  const { location, error, getLocation } = useGeoLocation();
-  const stompClient = useRef(null);
-  //유저아이디 가져오기
-  //const userId=localStorage.getItem("userId");
+  const { location, error: locationError, getLocation } = useGeoLocation();
   const [loading, setLoading] = useState(false);
+  const [mapData, setMapData] = useState([]);
+  const [error, setError] = useState(false);
 
-  //임의의 userId
-  const userId = "test1";
-  //불러온 고양이 게시물
-  const [catPosts, setCatPosts] = useState([]);
-  const [connectionStatus, setConnectionStatus] = useState("Disconnected");
-  //임시 토큰
-  const token = import.meta.env.VITE_ACCESS_TOKEN;
-  // 웹소켓 연결
-  const connect = () => {
-    const socket = new SockJS("http://localhost:8080/ws");
-    console.log("Attempting to connect...");
-    const client = new Client({
-      webSocketFactory: () => socket,
-      connectHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-      debug: function (str) {
-        console.log("STOMP Debug: ", str);
-      },
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
-    });
-
-    client.onConnect = function (frame) {
-      console.log("Connected" + frame);
-      setConnectionStatus("Connected");
-      console.log("Subscribing to /sub/near-posts");
-
-      client.subscribe("/sub/near-posts", function (message) {
-        console.log("Received message: ", message.body);
-        const userLocation = JSON.parse(message.body);
-        setCatPosts(userLocation.posts);
-      });
-    };
-
-    client.onStompError = function (frame) {
-      console.log("Broker reported error: " + frame.headers["message"]);
-      console.log("Additional details: " + frame.body);
-      setConnectionStatus("Error: " + frame.headers["message"]);
-    };
-    client.onWebSocketError = function (event) {
-      console.log("WebSocket Error: ", event);
-      setConnectionStatus("WebSocket Error");
-    };
-
-    client.onWebSocketClose = function (event) {
-      console.log("WebSocket Closed: ", event);
-      setConnectionStatus("WebSocket Closed");
-    };
-
-    client.activate();
-    stompClient.current = client;
-  };
-  //현재 위치 소켓으로 서버 전송
-  const sendLocationToServer = () => {
-    if (stompClient.current && stompClient.current.connected && location) {
-      const locationObj = {
-        latitude: location.latitude,
-        longitude: location.longitude,
-      };
-      stompClient.current.publish({
-        destination: "/pub/location",
-        body: JSON.stringify(locationObj),
-      });
-    } else {
-      console.error("WebSocket is not connected or location is not available");
-    }
-  };
-  //소켓 연결 해제
-  const disconnect = () => {
-    if (stompClient.current && stompClient.current.deactivate) {
-      stompClient.current.deactivate();
-    }
-  };
-
-  //마운트 시 소켓 연결
+  const nav = useNavigate();
+  // 컴포넌트 마운트 시 현재 위치 가져오기
   useEffect(() => {
-    connect();
-    return () => disconnect();
+    const initializeLocation = async () => {
+      try {
+        setLoading(true);
+        await getLocation();
+        setLoading(false);
+      } catch (err) {
+        console.error("위치를 가져오는 데 실패했습니다.", err);
+        setError(true);
+        setLoading(false);
+      }
+    };
+    initializeLocation();
   }, []);
 
   //현재위치 불러오기 버튼 클릭
@@ -112,15 +50,33 @@ export default function KakoMap() {
     // 위치가 null인지 확인
     if (location) {
       console.log(location);
-      sendLocationToServer();
       const { latitude, longitude } = location || defaultLocation;
       console.log(latitude, longitude);
     } else {
       console.error("위치를 가져오는 데 실패했습니다.", error);
     }
   };
-  
-  if (error) {
+
+  // useFetch 대신 useEffect 사용
+  useEffect(() => {
+    const fetchMapData = async () => {
+      try {
+        const response = await api(
+          `/api/map?latitude=${
+            location ? Number(location.latitude) : Number(defaultLocation.lat)
+          }&longitude=${location ? Number(location.longitude) : Number(defaultLocation.lng)}`
+        );
+        setPostsCount(response.data.length);
+        setMapData(response.data);
+      } catch (err) {
+        setError(true);
+      }
+    };
+
+    fetchMapData();
+  }, [location, setPostsCount]);
+
+  if (locationError || error) {
     console.error("위치 오류:", error);
     return <Error />;
   }
@@ -128,14 +84,8 @@ export default function KakoMap() {
     return <Loading />;
   }
 
-  const defaultLocation = { lat: 35.8264595, lng: 128.754132 };
-
-  //   TODO
-  // 소켓을 통해서 실시간 위치 계속 받아오기
-
   return (
     <div className="py-10 relative">
-      <div>Connection Status: {connectionStatus}</div>
       <Map
         center={
           location
@@ -143,7 +93,7 @@ export default function KakoMap() {
             : defaultLocation
         }
         style={{ width: "100%", height: "40rem", borderRadius: "1rem" }}
-        level={1}
+        level={3}
       >
         <MapTypeControl position={"TOPRIGHT"} />
         <ZoomControl position={"RIGHT"} />
@@ -152,7 +102,9 @@ export default function KakoMap() {
           <MapMarker
             position={{ lat: location.latitude, lng: location.longitude }}
             image={{
-              src: `${Marker}`,
+              src: `${`${
+                import.meta.env.VITE_PUBLIC_URL
+              }/assets/images/marker.png`}`,
               size: {
                 width: 64,
                 height: 69,
@@ -160,8 +112,12 @@ export default function KakoMap() {
             }}
           ></MapMarker>
         )}
-        {catPosts.map((post, idx) => (
-          <CatMarker key={idx} post={post} />
+        {mapData.map((post, idx) => (
+          <CatMarker
+            key={idx}
+            post={post}
+            onClick={() => nav(`/post/${post.postId}`)}
+          />
         ))}
       </Map>
       <MdMyLocation

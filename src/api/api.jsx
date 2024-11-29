@@ -6,16 +6,14 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
-
-//임시 토큰
-const initialAccessToken = import.meta.env.VITE_ACCESS_TOKEN;
-localStorage.setItem("accessToken", initialAccessToken);
 
 //요청 인터셉터
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("token");
+
     if (accessToken) {
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
@@ -37,13 +35,13 @@ api.interceptors.response.use(
       try {
         //새로 발급받은 access token으로 요청
         const newAccessToken = await refreshToken();
-        localStorage.setItem("accessToken", newAccessToken);
+        localStorage.setItem("token", newAccessToken);
 
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return api(originalRequest);
       } catch (refreshError) {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("token");
+
         alert("재 로그인 해주세요.");
 
         return Promise.reject(refreshError);

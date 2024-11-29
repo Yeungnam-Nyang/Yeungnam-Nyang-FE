@@ -80,7 +80,7 @@ export default function Login() {
         className="input-field"
       />
 
-   
+
         <Button type="button" text="확인" isValid={isValid} onClick={handleLogin} />
 
       <div className="options">
@@ -92,10 +92,10 @@ export default function Login() {
             isValid={true}
             onClick={button.onClick}
           />
-          
+
         ))}
       </div>
-      
+
     </div>
   );
 }
