@@ -15,8 +15,9 @@ export default function DetailPostHeader({ postData }) {
   //게시물 판단 불리언 값
   const myPost = async () => {
     const response = await api.get(`/api/post/my/${postData?.postId}`);
+
     //내 게시물인 경우
-    if (response.data.message === 200) {
+    if (response.data.message === "TRUE") {
       setOptions(myOptions);
     }
   };

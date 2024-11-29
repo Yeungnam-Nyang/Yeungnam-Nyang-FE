@@ -224,7 +224,7 @@ export default function WritePost() {
               })}
             ></input>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-7 items-center">
             <label className="font-['Bungee'] text-2xl pr-6">DES</label>
             <textarea
               type="text"
@@ -239,7 +239,7 @@ export default function WritePost() {
               })}
             ></textarea>
           </div>
-          <div className="flex gap-4 items-center">
+          <div className="flex gap-7 items-center">
             <label className="font-['Bungee'] text-2xl pr-6">LOC</label>
             <div className="w-full">
               <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">

@@ -1,0 +1,75 @@
+.my-profile-container {
+  display: flex;
+  flex-direction: column;
+ margin-bottom: 5rem;
+ 
+  
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-top: 7.5rem;
+  margin-left: 1.25rem;
+}
+
+.profile-icon {
+  width: 3rem;
+  height: 3rem;
+  margin-right: 0.625rem;
+}
+
+.profile-title {
+  font-size: 2rem;
+  font-family: 'Bungee';
+  margin-left: 1.25rem;
+}
+
+.profile-info {
+  width: 85%;
+  padding: 1.25rem;
+  border: 1px solid #676767; /* 경계선 색상 설정 */
+  border-radius: 3rem; /* 경계선 둥글게 */
+  background-color: #fff;
+  margin: 0 auto; /* 중앙 정렬 */
+  margin-bottom: 0.625rem;
+}
+
+
+.profile-image-container {
+  position: relative; /* 자식 요소 위치 설정을 위한 부모 컨테이너 설정 */
+  display: flex;
+  justify-content: center;
+  margin: 0.625rem 0;
+}
+
+.profile-image {
+  width: 15.625rem;
+  height: 15.625rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-change-button {
+  position: absolute;
+  bottom: 10%; /* 버튼을 사진의 하단에 조금 더 가깝게 배치 */
+  right: 37%; /* 사진 오른쪽에 배치 */
+  border: none;
+  border-radius: 50%;
+  color: #FFA500; /* 아이콘 색상 */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem; /* 아이콘 크기 조정 */
+  transform: translate(50%, 50%); /* 중앙 아래로 정확히 위치시키기 위해 이동 */
+}
+
+.info-title{
+  margin-left: 3.75rem;
+}
+
+.button-group button {
+  margin-bottom: 1.25rem;
+  margin-top: 0.625rem;
+}

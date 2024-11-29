@@ -3,87 +3,78 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
     min-height: 100vh;
     
 }
     
 
-.input-field {
-    width: 85%;
-    padding: 25px;
-    border: 1px solid #ddd; /* 경계선 색상 설정 */
-    border-radius: 30px; /* 경계선 둥글게 */
-    font-size: 16px; /* 폰트 크기 설정 */
-    
-    
-}
+
   .signup-title {
     font-family: 'Bungee'; /* 저장된 폰트로 설정 */
-    font-size: 40px; /* 폰트 크기 설정 */
+    font-size: 2.5rem; /* 폰트 크기 설정 */
     color: #000000; /* 글자 색상 설정 */
-    /* 텍스트와 입력 필드 사이의 여백 */
-  
+    margin: 1.25rem;
+
 }
 .errorMesage{
   color:#ef0000;
-  font-size:13px;
-  
+  font-size:0.8rem;
+
 }
 
 
 
-.inputAnswer{
+.Answer{
   width: 85%;
-  padding: 20px;
+  padding: 1.25rem;
   border: 1px solid #676767; /* 경계선 색상 설정 */
-  border-radius: 50px; /* 경계선 둥글게 */
-  font-size: 16px; /* 폰트 크기 설정 */
-  margin-bottom: 5px;
-  margin-top: 10px;
+  border-radius: 3rem; /* 경계선 둥글게 */
+  font-size: 1rem; /* 폰트 크기 설정 */
+  margin-bottom: 0.2rem;
+  margin-top: 0.625rem;
 }
 .Select{
   width: 85%;
-padding: 20px;
-font-size: 16px;
-border-radius: 50px;
+padding: 1.25rem;
+font-size: 1rem;
+border-radius: 3rem;
 border: 1px solid #676767; /* 경계선 색상 설정 */
 background-color: #fff;
 color: #333;
 cursor: pointer;
 outline: none;
-margin-bottom:10px;
-margin-top: 10px;
+margin-bottom:0.625rem;
+margin-top: 0.625rem;
 }
 
 .ID{
   width: 85%;
-  padding: 20px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  padding: 1.25rem;
+  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
   border: 1px solid #676767; /* 경계선 색상 설정 */
-  border-radius: 50px; /* 경계선 둥글게 */
-  font-size: 16px;
+  border-radius: 3rem; /* 경계선 둥글게 */
+  font-size: 1rem;
 }
 .PW{
   width: 100%;
-  padding: 20px;
-  margin-bottom: 1px;
-  margin-top: 10px;
+  padding: 1.25rem;
+  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
   border: 1px solid #676767; /* 경계선 색상 설정 */
-  border-radius: 50px; /* 경계선 둥글게 */
-  font-size: 16px;
-  padding-right: 30;
+  border-radius: 3rem; /* 경계선 둥글게 */
+  font-size: 1rem;
+  padding-right: 2rem;
 }
 .Phone{
   width: 100%;
-  padding: 20px;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  padding: 1.25rem;
+  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
   border: 1px solid #676767; /* 경계선 색상 설정 */
-  border-radius: 50px; /* 경계선 둥글게 */
-  font-size: 16px;
-  padding-right: 30;
+  border-radius: 3rem; /* 경계선 둥글게 */
+  font-size: 1rem;
+  padding-right: 2rem;
 }
 .PW-container {
   position: relative;
@@ -91,13 +82,13 @@ margin-top: 10px;
 }
 .toggle-password {
   position: absolute;
-  right: 20px; /* 오른쪽 끝에서 약간 떨어진 위치 */
+  right: 1.25rem; /* 오른쪽 끝에서 약간 떨어진 위치 */
   top: 50%;
   transform: translateY(-50%); /* 세로 중앙 정렬 */
   background-color: transparent; /* 배경 없앰 */
   border: none; /* 경계선 없앰 */
   cursor: pointer;
-  font-size: 18px; /* 적당한 크기의 아이콘 */
+  font-size: 1rem; /* 적당한 크기의 아이콘 */
   color: #333;
 }
 
@@ -108,12 +99,12 @@ margin-top: 10px;
 }
 .sendCertification {
   position: absolute; /* 절대 위치 설정 */
-  right: 10px; /* 인풋 필드 오른쪽 끝에서 10px 떨어진 위치 */
+  right: 0.625rem; /* 인풋 필드 오른쪽 끝에서 10px 떨어진 위치 */
   top: 50%; /* 수직 중앙 정렬 */
   transform: translateY(-50%); /* 수직 중앙 정렬을 위해 이동 */
-  padding: 10px 15px; /* 버튼 패딩 */
+  padding: 0.625rem 1rem; /* 버튼 패딩 */
   border: none; /* 경계선 제거 */
-  border-radius: 30px; /* 경계선 둥글게 */
+  border-radius: 2rem; /* 경계선 둥글게 */
   background-color: #ffcc00; /* 버튼 배경색 */
   color: white; /* 버튼 텍스트 색상 */
  
