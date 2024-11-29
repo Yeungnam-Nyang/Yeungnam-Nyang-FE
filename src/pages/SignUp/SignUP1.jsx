@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Logo from '../../components/common/Logo';
 import Button from "../../components/common/Button";
-import { useState, useEffect } from 'react';
-import './SignUp1.css';
 import { useNavigate } from 'react-router-dom';
+import './SignUp1.css';
 
 export default function SignUp1() {
   const [schoolName, setSchoolName] = useState('');
@@ -13,12 +12,13 @@ export default function SignUp1() {
   const [SchoolNameValid, setSchoolNameValid] = useState(false);
   const [StudentIdValid, setStudentIdeValid] = useState(false);
   const [NameValid, setNameValid] = useState(false);
-
+  const [departmentName, setDepartmentName] = useState('');
+  const [DepartmentNameValid, setDepartmentNameValid] = useState(false);
   const nav = useNavigate();
 
   const handleSubmit = () => {
     // 입력된 데이터를 state로 전달
-    nav('/signup2', { state: { schoolName, studentId, Name } });
+    nav('/signup2', { state: { schoolName, studentId, Name, departmentName } });
   };
 
   const onClick = () => {
@@ -46,10 +46,17 @@ export default function SignUp1() {
     setNameValid(regex.test(value)); // 입력값에 대해 정규식 검사
   };
 
+  const handleDepartmentName = (e) => {
+    const value = e.target.value.trim(); // 입력값에서 앞뒤 공백 제거
+    setDepartmentName(value); // 상태 업데이트
+    const regex = /^[a-zA-Z가-힣]+$/;
+    setDepartmentNameValid(regex.test(value)); // 입력값에 대해 정규식 검사
+  };
+
   // 모든 필드가 채워졌는지 확인하는 함수
   useEffect(() => {
-    setIsValid(SchoolNameValid && StudentIdValid && NameValid);
-  }, [SchoolNameValid, StudentIdValid, NameValid]);
+    setIsValid(SchoolNameValid && StudentIdValid && NameValid && DepartmentNameValid);
+  }, [SchoolNameValid, StudentIdValid, NameValid, DepartmentNameValid]);
 
   return (
     <>
@@ -80,6 +87,19 @@ export default function SignUp1() {
         <div className='errorMesage'>
           {!StudentIdValid && studentId.length > 0 && (
             <div>숫자만 입력 해 주세요.</div>
+          )}
+        </div>
+
+        <input 
+          type="text"
+          placeholder="학과를 입력 해 주세요."
+          value={departmentName}
+          onChange={handleDepartmentName}
+          className="input-field"
+        />
+        <div className='errorMesage'>
+          {!DepartmentNameValid && departmentName.length > 0 && (
+            <div>한글 또는 영어로 입력 해 주세요.</div>
           )}
         </div>
 

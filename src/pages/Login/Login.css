@@ -4,47 +4,43 @@
     align-items: center;
     justify-content: center;
     min-height: 90vh;
-    padding: 20x;
-    
-  }
-  .logo {
-    margin-top: 10%;
-    width: 200px; /* 로고 크기 조정 */
-    margin-bottom: 10px; /* 로고와 LOGIN 텍스트 사이의 여백 */
   }
   .login-title {
     color: #000000;
     font-Size: 40px;
     font-family: 'Bungee';
     font-weight: 400;
-    line-height: 28px;
-    opacity: 0.94,
+    line-height: 2rem;
+    opacity: 0.94;
+    margin:1rem;
   }
-.options  {
+  .options {
     display: flex;
-    gap: 70px; /* 버튼 간의 간격 설정 (기본값에서 증가) */
-    justify-content: center; /* 버튼들을 중앙 정렬 */
-}
+    gap: 1rem; /* 버튼 간격을 상대 단위로 설정 */
+    justify-content: center; /* 버튼 중앙 정렬 */
+    margin: 1rem auto; /* 상하좌우 여백 설정 */
+    width: 83%; /* 버튼 그룹의 최대 너비 */
+  }
   h2.text-id {
-  margin-left: 10px;
+  margin-left: 0.75rem;
   width: 85%; 
-  font-size: 25px;
+  font-size: 1.5rem;
   font-weight: 600;
   }
   h2.text-pw {
-    margin-left: 10px;
+    margin-left: 0.75rem;
     width: 85%; 
-    font-size: 25px;
+    font-size: 1.5rem;
     font-weight: 600;
   }
   /* 입력 필드 스타일 */
   .input-field {
     width: 85%;
-    padding: 25px;
-    border: 1px solid #676767; /* 경계선 색상 설정 */
-    border-radius: 50px; /* 경계선 둥글게 */
-    font-size: 16px; /* 폰트 크기 설정 */
-    margin: 10px;
+    padding: 1.25rem;
+    border: 0.05rem solid #676767; /* 경계선 색상 설정 */
+    border-radius: 3rem; /* 경계선 둥글게 */
+    font-size: 1rem; /* 폰트 크기 설정 */
+    margin: 0.5rem;
   }
   
-  
+ 
