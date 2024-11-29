@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "./Login.css";
-import React, { useState } from 'react';
 import Button2 from "../../components/common/ButtonNopic";
 
 import Button from "../../components/common/Button";
