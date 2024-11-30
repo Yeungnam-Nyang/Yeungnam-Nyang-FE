@@ -56,7 +56,7 @@ export default function WritePost() {
     onSaveFiles,
     onFileUpload,
     error: uploadError,
-  } = useFileUpload();
+  } = useFileUpload("post");
 
   //입력값 모니터링
   useEffect(() => {
