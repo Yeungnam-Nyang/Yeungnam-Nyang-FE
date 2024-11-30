@@ -88,7 +88,7 @@ export default function KakoMap() {
   }
 
   return (
-    <div className="py-10 relative">
+    <div className="pt-10 relative">
       <Map
         center={
           location
