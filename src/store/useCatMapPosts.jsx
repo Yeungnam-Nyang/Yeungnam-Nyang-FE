@@ -5,3 +5,4 @@ export const useCatMapPosts = create((set) => ({
   postsCount: 0,
   setPostsCount: (count) => set({ postsCount: count }),
 }));
+//

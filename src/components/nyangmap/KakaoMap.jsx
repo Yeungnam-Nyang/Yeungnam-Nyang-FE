@@ -14,6 +14,7 @@ import { MdMyLocation } from "react-icons/md";
 import { useCatMapPosts } from "../../store/useCatMapPosts";
 import api from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import Loading from "../common/Loading";
 export default function KakoMap() {
   //고양이 게시물 개수 저장
   const { setPostsCount } = useCatMapPosts();
@@ -64,7 +65,9 @@ export default function KakoMap() {
         const response = await api(
           `/api/map?latitude=${
             location ? Number(location.latitude) : Number(defaultLocation.lat)
-          }&longitude=${location ? Number(location.longitude) : Number(defaultLocation.lng)}`
+          }&longitude=${
+            location ? Number(location.longitude) : Number(defaultLocation.lng)
+          }`
         );
         setPostsCount(response.data.length);
         setMapData(response.data);
@@ -85,7 +88,7 @@ export default function KakoMap() {
   }
 
   return (
-    <div className="py-10 relative">
+    <div className="pt-10 relative">
       <Map
         center={
           location
