@@ -56,7 +56,7 @@ function App() {
             <Route path="/login/findid" element={<FindId />}></Route>
             <Route path="/login/findpwd" element={<FindPassword />}></Route>
             <Route element={<PrivateRoutes />}>
-              <Route path="/home" element={<Main />}></Route>
+              <Route path="/main" element={<Main />}></Route>
               <Route path="/catmap" element={<CatsMap />}></Route>
               <Route path="/profile" element={<MyProfile />}></Route>
               <Route path="/profile/edit" element={<EditProfile />}></Route>
