@@ -1,8 +1,7 @@
 import { useState } from "react";
-import api from "../api/api";
 import axios from "axios";
 
-const useFileUpload = () => {
+const useFileUpload = (type, id) => {
   //파일 저장 배열
   const [files, setFiles] = useState([]);
 
@@ -35,19 +34,35 @@ const useFileUpload = () => {
     try {
       const serverUrl = import.meta.env.VITE_SERVER_URL;
       const token = localStorage.getItem("token");
-      const response = await axios.post(
-        `${serverUrl}/api/post/write`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data", // multipart/form-data 형식 지정
-            Authorization: `Bearer ` + token,
-          },
-        }
-      );
-      alert("게시물 작성 완료!");
-
-      return response;
+      if (type === "post") {
+        //게시
+        const response = await axios.post(
+          `${serverUrl}/api/post/write`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", // multipart/form-data 형식 지정
+              Authorization: `Bearer ` + token,
+            },
+          }
+        );
+        alert("게시물 작성 완료!");
+        return response;
+      } else if (type === "update") {
+        //수정
+        const response = await axios.put(
+          `${serverUrl}/api/post/edit/${id}`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", // multipart/form-data 형식 지정
+              Authorization: `Bearer ` + token,
+            },
+          }
+        );
+        alert("게시물 작성 완료!");
+        return response;
+      }
     } catch (err) {
       alert("게시물 작성 실패");
       console.error(err);

@@ -1,7 +1,6 @@
 import NavBar from "../../components/common/NavBar";
 import Header from "../../components/common/Header";
 import Title from "../../components/common/Title";
-import useFetch from "../../hooks/useFetch";
 import Loading from "../../components/common/Loading";
 import Error from "../../components/common/Error";
 import DetailPostHeader from "../../components/post/DetailPostHeader";
