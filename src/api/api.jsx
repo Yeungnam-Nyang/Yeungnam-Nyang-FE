@@ -11,7 +11,7 @@ const api = axios.create({
     rejectUnauthorized: false,
   }),
 });
-
+//
 //요청 인터셉터
 api.interceptors.request.use(
   (config) => {
