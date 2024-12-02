@@ -39,7 +39,7 @@ jobs:
         run: |
           aws s3 cp \
             --recursive \
-            --region ap-northeast-2 \
+            --region us-east-1 \
             dist s3://yeungnam-nyang.site
 
       - name: CloudFront invalidation # CloudFront 캐시 무효화
