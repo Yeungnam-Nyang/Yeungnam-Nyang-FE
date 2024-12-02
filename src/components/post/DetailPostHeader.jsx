@@ -53,22 +53,22 @@ export default function DetailPostHeader({ postData }) {
   };
 
   //수정하기
-  const handleUpdate = () => {
-    nav("/");
+  const handleUpdate = (postId) => {
+    nav(`/post/edit/${postId}`);
   };
   useEffect(() => {
     // //내 게시물이라면
     myPost();
   }, []);
 
-  const handleClose = (option) => {
+  const handleClose = (option, postId) => {
     setAnchorEl(null);
     switch (option) {
       case "삭제하기":
         handleDelete();
         break;
       case "수정하기":
-        handleUpdate();
+        handleUpdate(postId);
         break;
       case "저장하기":
         handleScrap();
@@ -100,7 +100,7 @@ export default function DetailPostHeader({ postData }) {
         options={options}
         setAnchorEl={setAnchorEl}
         anchorEl={anchorEl}
-        handleClose={(options) => handleClose(options)}
+        handleClose={(options) => handleClose(options, postData?.postId)}
       />
     </section>
   );

@@ -1,7 +1,7 @@
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 
 export default function CatMarker({ post, onClick }) {
-
+  console.log(post);
   return (
     <CustomOverlayMap position={{ lat: post.latitude, lng: post.longitude }}>
       <div className="group cursor-pointer animate-bounce" onClick={onClick}>
@@ -9,7 +9,7 @@ export default function CatMarker({ post, onClick }) {
           {/* 이미지 컨테이너 */}
           <div className="z-10 w-16 h-16 rounded-full border-4 border-orange  overflow-hidden transition-transform duration-300 group-hover:scale-110">
             <img
-              src={post.postPictureUrl[0]}
+              src={post?.postPictureUrl}
               alt="Cat"
               className="w-full h-full object-cover"
             />

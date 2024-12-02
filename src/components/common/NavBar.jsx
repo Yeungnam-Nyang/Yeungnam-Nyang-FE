@@ -4,7 +4,7 @@ export default function NavBar() {
     [
       `${import.meta.env.VITE_PUBLIC_URL}/assets/images/Icon_house.png`,
       "HOME",
-      "/",
+      "/main",
     ],
     [
       `${import.meta.env.VITE_PUBLIC_URL}/assets/images/Icon_cat.png`,
