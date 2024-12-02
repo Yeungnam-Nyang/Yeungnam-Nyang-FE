@@ -1,14 +1,24 @@
+import { useNavigate } from "react-router-dom";
+
 export default function FriendList({ friendList }) {
   console.log(friendList);
+  const nav = useNavigate();
+  const handleClick = (friendId) => {
+    nav(`/friend/profile?friendId=${encodeURIComponent(friendId)}`);
+  };
   return (
     <>
-      {friendList === null ? (
+      {friendList.length === 0 ? (
         <h1 className="text-black font-bold text-3xl flex align-middle justify-center">
           친구가 없습니다.
         </h1>
       ) : (
         friendList.map((friend, idx) => (
-          <section key={idx} className="flex px-6 gap-5 justify-between py-4">
+          <section
+            key={idx}
+            className="flex px-6 gap-5 justify-between py-4"
+            onClick={() => handleClick(friend?.friendId)}
+          >
             <div className="flex gap-4">
               <img
                 src={`${

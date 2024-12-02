@@ -17,8 +17,12 @@ export default function Modal({
   const onClick = () => {
     api
       .post(url, { [keyName]: input })
-      .then((response) => alert(response.data.message))
-      .catch((error) => alert(error.message));
+      .then((response) => {
+        alert(response.data);
+      })
+      .catch((error) => {
+        alert(error?.response.data.message);
+      });
 
     //input상자 초기화
     setInput("");

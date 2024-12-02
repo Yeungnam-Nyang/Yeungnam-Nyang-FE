@@ -60,11 +60,11 @@ const useFileUpload = (type, id) => {
             },
           }
         );
-        alert("게시물 작성 완료!");
+        alert("게시물 수정 완료!");
         return response;
       }
     } catch (err) {
-      alert("게시물 작성 실패");
+      alert("게시물 게시 또는 수정 실패");
       console.error(err);
       setError(err);
     }
