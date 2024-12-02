@@ -7,9 +7,6 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
-  httpAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
 });
 //
 //요청 인터셉터
