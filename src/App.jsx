@@ -7,6 +7,7 @@ import FindId from "./pages/Login/FindId";
 import FindPassword from "./pages/Login/FindPassword";
 import CatsMap from "./pages/CatsMap";
 import EditProfile from "./pages/Profile/EditProfile";
+import EditProfile2 from "./pages/Profile/EditProfile2";
 import MyProfile from "./pages/Profile/MyProfile";
 import MyCat from "./pages/Profile/MyCats";
 import SavedPosts from "./pages/Profile/SavedPosts";
@@ -60,6 +61,7 @@ function App() {
               <Route path="/catmap" element={<CatsMap />}></Route>
               <Route path="/profile" element={<MyProfile />}></Route>
               <Route path="/profile/edit" element={<EditProfile />}></Route>
+              <Route path="/profile/edit2" element={<EditProfile2 />}></Route>
               <Route path="/profile/mycat" element={<MyCat />}></Route>
               <Route path="/profile/posts" element={<SavedPosts />}></Route>
               <Route path="/post/write" element={<WritePost />}></Route>
