@@ -32,8 +32,8 @@ export default function Login() {
         nav("/main");
       } catch (error) {
         // 로그인 실패 시 메시지
-        alert("로그인 실패! ID 또는 비밀번호를 확인 해 주세요.");
-        console.error(error);
+        alert("로그인 실패! ID 또는 비밀번호를 확인 해 주세요.",API_URL);
+        
       }
     }
   };
