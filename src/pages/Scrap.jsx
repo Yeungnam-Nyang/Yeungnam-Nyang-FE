@@ -8,7 +8,7 @@ import useFetch from "../hooks/useFetch";
 
 export default function Scrap() {
   //스크랩 게시글 가져오기
-  const { data, isLoading, error } = useFetch("/api/post/myscrap");
+  const { arrData:data, isLoading, error } = useFetch("/api/post/myscrap");
   const nav = useNavigate();
   return (
     <>
@@ -21,7 +21,12 @@ export default function Scrap() {
         <Loading />
       ) : (
         <div className="grid grid-cols-2 gap-4 p-4">
-          {data &&
+          {data.length === 0 ? (
+            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">
+              스크랩한 게시물이 없습니다.
+            </div>
+          ) : (
+            data &&
             data.map((post) => (
               <div
                 key={post?.postId}
@@ -36,7 +41,8 @@ export default function Scrap() {
                   {post?.catName}
                 </h1>
               </div>
-            ))}
+            ))
+          )}
         </div>
       )}
       <NavBar />

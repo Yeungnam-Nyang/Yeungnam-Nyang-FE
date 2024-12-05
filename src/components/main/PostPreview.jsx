@@ -3,7 +3,7 @@ import { FaCommentAlt } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 
-export default function PostPreview({ postData }) {
+export default function PostPreview({ postData, userData }) {
   //댓글 불러오기
   const {
     data: commentData,
@@ -18,9 +18,13 @@ export default function PostPreview({ postData }) {
       <section className="flex flex-row gap-4  items-center py-4 cursor-pointer">
         <img
           alt="profile_img"
-          src={`${
-            import.meta.env.VITE_PUBLIC_URL
-          }/assets/images/profile_default.png`}
+          src={
+            userData?.profileURL // 유저 프로필 이미지가 있으면 사용
+              ? userData.profileURL
+              : `${
+                  import.meta.env.VITE_PUBLIC_URL
+                }/assets/images/profile_default.png`
+          }
           className="rounded-full w-10 h-auto bg-white"
         />
         <p className="flex text-2xl font-bold">{postData?.userId}</p>
