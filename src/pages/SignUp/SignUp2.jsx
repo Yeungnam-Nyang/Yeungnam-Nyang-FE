@@ -102,7 +102,7 @@ export default function SignUp2() {
         userPhoneNumber: Phone,
         userQuestion: selectedQuestion,
         userAnswer: Answer,
-        studentNumber: studentId,
+        studentNumber: studentId.toString(),
         studentName: Name,
         schoolName: schoolName,
         departmentName: departmentName,
@@ -111,7 +111,7 @@ export default function SignUp2() {
       axios.post(`${API_URL}/api/signup`, data)
         .then(response => {
           console.log('회원 가입 성공:', response.data);
-          router('/login');
+          router('/');
         })
         .catch(error => {
           console.error('회원 가입 중 오류 발생:', error.response);
@@ -164,19 +164,49 @@ export default function SignUp2() {
 
   };
 
+  const handleCheckDuplicateId = () => {
+    if (!IdValid) {
+      alert("유효한 아이디를 입력하세요.");
+      return;
+    }
+  
+    axios
+      .get(`${API_URL}/api/signup/checkId`, {
+        params: { userId: Id }, // 쿼리 파라미터로 userId 전달
+      })
+      .then((response) => {
+        if (response.status === 200) {
+            // 서버에서 isAvailable과 같은 키로 아이디 사용 가능 여부를 확인한다고 가정
+            alert("사용 가능한 아이디입니다.");
+          } 
+        
+      })
+      .catch((error) => {
+        alert("이미 사용 중인 아이디입니다.");
+      });
+  };
+  
+  
 
   return (
     <div className="signup-container">
       <Logo />
       <h2 className="signup-title">SIGN UP</h2>
 
-      <input
+      <div className="certification">
+        <div className="input-container">
+        <input
         type="text"
         placeholder="아이디를 입력하세요."
         value={Id}
         onChange={handleId}
         className="ID"
       />
+      <button type="button" className="sendCertification" onClick={handleCheckDuplicateId}>
+            중복확인
+      </button>
+        </div>
+      </div>
       <div className='errorMesage'>
         {!IdValid && Id.length > 0 && (
           <div>최소 6자 이상, 최대 10자 이하의 알파벳 소문자 및 숫자를 입력하세요</div>

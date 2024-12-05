@@ -6,14 +6,13 @@ import Header from "../../components/common/Header";
 import NavBar from "../../components/common/NavBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 export default function MyProfile() {
   const API_URL = import.meta.env.VITE_SERVER_URL;
-  const defaultProfileImage =
-    import.meta.env.VITE_PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+  const defaultProfileImage = "/assets/images/profile_default.png"; 
+ 
   const PUBLIC_URL=import.meta.env.VITE_PUBLIC_URL;
   const [userId, setuserId] = useState("");
-  const [profileURL, setprofileURL] = useState(defaultProfileImage); // 기본 이미지 설정
+  const [profileURL, setprofileURL] = useState(""); // 기본 이미지 설정
   const [schoolName, setschoolName] = useState("");
   const [studentName, setstudentName] = useState("");
   const [departmentName, setdepartmentName] = useState("");
@@ -119,11 +118,6 @@ export default function MyProfile() {
       <div className="profile-info">{studentName || "정보 없음"}</div>
 
       <div className="button-group">
-        <Button
-          text="수정하기"
-          isValid={true}
-          onClick={() => nav("/profile/edit")}
-        />
         <Button
           text="내가 저장한 게시물"
           isValid={true}
