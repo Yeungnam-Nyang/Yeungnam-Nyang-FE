@@ -1,14 +1,21 @@
+import { useNavigate } from "react-router-dom";
+
 export default function FriendList({ friendList }) {
+  console.log(friendList);
+  const nav = useNavigate();
+  const handleClick = (friendId) => {
+    nav(`/friend/profile?friendId=${encodeURIComponent(friendId)}`);
+  };
   console.log(friendList);
   return (
     <>
-      {friendList === null ? (
-        <h1 className="text-black font-bold text-3xl flex align-middle justify-center">
-          친구가 없습니다.
-        </h1>
-      ) : (
+      {friendList &&
         friendList.map((friend, idx) => (
-          <section key={idx} className="flex px-6 gap-5 justify-between py-4">
+          <section
+            key={idx}
+            className="flex px-6 gap-5 justify-between py-4"
+            onClick={() => handleClick(friend?.friendId)}
+          >
             <div className="flex gap-4">
               <img
                 src={`${
@@ -17,9 +24,6 @@ export default function FriendList({ friendList }) {
                 alt="profile-img"
                 className="rounded-full w-20 bg-white"
               />
-              <text className="font-[Bungee] font-bold text-3xl my-auto">
-                TKV00
-              </text>
             </div>
             <div className="my-auto">
               <button
@@ -39,8 +43,7 @@ export default function FriendList({ friendList }) {
               </button>
             </div>
           </section>
-        ))
-      )}
+        ))}
     </>
   );
 }

@@ -16,7 +16,7 @@ export default function Friend() {
   const {
     data: friendList,
     isLoading,
-    isError,
+    error,
   } = useQuery(["friends"], () =>
     api.get("/api/friend/list").then((res) => res.data)
   );
@@ -24,27 +24,34 @@ export default function Friend() {
   const {
     data: requestList,
     isLoading: requestLoading,
-    isError: requestError,
+    error: requestError,
   } = useQuery(["friendRequest"], () =>
     api.get("/api/friend/sent-requests").then((res) => res.data)
   );
-  console.log("re" + requestList);
+  const totalError = error || requestError;
+  const totalLoading = isLoading || requestLoading;
   return (
     <>
       <Header />
       <div className="h-20"></div>
       <Title text="FRIEND" />
-      {isError ? (
+      {totalError ? (
         <Error />
-      ) : isLoading ? (
+      ) : totalLoading ? (
         <Loading />
       ) : (
         <>
           <h1 className="font-[BagelFatOne] px-6 font-bold text-3xl py-6">
             친구목록 {friendList.length}명
           </h1>
+          {friendList.length === 0 ? (
+            <h1 className="px-6 text-3xl text-[orange] font-['BagelFatOne']">
+              친구가 없습니다.
+            </h1>
+          ) : (
+            friendList && <FriendList friendList={friendList} />
+          )}
           {requestList && <FriendRequest requestList={requestList} />}
-          <FriendList friendList={friendList} />
         </>
       )}
       <NavBar />

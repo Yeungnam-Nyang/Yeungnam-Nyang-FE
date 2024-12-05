@@ -105,7 +105,7 @@ export default function StopWatch({ postId }) {
       clearInterval(intervalId);
     };
   }, [lastFeedingTime]);
-
+  console.log(post);
   const handleFeedClick = async () => {
     try {
       setIsFeeding(true);

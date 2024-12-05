@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import https from "https"
 const api = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   timeout: 1000,
@@ -8,7 +8,7 @@ const api = axios.create({
   },
   withCredentials: true,
 });
-
+//
 //요청 인터셉터
 api.interceptors.request.use(
   (config) => {
@@ -18,6 +18,7 @@ api.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
+    //
   },
   (error) => {
     return Promise.reject(error);
