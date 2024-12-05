@@ -32,8 +32,7 @@ export default function Login() {
         nav("/main");
       } catch (error) {
         // 로그인 실패 시 메시지
-        alert(API_URL);
-        
+        console.error(error);
       }
     }
   };
