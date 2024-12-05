@@ -21,8 +21,14 @@ export default function Main() {
     error: hotPostError,
   } = useFetch("/api/post/popular");
 
-  const loding = newPostLoading || hotPostLoading;
-  const error = newPostError || hotPostError;
+  //프로필 가져오기
+  const {
+    data: userData,
+    isLoading: userLoading,
+    error: userError,
+  } = useFetch("/api/user/profile");
+  const loding = newPostLoading || hotPostLoading || userLoading;
+  const error = newPostError || hotPostError || userError;
 
   return (
     <>
@@ -37,18 +43,22 @@ export default function Main() {
           <Title text={"NEW"} padding={28} />
           {/* 포스트가 없을 떄 */}
           {newPostData?.message === "NULL" ? (
-            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">게시물이 없습니다.</div>
+            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">
+              게시물이 없습니다.
+            </div>
           ) : (
-            <PostPreview postData={newPostData} />
+            <PostPreview postData={newPostData} userData={userData}/>
           )}
 
           <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
           <Title text={"HOT"} select="fire" />
           {/* 포스트가 없을 때 */}
           {hotPostData?.message === "NULL" ? (
-            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">게시물이 없습니다.</div>
+            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">
+              게시물이 없습니다.
+            </div>
           ) : (
-            <PostPreview postData={hotPostData} />
+            <PostPreview postData={hotPostData}  userData={userData}/>
           )}
           <div className="h-20" />
         </>

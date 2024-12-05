@@ -84,8 +84,8 @@ export default function DetailPostHeader({ postData }) {
         <img
           alt="profile_img"
           src={
-            postData?.profileUrl
-              ? postData.profileUrl
+            postData?.profileURL
+              ? postData.profileURL
               : `${
                   import.meta.env.VITE_PUBLIC_URL
                 }/assets/images/profile_default.png`

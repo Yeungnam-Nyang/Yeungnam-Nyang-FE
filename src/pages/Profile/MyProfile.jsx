@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { FaCamera } from "react-icons/fa";
 import "./MyProfile.css";
-import iconPow from "../../assets/images/icon_pow.png";
 import Button from "../../components/common/Button";
 import Header from "../../components/common/Header";
 import NavBar from "../../components/common/NavBar";
@@ -11,8 +10,8 @@ import axios from "axios";
 export default function MyProfile() {
   const API_URL = import.meta.env.VITE_SERVER_URL;
   const defaultProfileImage =
-    import.meta.env.PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
-
+    import.meta.env.VITE_PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+  const PUBLIC_URL=import.meta.env.VITE_PUBLIC_URL;
   const [userId, setuserId] = useState("");
   const [profileURL, setprofileURL] = useState(defaultProfileImage); // 기본 이미지 설정
   const [schoolName, setschoolName] = useState("");
@@ -81,7 +80,7 @@ export default function MyProfile() {
     <div className="my-profile-container">
       <Header />
       <div className="profile-header">
-        <img src={iconPow} alt="Icon" className="profile-icon" />
+        <img src={`${PUBLIC_URL}/assets/images/icon_pow.png`} alt="Icon" className="profile-icon" />
         <h2 className="profile-title">MY PROFILE</h2>
       </div>
 
