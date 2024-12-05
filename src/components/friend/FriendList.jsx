@@ -6,13 +6,10 @@ export default function FriendList({ friendList }) {
   const handleClick = (friendId) => {
     nav(`/friend/profile?friendId=${encodeURIComponent(friendId)}`);
   };
+  console.log(friendList);
   return (
     <>
-      {friendList.length === 0 ? (
-        <h1 className="text-black font-bold text-3xl flex align-middle justify-center">
-          친구가 없습니다.
-        </h1>
-      ) : (
+      {friendList &&
         friendList.map((friend, idx) => (
           <section
             key={idx}
@@ -27,9 +24,6 @@ export default function FriendList({ friendList }) {
                 alt="profile-img"
                 className="rounded-full w-20 bg-white"
               />
-              <text className="font-[Bungee] font-bold text-3xl my-auto">
-                TKV00
-              </text>
             </div>
             <div className="my-auto">
               <button
@@ -49,8 +43,7 @@ export default function FriendList({ friendList }) {
               </button>
             </div>
           </section>
-        ))
-      )}
+        ))}
     </>
   );
 }
