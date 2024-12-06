@@ -119,11 +119,6 @@ export default function MyProfile() {
 
       <div className="button-group">
         <Button
-          text="수정하기"
-          isValid={true}
-          onClick={() => nav("/profile/edit")}
-        />
-        <Button
           text="내가 저장한 게시물"
           isValid={true}
           onClick={() => nav("/profile/mycat")}

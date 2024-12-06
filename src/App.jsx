@@ -17,6 +17,7 @@ import NotFound from "./pages/NotFound";
 import DetailPost from "./pages/Post/DetailPost";
 import React from "react";
 import Friend from "./pages/Friend";
+import FriendProfile from "./pages/FriendProfile";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./store/AuthProvider";
 import Scrap from "./pages/Scrap";
@@ -68,6 +69,7 @@ function App() {
               <Route path="/post/write" element={<WritePost />}></Route>
               <Route path="/post/:id" element={<DetailPost />}></Route>
               <Route path="/friend" element={<Friend />}></Route>
+              <Route path="/friend/profile" element={<FriendProfile />}></Route>
               <Route path="/*" element={<NotFound />}></Route>
               <Route path="/scrap" element={<Scrap />} />
               <Route path="/post/edit/:id" element={<EditPost />} />
