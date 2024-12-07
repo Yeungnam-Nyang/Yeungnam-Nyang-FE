@@ -18,7 +18,7 @@ export default function Modal({
     api
       .post(url, { [keyName]: input })
       .then((response) => {
-        alert(response.data);
+        alert(response.data.message);
       })
       .catch((error) => {
         alert(error?.response.data.message);

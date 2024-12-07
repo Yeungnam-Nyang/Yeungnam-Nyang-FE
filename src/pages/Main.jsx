@@ -21,14 +21,8 @@ export default function Main() {
     error: hotPostError,
   } = useFetch("/api/post/popular");
 
-  //프로필 가져오기
-  const {
-    data: userData,
-    isLoading: userLoading,
-    error: userError,
-  } = useFetch("/api/user/profile");
-  const loding = newPostLoading || hotPostLoading || userLoading;
-  const error = newPostError || hotPostError || userError;
+  const loding = newPostLoading || hotPostLoading ;
+  const error = newPostError || hotPostError;
 
   return (
     <>
@@ -47,7 +41,7 @@ export default function Main() {
               게시물이 없습니다.
             </div>
           ) : (
-            <PostPreview postData={newPostData} userData={userData}/>
+            <PostPreview postData={newPostData} />
           )}
 
           <hr className="border-t-4 h-1  border-white w-[95%] mx-auto my-5" />
@@ -58,7 +52,7 @@ export default function Main() {
               게시물이 없습니다.
             </div>
           ) : (
-            <PostPreview postData={hotPostData}  userData={userData}/>
+            <PostPreview postData={hotPostData}  />
           )}
           <div className="h-20" />
         </>
