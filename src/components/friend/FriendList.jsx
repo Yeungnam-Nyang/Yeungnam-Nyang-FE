@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
 
 export default function FriendList({ friendList }) {
-  console.log(friendList);
+
   const nav = useNavigate();
   const handleClick = (friendId) => {
     nav(`/friend/profile?friendId=${encodeURIComponent(friendId)}`);
   };
-  console.log(friendList);
+
   return (
     <>
 

@@ -14,6 +14,7 @@ export default function PostPreview({ postData }) {
   } = useFetch(`/api/comment/post/${postData?.postId}`);
 
   const nav = useNavigate();
+
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
@@ -21,11 +22,11 @@ export default function PostPreview({ postData }) {
         <img
           alt="profile_img"
           src={
-              postData?.profileUrl ==="null"// 유저 프로필 이미지가 있으면 사용
-              ? `${
+              postData?.profileUrl && postData.profileUrl !== "null"
+                  ? postData.profileUrl // 유효한 프로필 URL
+                  : `${
                       import.meta.env.VITE_PUBLIC_URL
                   }/assets/images/profile_default.png`
-              : postData?.profileUrl
           }
           className="rounded-full w-10 h-auto bg-white"
         />
@@ -43,39 +44,35 @@ export default function PostPreview({ postData }) {
             alt="post-picture"
             className="rounded-3xl m-auto mt-5"
           />
-            <div className="m-auto flex gap-3 p-4">
-                {commentLoading ? (
-                    <Loading/>
-                ) : commentError ? (
-                    <Error/>
-                ) : commentData && commentData.length > 0 ? (
-                    <div className="flex items-center gap-3">
-                        <img
-                            src={`${import.meta.env.VITE_PUBLIC_URL}/assets/images/profile_default.png`}
-                            alt="Profile"
-                            className="rounded-full w-6 bg-black"
-                        />
-                        <div>
-                            <p className="font-bold">{commentData[0].userId}</p>
-                            <p>{commentData[0].content}</p>
-                        </div>
-                    </div>
-                ) : (
-                    <p className="text-gray-500">댓글이 없습니다.</p>
-                )}
-            </div>
+          <div className="m-auto flex gap-3 p-4">
+              {commentLoading?<Loading/>:commentError?<Error/>:(commentData && commentData.length > 0 ? (
+                  <>
+                      <img
+                          alt="comment-profile.img"
+                          src={commentData[0]?.profileUrl && commentData[0].profileUrl !== "null"
+                              ? commentData[0].profileUrl // 유효한 프로필 URL
+                              : `${
+                                  import.meta.env.VITE_PUBLIC_URL
+                              }/assets/images/profile_default.png`}
+                          className="rounded-full w-6 bg-black"
+                      />
+                      <p>{commentData[0].userId}</p>
+                      <p>{commentData[0].content}</p>
+                  </>
+              ) : null)}
+          </div>
         </div>
       </section>
 
-        {/* 좋아요, 댓글 */}
-        <section className="flex gap-3 mt-6">
-            {/* 좋아요 */}
-            <BiSolidLike size={25} className="custom-hover"/>
-            <p className="font-bold">{postData?.likeCnt}</p>
-            {/* 댓글 */}
-            <FaCommentAlt size={25}/>
-            <p className="font-bold">{postData?.commentCnt}</p>
-        </section>
+      {/* 좋아요, 댓글 */}
+      <section className="flex gap-3 mt-6">
+        {/* 좋아요 */}
+        <BiSolidLike size={25} className="custom-hover" />
+        <p className="font-bold">{postData?.likeCnt}</p>
+        {/* 댓글 */}
+        <FaCommentAlt size={25} />
+        <p className="font-bold">{postData?.commentCnt}</p>
+      </section>
     </div>
   );
 }

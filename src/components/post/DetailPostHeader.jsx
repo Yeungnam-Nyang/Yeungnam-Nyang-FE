@@ -84,10 +84,11 @@ export default function DetailPostHeader({ postData }) {
         <img
           alt="profile_img"
           src={
-            postData?.profileUrl==="null"?`${
-                import.meta.env.VITE_PUBLIC_URL
-            }/assets/images/profile_default.png`:
-              postData?.profileUrl
+            postData?.profileUrl && postData.profileUrl !== "null"
+                ? postData.profileUrl // 유효한 프로필 URL
+                : `${
+                    import.meta.env.VITE_PUBLIC_URL
+                }/assets/images/profile_default.png`
           }
           className="rounded-full w-10 h-auto bg-white"
         />
