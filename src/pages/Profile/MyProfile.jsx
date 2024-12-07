@@ -9,9 +9,12 @@ import axios from "axios";
 
 export default function MyProfile() {
   const API_URL = import.meta.env.VITE_SERVER_URL;
-  const defaultProfileImage =
-    import.meta.env.VITE_PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+
+  const defaultProfileImage = import.meta.env.PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
   const PUBLIC_URL=import.meta.env.VITE_PUBLIC_URL;
+
+    import.meta.env.PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+
   const [userId, setuserId] = useState("");
   const [profileURL, setprofileURL] = useState(defaultProfileImage); // 기본 이미지 설정
   const [schoolName, setschoolName] = useState("");
@@ -31,7 +34,6 @@ export default function MyProfile() {
         setschoolName(response.data.schoolName);
         setdepartmentName(response.data.departmentName);
         setstudentName(response.data.studentName);
-        console.log("서버 응답 데이터:", response.data);
       } catch (error) {
         console.error("프로필 정보를 가져오는데 실패:", error);
         setError("프로필 정보를 가져오는 데 문제가 발생했습니다."); // 오류 메시지 설정
@@ -56,7 +58,6 @@ export default function MyProfile() {
 
     const formData = new FormData();
     formData.append("imageFile", file);
-
     try {
       await axios.put(`${API_URL}/api/user/profile/image-update`, formData, {
         headers: {
@@ -64,7 +65,6 @@ export default function MyProfile() {
           "Content-Type": "multipart/form-data",
         },
       });
-
       // 최신 프로필 데이터 가져오기
       const response = await axios.get(`${API_URL}/api/user/profile`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -75,7 +75,6 @@ export default function MyProfile() {
       alert("프로필 사진 업데이트 중 오류가 발생했습니다.");
     }
   };
-
   return (
     <div className="my-profile-container">
       <Header />
@@ -120,18 +119,16 @@ export default function MyProfile() {
 
       <div className="button-group">
         <Button
-          text="수정하기"
-          isValid={true}
-          onClick={() => nav("/profile/edit")}
-        />
-        <Button
           text="내가 저장한 게시물"
           isValid={true}
-          onClick={() => nav("/scrap")}
+          onClick={() => nav("/profile/mycat")}
         />
-        <Button text="로그아웃" isValid={true} onClick={handleLogout} />
+        <Button
+          text="로그아웃"
+          isValid={true}
+          onClick={handleLogout}
+        />
       </div>
-
       <NavBar />
     </div>
   );

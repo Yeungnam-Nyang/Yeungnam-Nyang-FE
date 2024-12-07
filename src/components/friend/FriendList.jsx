@@ -9,7 +9,12 @@ export default function FriendList({ friendList }) {
   console.log(friendList);
   return (
     <>
-      {friendList &&
+
+      {friendList.length === 0 ? (
+        <h1 className="text-black font-bold text-3xl flex align-middle justify-center">
+          친구가 없습니다.
+        </h1>
+      ) : (
         friendList.map((friend, idx) => (
           <section
             key={idx}
