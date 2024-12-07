@@ -10,7 +10,7 @@ import axios from "axios";
 export default function MyProfile() {
   const API_URL = import.meta.env.VITE_SERVER_URL;
   const defaultProfileImage =
-    import.meta.env.VITE_PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+    import.meta.env.VITE_PUBLIC_URL + "/assets/images/default_profile_gray.png"; // 기본 이미지 경로 설정
   const PUBLIC_URL=import.meta.env.VITE_PUBLIC_URL;
   const [userId, setuserId] = useState("");
   const [profileURL, setprofileURL] = useState(defaultProfileImage); // 기본 이미지 설정
@@ -27,7 +27,9 @@ export default function MyProfile() {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
         setuserId(response.data.userId);
-        setprofileURL(response.data.profileURL || defaultProfileImage); // 프로필 URL 설정 (없으면 기본 이미지 사용)
+        setprofileURL(response.data.profileURL && response.data.profileURL !== "null"
+            ? response.data.profileURL
+            : defaultProfileImage); // 프로필 URL 설정 (없으면 기본 이미지 사용)
         setschoolName(response.data.schoolName);
         setdepartmentName(response.data.departmentName);
         setstudentName(response.data.studentName);
@@ -80,7 +82,7 @@ export default function MyProfile() {
     <div className="my-profile-container">
       <Header />
       <div className="profile-header">
-        <img src={`${PUBLIC_URL}/assets/images/icon_pow.png`} alt="Icon" className="profile-icon" />
+        <img src={`${PUBLIC_URL}/assets/images/icon_pow.png`} alt="Icon" className="profile-icon " />
         <h2 className="profile-title">MY PROFILE</h2>
       </div>
 

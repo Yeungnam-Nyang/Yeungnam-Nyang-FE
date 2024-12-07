@@ -28,7 +28,7 @@ export default function FriendReceive(){
     //수락 버튼 클릭 -> 친구목록으로
     const { mutate: agree } = useMutation({
         mutationFn: (friendId) =>
-            api.put(`/api/friend/respond?friendId=${friendId}&status=REQUESTED`),
+            api.put(`/api/friend/respond?friendId=${friendId}&status=ACCEPTED`),
 
         onMutate: async (friendId) => {
             //친구요청목록 업뎃
@@ -54,10 +54,7 @@ export default function FriendReceive(){
     //거절 버튼 클릭 -> 친구 신청에서 삭제
     const { mutate: refusal } = useMutation({
         mutationFn: (friendId) =>
-            api.delete("/api/friend/cancel", {
-                data: { friendId: friendId },
-                headers: { "Content-Type": "application/json" },
-            }),
+            api.put(`/api/friend/respond?friendId=${friendId}&status=REJECTED`),
         onMutate: async (friendId) => {
             //보낸 친구요청
             await queryClient.cancelQueries(["friendReceive"]);

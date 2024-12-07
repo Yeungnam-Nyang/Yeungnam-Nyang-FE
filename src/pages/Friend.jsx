@@ -18,7 +18,7 @@ export default function Friend() {
   } = useQuery(["friends"], () =>
     api.get("/api/friend/list").then((res) => res.data)
   );
-
+console.log(friendList);
   const nav=useNavigate();
   return (
     <>
