@@ -1,9 +1,7 @@
-import { useState } from "react";
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
 import Title from "../components/common/Title";
 import FriendList from "../components/friend/FriendList";
-import useFetch from "../hooks/useFetch";
 import Error from "../components/common/Error";
 import Loading from "../components/common/Loading";
 import { useQuery } from "react-query";
@@ -26,7 +24,7 @@ export default function Friend() {
     isLoading: requestLoading,
     error: requestError,
   } = useQuery(["friendRequest"], () =>
-    api.get("/api/friend/sent-requests").then((res) => res.data)
+    api.get("/api/friend/received-requests").then((res) => res.data)
   );
   const totalError = error || requestError;
   const totalLoading = isLoading || requestLoading;
