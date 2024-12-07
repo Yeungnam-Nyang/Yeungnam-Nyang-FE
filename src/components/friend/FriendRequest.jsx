@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import Error from "../common/Error";
 import Loading from "../common/Loading";
+import axios from "axios";
 
 export default function FriendRequest({ requestList }) {
   const [request, setRequest] = useState([]);
@@ -40,16 +41,21 @@ export default function FriendRequest({ requestList }) {
   });
   //거절 버튼 클릭 -> 친구 신청에서 삭제
   const { mutate: refusal } = useMutation({
-    mutationFn: (friendId) =>
-      api.delete("/api/friend/cancel", {
-        data: { friendId: friendId },
-        headers: { "Content-Type": "application/json" },
-      }),
+    mutationFn: async (friendId) =>
+     await axios.delete(`${import.meta.env.VITE_SERVER_URL}/api/friend/cancel`,
+         {
+           headers:{
+             Authorization:`Bearer `+localStorage.getItem("token"),
+           },
+           data:{friendId:friendId}
+         }
+
+      ),
     onMutate: async (friendId) => {
       await queryClient.cancelQueries(["friendRequest"]);
       const prevRequestList = queryClient.getQueryData(["friendRequest"]);
       setRequest(
-        prevRequestList.filter((request) => request.friendId !== friendId)
+        prevRequestList.filter((request) => request.friendId === friendId)
       );
       return { prevRequestList };
     },
