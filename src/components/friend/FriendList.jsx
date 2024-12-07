@@ -13,6 +13,7 @@ export default function FriendList({ friendList }) {
           친구가 없습니다.
         </h1>
       ) : (
+
         friendList.map((friend, idx) => (
           <section
             key={idx}
@@ -27,9 +28,6 @@ export default function FriendList({ friendList }) {
                 alt="profile-img"
                 className="rounded-full w-20 bg-white"
               />
-              <text className="font-[Bungee] font-bold text-3xl my-auto">
-                TKV00
-              </text>
             </div>
             <div className="my-auto">
               <button
@@ -49,8 +47,7 @@ export default function FriendList({ friendList }) {
               </button>
             </div>
           </section>
-        ))
-      )}
+        ))}
     </>
   );
 }
