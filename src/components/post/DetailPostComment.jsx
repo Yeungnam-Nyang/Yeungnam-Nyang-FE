@@ -51,10 +51,11 @@ export default function DetailPostComment({ commentData, postId }) {
             <div className="flex items-start">
               <img
                 src={
-                  item.userProfilUrl ||
-                  `${
-                    import.meta.env.VITE_PUBLIC_URL
-                  }/assets/images/profile_default.png`
+                  item?.profileUrl && item.profileUrl !== "null"
+                      ? item.profileUrl // 유효한 프로필 URL
+                      : `${
+                          import.meta.env.VITE_PUBLIC_URL
+                      }/assets/images/profile_default.png`
                 }
                 alt={`${item.userId} 프로필`}
                 className="w-10 h-10 rounded-full mr-3 bg-white"
@@ -90,7 +91,6 @@ export default function DetailPostComment({ commentData, postId }) {
         alert("삭제되었습니다.");
       } catch (error) {
         alert("오류가 발생했습니다.");
-        console.error("Failed to delete comment:", error);
       }
     }
   };

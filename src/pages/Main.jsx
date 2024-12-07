@@ -50,7 +50,7 @@ export default function Main() {
             <PostPreview postData={newPostData} userData={userData}/>
           )}
 
-          <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
+          <hr className="border-t-4 h-1  border-white w-[95%] mx-auto my-5" />
           <Title text={"HOT"} select="fire" />
           {/* 포스트가 없을 때 */}
           {hotPostData?.message === "NULL" ? (
