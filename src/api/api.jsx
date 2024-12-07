@@ -7,11 +7,8 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
-  httpAgent: new https.Agent({
-    rejectUnauthorized: false,
-  }),
 });
-
+//
 //요청 인터셉터
 api.interceptors.request.use(
   (config) => {
@@ -21,6 +18,7 @@ api.interceptors.request.use(
       config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
+    //
   },
   (error) => {
     return Promise.reject(error);

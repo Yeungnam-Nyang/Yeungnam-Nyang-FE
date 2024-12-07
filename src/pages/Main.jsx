@@ -21,7 +21,7 @@ export default function Main() {
     error: hotPostError,
   } = useFetch("/api/post/popular");
 
-  const loding = newPostLoading || hotPostLoading;
+  const loding = newPostLoading || hotPostLoading ;
   const error = newPostError || hotPostError;
 
   return (
@@ -37,7 +37,9 @@ export default function Main() {
           <Title text={"NEW"} padding={28} />
           {/* 포스트가 없을 떄 */}
           {newPostData?.message === "NULL" ? (
-            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">게시물이 없습니다.</div>
+            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">
+              게시물이 없습니다.
+            </div>
           ) : (
             <PostPreview postData={newPostData} />
           )}
@@ -46,9 +48,11 @@ export default function Main() {
           <Title text={"HOT"} select="fire" />
           {/* 포스트가 없을 때 */}
           {hotPostData?.message === "NULL" ? (
-            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">게시물이 없습니다.</div>
+            <div className="p-3 text-3xl text-[orange] font-['BagelFatOne']">
+              게시물이 없습니다.
+            </div>
           ) : (
-            <PostPreview postData={hotPostData} />
+            <PostPreview postData={hotPostData}  />
           )}
           <div className="h-20" />
         </>

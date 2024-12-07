@@ -84,11 +84,10 @@ export default function DetailPostHeader({ postData }) {
         <img
           alt="profile_img"
           src={
-            postData?.profileUrl
-              ? postData.profileUrl
-              : `${
-                  import.meta.env.VITE_PUBLIC_URL
-                }/assets/images/profile_default.png`
+            postData?.profileUrl==="null"?`${
+                import.meta.env.VITE_PUBLIC_URL
+            }/assets/images/profile_default.png`:
+              postData?.profileUrl
           }
           className="rounded-full w-10 h-auto bg-white"
         />

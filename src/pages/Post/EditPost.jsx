@@ -81,7 +81,7 @@ export default function EditPost() {
         alert("게시물이 수정되었습니다.");
         nav(-1);
       }
-    } catch (error) {
+    } catch (e) {
       alert("게시물 수정 실패했습니다.다시 시도 해주세요.");
       nav(-1);
     }
