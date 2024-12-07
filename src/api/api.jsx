@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import https from "https"
 const api = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
   timeout: 1000,
@@ -7,6 +7,9 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
   withCredentials: true,
+  httpAgent: new https.Agent({
+    rejectUnauthorized: false,
+  }),
 });
 
 //요청 인터셉터

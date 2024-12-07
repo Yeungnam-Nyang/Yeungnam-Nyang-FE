@@ -10,7 +10,12 @@ import axios from "axios";
 
 export default function MyProfile() {
   const API_URL = import.meta.env.VITE_SERVER_URL;
+
   const defaultProfileImage = import.meta.env.PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+
+  const defaultProfileImage =
+    import.meta.env.PUBLIC_URL + "/assets/images/profile_default.png"; // 기본 이미지 경로 설정
+
 
   const [userId, setuserId] = useState("");
   const [profileURL, setprofileURL] = useState(defaultProfileImage); // 기본 이미지 설정
@@ -31,7 +36,6 @@ export default function MyProfile() {
         setschoolName(response.data.schoolName);
         setdepartmentName(response.data.departmentName);
         setstudentName(response.data.studentName);
-        console.log("서버 응답 데이터:", response.data); 
       } catch (error) {
         console.error("프로필 정보를 가져오는데 실패:", error);
         setError("프로필 정보를 가져오는 데 문제가 발생했습니다."); // 오류 메시지 설정
@@ -53,10 +57,9 @@ export default function MyProfile() {
   const handleProfileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-  
+
     const formData = new FormData();
     formData.append("imageFile", file);
-  
     try {
       await axios.put(`${API_URL}/api/user/profile/image-update`, formData, {
         headers: {
@@ -64,7 +67,6 @@ export default function MyProfile() {
           "Content-Type": "multipart/form-data",
         },
       });
-  
       // 최신 프로필 데이터 가져오기
       const response = await axios.get(`${API_URL}/api/user/profile`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -75,11 +77,6 @@ export default function MyProfile() {
       alert("프로필 사진 업데이트 중 오류가 발생했습니다.");
     }
   };
-  
-  
-  
-  
-
   return (
     <div className="my-profile-container">
       <Header />
@@ -90,7 +87,12 @@ export default function MyProfile() {
 
       <div className="profile-img profile-image-container">
         {/* 프로필 이미지 */}
-        <img src={profileURL} alt="Profile" className="profile-image" key={profileURL} />
+        <img
+          src={profileURL}
+          alt="Profile"
+          className="profile-image"
+          key={profileURL}
+        />
         <button
           className="profile-change-button"
           onClick={() => fileInputRef.current.click()} // 파일 입력창 열기
@@ -129,7 +131,6 @@ export default function MyProfile() {
           onClick={handleLogout}
         />
       </div>
-
       <NavBar />
     </div>
   );

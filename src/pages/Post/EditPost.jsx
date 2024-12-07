@@ -78,6 +78,7 @@ export default function EditPost() {
 
       const response = await onFileUpload(formData, "update");
       if (response && response.status === 200) {
+        alert("게시물이 수정되었습니다.");
         nav(-1);
       }
     } catch (error) {
