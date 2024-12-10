@@ -4,6 +4,7 @@ import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import Loading from "../common/Loading.jsx";
 import Error from "../common/Error.jsx";
+import {useEffect, useState} from "react";
 
 export default function PostPreview({ postData }) {
   //댓글 불러오기
@@ -14,11 +15,18 @@ export default function PostPreview({ postData }) {
   } = useFetch(`/api/comment/post/${postData?.postId}`);
 
   const nav = useNavigate();
+  const userId=localStorage.getItem("userId");
+    // 경로 판단
+    const path =
+        userId === postData?.userId
+            ? "/profile"
+            : `/friend/profile?friendId=${postData?.userId}`;
+
 
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
-      <section className="flex flex-row gap-4  items-center py-4 cursor-pointer">
+      <section className="flex flex-row gap-4  items-center py-4 cursor-pointer" onClick={()=>nav(path)}>
         <img
           alt="profile_img"
           src={
