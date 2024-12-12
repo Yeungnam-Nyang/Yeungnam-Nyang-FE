@@ -2,6 +2,8 @@ import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
+import Loading from "../common/Loading";
+import Error from "../common/Error";
 
 export default function PostPreview({ postData, userData }) {
   //댓글 불러오기
@@ -12,6 +14,8 @@ export default function PostPreview({ postData, userData }) {
   } = useFetch(`/api/comment/post/${postData?.postId}`);
 
   const nav = useNavigate();
+  if(commentError) return <Error/>
+  if(commentLoading) return <Loading/> 
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
