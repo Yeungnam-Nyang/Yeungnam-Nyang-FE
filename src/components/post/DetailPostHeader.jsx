@@ -14,10 +14,10 @@ export default function DetailPostHeader({ postData }) {
   const nav = useNavigate();
   //게시물 판단 불리언 값
   const myPost = async () => {
-    const response = await api.get(`/api/post/my/${postData?.postId}`);
-
-    //내 게시물인 경우
-    if (response.data.message === "TRUE") {
+    //로컬스토리지에서 내아이디 가져오기
+    const myuserId = localStorage.getItem("userId");
+    if (postData?.userId === myuserId) {
+      //내 게시물인 경우
       setOptions(myOptions);
     }
   };
@@ -85,9 +85,9 @@ export default function DetailPostHeader({ postData }) {
           alt="profile_img"
           src={
             postData?.profileUrl && postData.profileUrl !== "null"
-                ? postData.profileUrl // 유효한 프로필 URL
-                : `${
-                    import.meta.env.VITE_PUBLIC_URL
+              ? postData.profileUrl // 유효한 프로필 URL
+              : `${
+                  import.meta.env.VITE_PUBLIC_URL
                 }/assets/images/profile_default.png`
           }
           className="rounded-full w-10 h-auto bg-white"
