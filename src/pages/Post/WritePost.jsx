@@ -10,9 +10,9 @@ import { useGeoLocation } from "../../hooks/useGeoLocation";
 import { MdAddPhotoAlternate } from "react-icons/md";
 import { IoIosCloseCircle } from "react-icons/io";
 import { CiCirclePlus } from "react-icons/ci";
-import api from "../../api/api";
 import getAddressApi from "../../utils/getAddressApi";
 import { useNavigate } from "react-router-dom";
+import useLocationPermission from "../../hooks/useLocationPermission";
 export default function WritePost() {
   //게시물 작성 완료 시 이전 페이지 이동
   const nav = useNavigate();
@@ -22,11 +22,13 @@ export default function WritePost() {
   //버튼 클릭 유효성 검사
   const [isValid, setValid] = useState(false);
   //위치불러오기
-  const [requestLocation, setRequestLocation] = useState(false);
+  const [requestLocation, setRequestLocation] = useState(true);
   //위치 정보
   const [userLocation, setUserLocation] = useState("");
   //이미지 미리보기 위한 이미지 상태 저장
   const [imgFiles, setImgFiles] = useState([]);
+  //위치정보 허용유무
+  const { isLocationAllowed } = useLocationPermission();
 
   //useForm 라이브러리 사용
   const {
@@ -233,17 +235,34 @@ export default function WritePost() {
           <div className="flex gap-7 items-center">
             <label className="font-['Bungee'] text-2xl pr-6">LOC</label>
             <div className="w-full">
-              <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">
-                {userLocation === null
-                  ? "'위치 가져오기'버튼을 클릭해주세요."
-                  : `${userLocation}`}
-                <button
-                  className="text-sm flex rounded-3xl bg-orange text-white p-1"
-                  onClick={onhandleLocation}
-                >
-                  위치 가져오기
-                </button>
-              </div>
+              {/* 유저의 위치정보 허용여부 체크중 */}
+              {isLocationAllowed === null && (
+                <div className=" w-full ml-0 text-black">
+                  위치 권한확인중...
+                </div>
+              )}
+
+              {/* 유저의 위치정보 허용이 안되었을 떄 */}
+              {isLocationAllowed === false && (
+                <div className=" w-full ml-0 text-red-600">
+                  위치 권한이 거부되었습니다. 설정에서 위치 권한을 허용해주세요.
+                </div>
+              )}
+
+              {/* 유저의 위치정보 허용이 된 상태일 경우 */}
+              {isLocationAllowed === true && (
+                <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">
+                  {userLocation === null
+                    ? "'위치 가져오기'버튼을 클릭해주세요."
+                    : `${userLocation}`}
+                  <button
+                    className="text-sm flex rounded-3xl bg-orange text-white p-1"
+                    onClick={onhandleLocation}
+                  >
+                    위치 가져오기
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </section>
