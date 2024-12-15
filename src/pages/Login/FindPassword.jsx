@@ -3,6 +3,7 @@ import Logo from '../../components/common/Logo';
 import Button from "../../components/common/Button";
 import './FindPassword.css';
 import axios from 'axios';
+import Wrapper from '../../components/common/Wrapper';
 
 export default function FindPassword() {
   const [userId, setUserId] = useState("");
@@ -40,7 +41,7 @@ export default function FindPassword() {
   };
 
   return (
-    <>
+    <Wrapper>
       <div className='Find-Container'>
         <Logo />
         <h2 className='Find-tittle'>FIND PW</h2>
@@ -83,6 +84,6 @@ export default function FindPassword() {
           </div>
         </div>
       )}
-    </>
+    </Wrapper>
   );
 }

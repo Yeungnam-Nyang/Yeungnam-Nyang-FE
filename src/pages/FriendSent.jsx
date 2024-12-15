@@ -8,6 +8,7 @@ import Loading from "../components/common/Loading.jsx";
 import { FaCircleXmark} from "react-icons/fa6";
 import NavBar from "../components/common/NavBar.jsx";
 import {useNavigate} from "react-router-dom";
+import Wrapper from "../components/common/Wrapper.jsx";
 
 export default function FriendSent(){
     const nav=useNavigate();
@@ -66,7 +67,7 @@ export default function FriendSent(){
     if(requestLoading)return <Loading/>
 
     return(
-        <>
+        <Wrapper>
             <Header/>
             <div className="h-20"></div>
             <Title text="FriendManager"/>
@@ -115,6 +116,6 @@ export default function FriendSent(){
             </h1>}
 
             <NavBar/>
-        </>
+        </Wrapper>
     )
 }

@@ -1,6 +1,7 @@
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
 import Title from "../components/common/Title";
+import Wrapper from "../components/common/Wrapper";
 import KakoMap from "../components/nyangmap/KakaoMap";
 import NyangBox from "../components/nyangmap/NyangBox";
 import useLocationPermission from "../hooks/useLocationPermission";
@@ -11,7 +12,7 @@ export default function CatsMap() {
   //위치 정보 허용여부
   const { isLocationAllowed } = useLocationPermission();
   return (
-    <div>
+    <Wrapper>
       <Header />
       <div className="h-20"></div>
       <Title text={"NYANG MAP"} />
@@ -46,6 +47,6 @@ export default function CatsMap() {
         )}
       </main>
       <NavBar />
-    </div>
+    </Wrapper>
   );
 }

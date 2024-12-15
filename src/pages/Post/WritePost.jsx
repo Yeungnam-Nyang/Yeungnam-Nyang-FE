@@ -13,6 +13,7 @@ import { CiCirclePlus } from "react-icons/ci";
 import getAddressApi from "../../utils/getAddressApi";
 import { useNavigate } from "react-router-dom";
 import useLocationPermission from "../../hooks/useLocationPermission";
+import Wrapper from "../../components/common/Wrapper";
 export default function WritePost() {
   //게시물 작성 완료 시 이전 페이지 이동
   const nav = useNavigate();
@@ -133,142 +134,145 @@ export default function WritePost() {
     inputFileRef.current.click();
   };
   return (
-    <div className="pb-24">
-      <Header />
-      <div className="h-20"></div>
-      <Title text="POST" />
+    <Wrapper>
+      <div className="pb-24">
+        <Header />
+        <div className="h-20"></div>
+        <Title text="POST" />
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="flex flex-col items-center w-11/12 bg-white h-auto m-auto rounded-3xl ">
-          {imgFiles.length > 0 ? (
-            <div>
-              {imgFiles.map((file, idx) => (
-                <div
-                  key={idx}
-                  className="flex flex-col items-center p-10 relative"
-                >
-                  <img
-                    className="w-full h-auto object-cover rounded"
-                    src={file}
-                    alt={`이미지 미리보기-${idx}`}
-                  />
-                  <IoIosCloseCircle
-                    size={25}
-                    color="red"
-                    onClick={() => handelDeleteImage(idx)}
-                    className="absolute top-12 right-12 cursor-pointer"
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col items-center w-11/12 bg-white h-auto m-auto rounded-3xl ">
+            {imgFiles.length > 0 ? (
+              <div>
+                {imgFiles.map((file, idx) => (
+                  <div
+                    key={idx}
+                    className="flex flex-col items-center p-10 relative"
                   >
-                    X
-                  </IoIosCloseCircle>
-                </div>
-              ))}
+                    <img
+                      className="w-full h-auto object-cover rounded"
+                      src={file}
+                      alt={`이미지 미리보기-${idx}`}
+                    />
+                    <IoIosCloseCircle
+                      size={25}
+                      color="red"
+                      onClick={() => handelDeleteImage(idx)}
+                      className="absolute top-12 right-12 cursor-pointer"
+                    >
+                      X
+                    </IoIosCloseCircle>
+                  </div>
+                ))}
 
-              <CiCirclePlus
-                className="my-auto mx-auto mb-4 cursor-pointer"
-                size={60}
-                type="button"
-                onClick={handleCustomFileClick}
-              />
-              <input
-                ref={inputFileRef}
-                className="hidden"
-                type="file"
-                accept="image/jpg, image/png, image/jpeg"
-                multiple
-                onChange={handleFileUpload}
-              />
-            </div>
-          ) : (
-            <div className="flex w-11/12 bg-white h-[600px] m-auto rounded-3xl ">
-              <div className="my-auto mx-auto">
-                <MdAddPhotoAlternate
-                  className="cursor-pointer"
+                <CiCirclePlus
+                  className="my-auto mx-auto mb-4 cursor-pointer"
                   size={60}
                   type="button"
                   onClick={handleCustomFileClick}
                 />
+                <input
+                  ref={inputFileRef}
+                  className="hidden"
+                  type="file"
+                  accept="image/jpg, image/png, image/jpeg"
+                  multiple
+                  onChange={handleFileUpload}
+                />
               </div>
+            ) : (
+              <div className="flex w-11/12 bg-white h-[600px] m-auto rounded-3xl ">
+                <div className="my-auto mx-auto">
+                  <MdAddPhotoAlternate
+                    className="cursor-pointer"
+                    size={60}
+                    type="button"
+                    onClick={handleCustomFileClick}
+                  />
+                </div>
 
+                <input
+                  ref={inputFileRef}
+                  className="hidden"
+                  type="file"
+                  accept="image/jpg, image/png, image/jpeg"
+                  multiple
+                  onChange={handleFileUpload}
+                />
+              </div>
+            )}
+          </div>
+          <section className="w-11/12 m-auto space-y-4 mt-4 mb-14">
+            <div className="flex gap-4 items-center ">
+              <label className="font-['Bungee'] text-2xl">NAME</label>
               <input
-                ref={inputFileRef}
-                className="hidden"
-                type="file"
-                accept="image/jpg, image/png, image/jpeg"
-                multiple
-                onChange={handleFileUpload}
-              />
+                id="catName"
+                type="text"
+                placeholder="고양이 이름을 입력하세요."
+                className=" text-sm p-3 w-11/12 ml-0 text-black rounded-3xl shadow-lg mx-auto"
+                {...register("catName", {
+                  minLength: {
+                    value: 1,
+                    message: "1자리 이상 고양이 이름을 입력해 주세요.",
+                  },
+                  required: "필수 입력 칸입니다.",
+                })}
+              ></input>
             </div>
-          )}
-        </div>
-        <section className="w-11/12 m-auto space-y-4 mt-4 mb-14">
-          <div className="flex gap-4 items-center ">
-            <label className="font-['Bungee'] text-2xl">NAME</label>
-            <input
-              id="catName"
-              type="text"
-              placeholder="고양이 이름을 입력하세요."
-              className=" text-sm p-3 w-11/12 ml-0 text-black rounded-3xl shadow-lg mx-auto"
-              {...register("catName", {
-                minLength: {
-                  value: 1,
-                  message: "1자리 이상 고양이 이름을 입력해 주세요.",
-                },
-                required: "필수 입력 칸입니다.",
-              })}
-            ></input>
-          </div>
-          <div className="flex gap-7 items-center">
-            <label className="font-['Bungee'] text-2xl pr-6">DES</label>
-            <textarea
-              type="text"
-              className="text-sm p-3 h-32 w-11/12 ml-0 text-black rounded-3xl shadow-lg resize-none"
-              placeholder="고양이를 설명해주세요."
-              {...register("content", {
-                minLength: {
-                  value: 1,
-                  message: "1자리 이상 내용을 작성해 주세요.",
-                },
-                required: "필수 입력 칸입니다.",
-              })}
-            ></textarea>
-          </div>
-          <div className="flex gap-7 items-center">
-            <label className="font-['Bungee'] text-2xl pr-6">LOC</label>
-            <div className="w-full">
-              {/* 유저의 위치정보 허용여부 체크중 */}
-              {isLocationAllowed === null && (
-                <div className=" w-full ml-0 text-black">
-                  위치 권한확인중...
-                </div>
-              )}
-
-              {/* 유저의 위치정보 허용이 안되었을 떄 */}
-              {isLocationAllowed === false && (
-                <div className=" w-full ml-0 text-red-600">
-                  위치 권한이 거부되었습니다. 설정에서 위치 권한을 허용해주세요.
-                </div>
-              )}
-
-              {/* 유저의 위치정보 허용이 된 상태일 경우 */}
-              {isLocationAllowed === true && (
-                <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">
-                  {userLocation === null
-                    ? "'위치 가져오기'버튼을 클릭해주세요."
-                    : `${userLocation}`}
-                  <button
-                    className="text-sm flex rounded-3xl bg-orange text-white p-1"
-                    onClick={onhandleLocation}
-                  >
-                    위치 가져오기
-                  </button>
-                </div>
-              )}
+            <div className="flex gap-7 items-center">
+              <label className="font-['Bungee'] text-2xl pr-6">DES</label>
+              <textarea
+                type="text"
+                className="text-sm p-3 h-32 w-11/12 ml-0 text-black rounded-3xl shadow-lg resize-none"
+                placeholder="고양이를 설명해주세요."
+                {...register("content", {
+                  minLength: {
+                    value: 1,
+                    message: "1자리 이상 내용을 작성해 주세요.",
+                  },
+                  required: "필수 입력 칸입니다.",
+                })}
+              ></textarea>
             </div>
-          </div>
-        </section>
-        <Button type={"submit"} text={"등록하기"} isValid={isValid} />
-      </form>
-      <NavBar />
-    </div>
+            <div className="flex gap-7 items-center">
+              <label className="font-['Bungee'] text-2xl pr-6">LOC</label>
+              <div className="w-full">
+                {/* 유저의 위치정보 허용여부 체크중 */}
+                {isLocationAllowed === null && (
+                  <div className=" w-full ml-0 text-black">
+                    위치 권한확인중...
+                  </div>
+                )}
+
+                {/* 유저의 위치정보 허용이 안되었을 떄 */}
+                {isLocationAllowed === false && (
+                  <div className=" w-full ml-0 text-red-600">
+                    위치 권한이 거부되었습니다. 설정에서 위치 권한을
+                    허용해주세요.
+                  </div>
+                )}
+
+                {/* 유저의 위치정보 허용이 된 상태일 경우 */}
+                {isLocationAllowed === true && (
+                  <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">
+                    {userLocation === null
+                      ? "'위치 가져오기'버튼을 클릭해주세요."
+                      : `${userLocation}`}
+                    <button
+                      className="text-sm flex rounded-3xl bg-orange text-white p-1"
+                      onClick={onhandleLocation}
+                    >
+                      위치 가져오기
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+          <Button type={"submit"} text={"등록하기"} isValid={isValid} />
+        </form>
+        <NavBar />
+      </div>
+    </Wrapper>
   );
 }

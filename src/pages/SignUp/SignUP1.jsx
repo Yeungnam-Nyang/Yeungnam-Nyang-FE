@@ -3,6 +3,7 @@ import Logo from '../../components/common/Logo';
 import Button from "../../components/common/Button";
 import { useNavigate } from 'react-router-dom';
 import './SignUp1.css';
+import Wrapper from '../../components/common/Wrapper';
 
 export default function SignUp1() {
   const [schoolName, setSchoolName] = useState('');
@@ -59,7 +60,7 @@ export default function SignUp1() {
   }, [SchoolNameValid, StudentIdValid, NameValid, DepartmentNameValid]);
 
   return (
-    <>
+    <Wrapper>
       <div className="signup-container">
         <Logo className='logo'/>
         <h2 className='signup-title'>SIGN UP</h2>
@@ -118,6 +119,6 @@ export default function SignUp1() {
         
         <Button text={"다음"} isValid={isValid} onClick={onClick} className='button'/>
       </div>
-    </>
+    </Wrapper>
   );
 }
