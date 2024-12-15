@@ -3,6 +3,7 @@ import Logo from '../../components/common/Logo';
 import Button from "../../components/common/Button";
 import './FindPassword.css';
 import axios from 'axios';
+import Wrapper from '../../components/common/Wrapper';
 
 export default function FindPassword() {
   const [userId, setUserId] = useState("");
@@ -36,12 +37,11 @@ export default function FindPassword() {
       setShowPopup(true); // 팝업 띄우기
     } catch (error) {
       alert('정보를 확인해주세요. 오류가 발생했습니다.');
-      console.error(error);
     }
   };
 
   return (
-    <>
+    <Wrapper>
       <div className='Find-Container'>
         <Logo />
         <h2 className='Find-tittle'>FIND PW</h2>
@@ -84,6 +84,6 @@ export default function FindPassword() {
           </div>
         </div>
       )}
-    </>
+    </Wrapper>
   );
 }

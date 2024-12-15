@@ -8,6 +8,7 @@ import Loading from "../components/common/Loading";
 import { useQuery } from "react-query";
 import api from "../api/api";
 import {useNavigate} from "react-router-dom";
+import Wrapper from "../components/common/Wrapper";
 
 export default function Friend() {
   //친구목록 가져오기
@@ -19,10 +20,10 @@ export default function Friend() {
   } = useQuery(["friends"], () =>
     api.get("/api/friend/list").then((res) => res.data)
   );
-console.log(friendList);
+
   const nav=useNavigate();
   return (
-    <>
+    <Wrapper>
       <Header />
       <div className="h-20"></div>
       <Title text="FRIEND" />
@@ -58,6 +59,6 @@ console.log(friendList);
         </>
       )}
       <NavBar />
-    </>
+    </Wrapper>
   );
 }

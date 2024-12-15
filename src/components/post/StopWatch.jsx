@@ -164,7 +164,6 @@ export default function StopWatch({ postData }) {
       setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       play();
     } catch (error) {
-      console.error("급식 업데이트 실패:", error);
       setIsFeeding(false);
     }
   };

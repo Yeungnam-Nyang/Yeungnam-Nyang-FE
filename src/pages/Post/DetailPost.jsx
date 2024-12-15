@@ -17,6 +17,7 @@ import api from "../../api/api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useCommentInputStore } from "../../store/commentInputStore";
 import StopWatch from "../../components/post/StopWatch";
+import Wrapper from "../../components/common/Wrapper";
 export default function DetailPost() {
   //zustand에서 input값 가져오기
   const { inputText, clearInputText } = useCommentInputStore();
@@ -111,49 +112,51 @@ export default function DetailPost() {
 
   const str = postData?.postDate.substring(0, 10);
   return (
-    <div className="pb-24">
-      <Header />
-      <div className="h-20"></div>
-      {loading ? (
-        <Loading />
-      ) : error ? (
-        <Error />
-      ) : (
-        <>
-          <Title text={"POST"} />
-          <div className="gap-3 flex items-center px-4 py-1">
-            <MdDateRange size={25} />
-            <p className=" font-bold text-zinc-500">{str}</p>
-          </div>
-          <div className="gap-3 flex items-center px-4 py-1">
-            <FaLocationDot size={25} />
-            <p className="font-bold text-zinc-500">{postData?.address}</p>
-          </div>
-          <DetailPostHeader postData={postData} />
-          <DetailPostImage postData={postData} />
-          <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
-          <DetailPostContent postData={postData} />
-          <StopWatch postData={postData} />
-          <div className="flex justify-between pb-8">
-            <Title text={"COMMENT"} />
-            <button
-              onClick={() => toggleInput()}
-              className="hover:scale-125 duration-500 px-5"
-            >
-              <FaPen size={25} color="#000000" />
-            </button>
-          </div>
-          <DetailPostComment commentData={data} postId={id} />
-        </>
-      )}
-      {isInputOpen ? (
-        <DetailPostCommentInput
-          postId={postData?.postId}
-          onClick={writeComment}
-        />
-      ) : (
-        <NavBar />
-      )}
-    </div>
+    <Wrapper>
+      <div className="pb-24">
+        <Header />
+        <div className="h-20"></div>
+        {loading ? (
+          <Loading />
+        ) : error ? (
+          <Error />
+        ) : (
+          <>
+            <Title text={"POST"} />
+            <div className="gap-3 flex items-center px-4 py-1">
+              <MdDateRange size={25} />
+              <p className=" font-bold text-zinc-500">{str}</p>
+            </div>
+            <div className="gap-3 flex items-center px-4 py-1">
+              <FaLocationDot size={25} />
+              <p className="font-bold text-zinc-500">{postData?.address}</p>
+            </div>
+            <DetailPostHeader postData={postData} />
+            <DetailPostImage postData={postData} />
+            <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
+            <DetailPostContent postData={postData} />
+            <StopWatch postData={postData} />
+            <div className="flex justify-between pb-8">
+              <Title text={"COMMENT"} />
+              <button
+                onClick={() => toggleInput()}
+                className="hover:scale-125 duration-500 px-5"
+              >
+                <FaPen size={25} color="#000000" />
+              </button>
+            </div>
+            <DetailPostComment commentData={data} postId={id} />
+          </>
+        )}
+        {isInputOpen ? (
+          <DetailPostCommentInput
+            postId={postData?.postId}
+            onClick={writeComment}
+          />
+        ) : (
+          <NavBar />
+        )}
+      </div>
+    </Wrapper>
   );
 }

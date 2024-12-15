@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Logo from '../../components/common/Logo';
 import Button from "../../components/common/Button";
 import './FindId.css';
+import Wrapper from '../../components/common/Wrapper';
 
 function Popup({ name, id, onClose }) {
   return (
@@ -49,7 +50,6 @@ export default function FindId() {
         alert('입력한 정보가 일치하지 않습니다.'); // 사용자에게 오류 메시지 표시
       }
     } catch (error) {
-      console.error('서버와의 통신 중 오류 발생:', error);
       alert('서버와의 통신 중 오류가 발생했습니다.');
     }
   };
@@ -59,7 +59,7 @@ export default function FindId() {
   };
 
   return (
-    <>
+    <Wrapper>
       <div className='Find-Container'>
         <Logo />
         <h2 className='Find-tittle'>FIND ID</h2>
@@ -88,7 +88,7 @@ export default function FindId() {
       </div>
       
       {showPopup && <Popup name={name} id={userId} onClose={handleClosePopup} />}
-    </>
+    </Wrapper>
   );
 }
   

@@ -1,7 +1,6 @@
 import { CustomOverlayMap } from "react-kakao-maps-sdk";
 
 export default function CatMarker({ post, onClick }) {
-  console.log(post);
   return (
     <CustomOverlayMap position={{ lat: post.latitude, lng: post.longitude }}>
       <div className="group cursor-pointer animate-bounce" onClick={onClick}>

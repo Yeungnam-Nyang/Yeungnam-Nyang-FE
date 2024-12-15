@@ -65,7 +65,6 @@ const useFileUpload = (type, id) => {
       }
     } catch (err) {
       alert("게시물 게시 또는 수정 실패");
-      console.error(err);
       setError(err);
     }
   };

@@ -1,12 +1,11 @@
-import Button from "../components/common/Button";
 import Error from "../components/common/Error";
 import Header from "../components/common/Header";
 import Loading from "../components/common/Loading";
 import NavBar from "../components/common/NavBar";
 import Title from "../components/common/Title";
+import Wrapper from "../components/common/Wrapper";
 import PostPreview from "../components/main/PostPreview";
 import useFetch from "../hooks/useFetch";
-import { MdOutlineReportGmailerrorred } from "react-icons/md";
 
 export default function Main() {
   //게시물 정보 가져오기
@@ -25,7 +24,7 @@ export default function Main() {
   const error = newPostError || hotPostError;
 
   return (
-    <>
+    <Wrapper>
       <Header />
       {error ? (
         <Error />
@@ -58,6 +57,6 @@ export default function Main() {
         </>
       )}
       <NavBar />
-    </>
+    </Wrapper>
   );
 }

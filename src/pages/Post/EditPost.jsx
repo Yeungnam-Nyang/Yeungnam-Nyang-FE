@@ -15,6 +15,7 @@ import Button from "../../components/common/Button.jsx";
 import useFileUpload from "../../hooks/useFileUpload.jsx";
 import NavBar from "../../components/common/NavBar.jsx";
 import getAddressApi from "../../utils/getAddressApi.js";
+import Wrapper from "../../components/common/Wrapper.jsx";
 export default function EditPost() {
   const { id } = useParams();
   //이미지
@@ -91,23 +92,15 @@ export default function EditPost() {
   const onhandleLocation = async (e) => {
     e.preventDefault();
 
-    try {
-      await getLocation(); // 위치 가져오기 시도
-      setUserLocation(false);
-    } catch (error) {
-      console.error("위치 정보를 가져오는 중 오류 발생:", error);
-    }
+    await getLocation(); // 위치 가져오기 시도
+    setUserLocation(false);
   };
   // 위치 정보가 업데이트될 때 주소를 가져오도록 useEffect 설정
   useEffect(() => {
     const fetchAddress = async () => {
       if (location) {
-        try {
-          const address = await getAddressApi({ location });
-          setUserLocation(address);
-        } catch (error) {
-          console.error("주소 정보를 가져오는 중 오류 발생:", error);
-        }
+        const address = await getAddressApi({ location });
+        setUserLocation(address);
       }
     };
     fetchAddress();
@@ -156,141 +149,143 @@ export default function EditPost() {
   }, [errors, locationError, images, uploadError, formValid, postError]);
 
   return (
-    <div className="pb-24">
-      <Header />
-      <div className="h-20"></div>
-      <Title text={"EDIT"} />
-      {!isValid ? (
-        <Error />
-      ) : postLoading ? (
-        <Loading />
-      ) : (
-        postData && (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col items-center w-11/12 bg-white h-auto m-auto rounded-3xl ">
-              {/* 이미지 */}
-              {images?.length > 0 ? (
-                <div>
-                  {images?.map((file, idx) => (
-                    <div
-                      key={idx}
-                      className="flex flex-col items-center p-10 relative"
-                    >
-                      {file instanceof File ? (
-                        <img
-                          alt={`이미지 미리보기-${idx}`}
-                          className="w-full h-auto object-cover rounded"
-                          src={URL.createObjectURL(file)}
+    <Wrapper>
+      <div className="pb-24">
+        <Header />
+        <div className="h-20"></div>
+        <Title text={"EDIT"} />
+        {!isValid ? (
+          <Error />
+        ) : postLoading ? (
+          <Loading />
+        ) : (
+          postData && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="flex flex-col items-center w-11/12 bg-white h-auto m-auto rounded-3xl ">
+                {/* 이미지 */}
+                {images?.length > 0 ? (
+                  <div>
+                    {images?.map((file, idx) => (
+                      <div
+                        key={idx}
+                        className="flex flex-col items-center p-10 relative"
+                      >
+                        {file instanceof File ? (
+                          <img
+                            alt={`이미지 미리보기-${idx}`}
+                            className="w-full h-auto object-cover rounded"
+                            src={URL.createObjectURL(file)}
+                          />
+                        ) : (
+                          <img
+                            alt={`이미지 미리보기-${idx}`}
+                            className="w-full h-auto object-cover rounded"
+                            src={file}
+                          />
+                        )}
+                        <IoIosCloseCircle
+                          size={25}
+                          color="red"
+                          onClick={() => handleDeleteImage(idx)}
+                          className="absolute top-12 right-12 cursor-pointer"
                         />
-                      ) : (
-                        <img
-                          alt={`이미지 미리보기-${idx}`}
-                          className="w-full h-auto object-cover rounded"
-                          src={file}
-                        />
-                      )}
-                      <IoIosCloseCircle
-                        size={25}
-                        color="red"
-                        onClick={() => handleDeleteImage(idx)}
-                        className="absolute top-12 right-12 cursor-pointer"
-                      />
-                    </div>
-                  ))}
-                  <CiCirclePlus
-                    className="my-auto mx-auto mb-4 cursor-pointer"
-                    size={60}
-                    type="button"
-                    onClick={handleCustomFileClick}
-                  />
-                  <input
-                    ref={inputFileRef}
-                    type="file"
-                    accept="image/jpg, image/png, image/jpeg"
-                    multiple
-                    onChange={handleFileUpload}
-                    className="hidden"
-                  />
-                </div>
-              ) : (
-                <div className="flex w-11/12 bg-white h-[600px] m-auto rounded-3xl ">
-                  <div className="my-auto mx-auto">
-                    <MdAddPhotoAlternate
-                      className="cursor-pointer"
+                      </div>
+                    ))}
+                    <CiCirclePlus
+                      className="my-auto mx-auto mb-4 cursor-pointer"
                       size={60}
                       type="button"
                       onClick={handleCustomFileClick}
                     />
+                    <input
+                      ref={inputFileRef}
+                      type="file"
+                      accept="image/jpg, image/png, image/jpeg"
+                      multiple
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
                   </div>
+                ) : (
+                  <div className="flex w-11/12 bg-white h-[600px] m-auto rounded-3xl ">
+                    <div className="my-auto mx-auto">
+                      <MdAddPhotoAlternate
+                        className="cursor-pointer"
+                        size={60}
+                        type="button"
+                        onClick={handleCustomFileClick}
+                      />
+                    </div>
 
+                    <input
+                      ref={inputFileRef}
+                      className="hidden"
+                      type="file"
+                      accept="image/jpg, image/png, image/jpeg"
+                      multiple
+                      onChange={handleFileUpload}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* 텍스트 입력 */}
+              <section className="w-11/12 m-auto space-y-4 mt-4 mb-14">
+                <div className="flex gap-4 items-center">
+                  <label className="font-['Bungee'] text-2xl">NAME</label>
                   <input
-                    ref={inputFileRef}
-                    className="hidden"
-                    type="file"
-                    accept="image/jpg, image/png, image/jpeg"
-                    multiple
-                    onChange={handleFileUpload}
+                    id="catName"
+                    type="text"
+                    placeholder="고양이 이름을 입력하세요."
+                    className="text-sm p-3 w-11/12 ml-0 text-black rounded-3xl shadow-lg mx-auto"
+                    {...register("catName", {
+                      minLength: {
+                        value: 1,
+                        message: "1자리 이상 고양이 이름을 입력해 주세요.",
+                      },
+                      required: "필수 입력 칸입니다.",
+                    })}
                   />
                 </div>
-              )}
-            </div>
-
-            {/* 텍스트 입력 */}
-            <section className="w-11/12 m-auto space-y-4 mt-4 mb-14">
-              <div className="flex gap-4 items-center">
-                <label className="font-['Bungee'] text-2xl">NAME</label>
-                <input
-                  id="catName"
-                  type="text"
-                  placeholder="고양이 이름을 입력하세요."
-                  className="text-sm p-3 w-11/12 ml-0 text-black rounded-3xl shadow-lg mx-auto"
-                  {...register("catName", {
-                    minLength: {
-                      value: 1,
-                      message: "1자리 이상 고양이 이름을 입력해 주세요.",
-                    },
-                    required: "필수 입력 칸입니다.",
-                  })}
-                />
-              </div>
-              <div className="flex gap-7 items-center">
-                <label className="font-['Bungee'] text-2xl pr-6">DES</label>
-                <textarea
-                  type="text"
-                  className="text-sm p-3 h-32 w-11/12 ml-0 text-black rounded-3xl shadow-lg resize-none"
-                  placeholder="고양이를 설명해주세요."
-                  {...register("content", {
-                    minLength: {
-                      value: 1,
-                      message: "1자리 이상 내용을 작성해 주세요.",
-                    },
-                    required: "필수 입력 칸입니다.",
-                  })}
-                ></textarea>
-              </div>
-              <div className="flex gap-7 items-center">
-                <label className="font-['Bungee'] text-2xl pr-6">LOC</label>
-                <div className="w-full">
-                  <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">
-                    {prevLocation ? userLocation : location}
-                    <button
-                      className="text-sm flex rounded-3xl bg-orange text-white p-1"
-                      onClick={onhandleLocation}
-                      type="button"
-                    >
-                      위치 가져오기
-                    </button>
+                <div className="flex gap-7 items-center">
+                  <label className="font-['Bungee'] text-2xl pr-6">DES</label>
+                  <textarea
+                    type="text"
+                    className="text-sm p-3 h-32 w-11/12 ml-0 text-black rounded-3xl shadow-lg resize-none"
+                    placeholder="고양이를 설명해주세요."
+                    {...register("content", {
+                      minLength: {
+                        value: 1,
+                        message: "1자리 이상 내용을 작성해 주세요.",
+                      },
+                      required: "필수 입력 칸입니다.",
+                    })}
+                  ></textarea>
+                </div>
+                <div className="flex gap-7 items-center">
+                  <label className="font-['Bungee'] text-2xl pr-6">LOC</label>
+                  <div className="w-full">
+                    <div className="text-sm p-3 w-full ml-0 text-slate-400 rounded-3xl shadow-lg bg-white flex justify-between items-center">
+                      {prevLocation ? userLocation : location}
+                      <button
+                        className="text-sm flex rounded-3xl bg-orange text-white p-1"
+                        onClick={onhandleLocation}
+                        type="button"
+                      >
+                        위치 가져오기
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </section>
+              </section>
 
-            {/* 제출 버튼 */}
-            <Button type="submit" text="등록하기" isValid={formValid} />
-          </form>
-        )
-      )}
-      <NavBar />
-    </div>
+              {/* 제출 버튼 */}
+              <Button type="submit" text="등록하기" isValid={formValid} />
+            </form>
+          )
+        )}
+        <NavBar />
+      </div>
+    </Wrapper>
   );
 }
