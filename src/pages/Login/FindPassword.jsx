@@ -36,7 +36,6 @@ export default function FindPassword() {
       setShowPopup(true); // 팝업 띄우기
     } catch (error) {
       alert('정보를 확인해주세요. 오류가 발생했습니다.');
-      console.error(error);
     }
   };
 
