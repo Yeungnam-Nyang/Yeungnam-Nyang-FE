@@ -12,8 +12,8 @@ Yeungnam Nyang frontend repository
 | :white_check_mark: | test | 테스트 코드 추가/수정 |
 | :pushpin: | chore | 패키지 매니저 수정, 그 외 기타 수정 ex) .gitignore |
 
-# Architecture
-## 폴더 구조
+# 🔨Architecture
+## 📂폴더 구조
 <details>
   <summary>Yeungnam-Nyang-FE</summary>
 
@@ -118,10 +118,13 @@ Yeungnam Nyang frontend repository
 </details>
 
 
-## 서비스 흐름도
+## 🚚서비스 흐름도
 
 ![제목 없는 다이어그램 drawio](https://github.com/user-attachments/assets/64c58c07-4701-41a0-993e-807f700ca593)
 
-## system architecture
+## ⚙️system architecture
+
+![영남냥-아키텍쳐1 drawio](https://github.com/user-attachments/assets/cb7d33a9-f236-4748-8dd1-572aecdfabbc)
+
 
 
