@@ -33,19 +33,33 @@
   margin-bottom: 0.2rem;
   margin-top: 0.625rem;
 }
-.Select{
+.Select {
+  position: relative;
   width: 85%;
-padding: 1.25rem;
-font-size: 1rem;
-border-radius: 3rem;
-border: 1px solid #676767; /* 경계선 색상 설정 */
-background-color: #fff;
-color: #333;
-cursor: pointer;
-outline: none;
-margin-bottom:0.625rem;
-margin-top: 0.625rem;
+  padding: 1.25rem;
+  font-size: 1rem;
+  border-radius: 3rem;
+  border: 1px solid #676767;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  margin-bottom: 0.625rem;
+  margin-top: 0.625rem;
+
+  /* 기본 스타일 제거 */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  
 }
+@media (max-width: 85%) {
+  .Select {
+    padding: 1rem 2rem 1rem 1rem;  /* 모바일에서 적당히 패딩을 조정 */
+    font-size: 1rem;  /* 폰트 크기 확인 */
+  }}
+
 
 .ID{
   width: 85%;
