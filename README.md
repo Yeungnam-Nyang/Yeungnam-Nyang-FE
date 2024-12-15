@@ -9,7 +9,7 @@
 ## 🚀 사이트 접속 : https://yeungnam-nyang.site
 
 ## 📖목차
-## 📖 목차
+
 1. [개요](#개요)
 2. [팀원](#팀원)
 3. [Architecture](#architecture)
