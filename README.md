@@ -1,5 +1,31 @@
-# Yeungnam-Nyang-FE
-Yeungnam Nyang frontend repository
+
+<div align="center">
+  <image src="https://github.com/user-attachments/assets/bf72d344-d32c-4505-9ac8-5a24a35e1d93" width="70%"></image>
+</div>
+
+# Yeungnam-Nyang
+영남대 고양이와 함께 고양이의 사소한 일상을 공유해주세요.
+
+## 🚀 사이트 접속 : https://yeungnam-nyang.site
+
+## 📖목차
+## 📖 목차
+1. [개요](#개요)
+2. [팀원](#팀원)
+3. [Architecture](#architecture)
+   1. [폴더 구조](#폴더-구조)
+   2. [서비스 흐름도](#서비스-흐름도)
+   3. [System Architecture](#system-architecture)
+
+
+      
+## 개요
+`Yeungnam-Nyang(영남냥)`은 영남대학교 길고양이들의 모습을 주변 친구들과 공유하며 자신의 고양이에 이름을 붙여줄 수 있습니다. <br>
+사용자의 현재위치를 기반으로 200m근방의 고양이 게시물을 마커형태로 확인할 수 있습니다.
+
+
+## 팀원
+
 ### 커밋 메시지
 
 | emoji | message | description |
