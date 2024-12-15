@@ -35,7 +35,7 @@ export default function KakoMap() {
         await getLocation();
         setLoading(false);
       } catch (err) {
-        console.error("위치를 가져오는 데 실패했습니다.", err);
+      
         setError(true);
         setLoading(false);
       }
@@ -49,13 +49,6 @@ export default function KakoMap() {
     await getLocation();
     setLoading(false);
     // 위치가 null인지 확인
-    if (location) {
-      console.log(location);
-      const { latitude, longitude } = location || defaultLocation;
-      console.log(latitude, longitude);
-    } else {
-      console.error("위치를 가져오는 데 실패했습니다.", error);
-    }
   };
 
   // useFetch 대신 useEffect 사용
@@ -80,7 +73,7 @@ export default function KakoMap() {
   }, [location, setPostsCount]);
 
   if (locationError || error) {
-    console.error("위치 오류:", error);
+   
     return <Error />;
   }
   if (loading) {

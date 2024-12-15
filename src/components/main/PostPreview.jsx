@@ -4,8 +4,6 @@ import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
 import Loading from "../common/Loading.jsx";
 import Error from "../common/Error.jsx";
-import {useEffect, useState} from "react";
-
 
 export default function PostPreview({ postData }) {
   //댓글 불러오기

@@ -91,23 +91,15 @@ export default function EditPost() {
   const onhandleLocation = async (e) => {
     e.preventDefault();
 
-    try {
-      await getLocation(); // 위치 가져오기 시도
-      setUserLocation(false);
-    } catch (error) {
-      console.error("위치 정보를 가져오는 중 오류 발생:", error);
-    }
+    await getLocation(); // 위치 가져오기 시도
+    setUserLocation(false);
   };
   // 위치 정보가 업데이트될 때 주소를 가져오도록 useEffect 설정
   useEffect(() => {
     const fetchAddress = async () => {
       if (location) {
-        try {
-          const address = await getAddressApi({ location });
-          setUserLocation(address);
-        } catch (error) {
-          console.error("주소 정보를 가져오는 중 오류 발생:", error);
-        }
+        const address = await getAddressApi({ location });
+        setUserLocation(address);
       }
     };
     fetchAddress();

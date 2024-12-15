@@ -44,7 +44,6 @@ export default function FriendProfile() {
         setIsLoading(false);
       })
       .catch((error) => {
-        console.error("프로필 데이터를 가져오는 중 오류 발생:", error);
         setError("프로필 데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.");
         setIsLoading(false);
       });
@@ -54,7 +53,7 @@ export default function FriendProfile() {
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
-  console.log(profile);
+
   return (
     <div className="my-profile-container">
       <Header />

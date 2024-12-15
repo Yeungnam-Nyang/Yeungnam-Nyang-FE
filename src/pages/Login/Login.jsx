@@ -32,7 +32,7 @@ export default function Login() {
         nav("/main");
       } catch (error) {
         // 로그인 실패 시 메시지
-        console.error(error);
+        alert("아이디 혹은 비밀번호를 다시 확인해 주세요!");
       }
     }
   };

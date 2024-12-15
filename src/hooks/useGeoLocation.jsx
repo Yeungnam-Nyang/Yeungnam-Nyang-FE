@@ -19,7 +19,6 @@ export const useGeoLocation = (options) => {
       },
       (error) => {
         setError(error.message);
-        console.log("geolocation", error);
       },
       options
     );

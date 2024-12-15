@@ -83,11 +83,10 @@ export default function WritePost() {
 
       const response = await onFileUpload(formData);
       if (response && response.status === 200) {
-        console.log(formData);
         goToBack();
       }
     } catch (error) {
-      console.error("게시물 작성 실패", error);
+      alert("게시물 작성 실패", error);
     }
   };
 
@@ -96,22 +95,14 @@ export default function WritePost() {
     e.preventDefault();
     setRequestLocation(true);
 
-    try {
-      await getLocation(); // 위치 가져오기 시도
-    } catch (error) {
-      console.error("위치 정보를 가져오는 중 오류 발생:", error);
-    }
+    await getLocation(); // 위치 가져오기 시도
   };
   // 위치 정보가 업데이트될 때 주소를 가져오도록 useEffect 설정
   useEffect(() => {
     const fetchAddress = async () => {
       if (location) {
-        try {
-          const address = await getAddressApi({ location });
-          setUserLocation(address);
-        } catch (error) {
-          console.error("주소 정보를 가져오는 중 오류 발생:", error);
-        }
+        const address = await getAddressApi({ location });
+        setUserLocation(address);
       }
     };
     fetchAddress();
@@ -127,7 +118,7 @@ export default function WritePost() {
       setImgFiles((prev) => [...prev, ...imageUrlLists]); // 기존 미리보기와 결합
       onSaveFiles(files); // 선택된 파일을 저장
     } else {
-      console.error("파일이 선택되지 않았습니다.");
+      alert("파일이 선택되지 않았습니다.");
     }
   };
 

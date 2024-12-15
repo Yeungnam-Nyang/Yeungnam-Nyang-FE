@@ -9,7 +9,6 @@ import CatsMap from "./pages/CatsMap";
 import EditProfile from "./pages/Profile/EditProfile";
 import EditProfile2 from "./pages/Profile/EditProfile2";
 import MyProfile from "./pages/Profile/MyProfile";
-import MyCat from "./pages/Profile/MyCats";
 import SavedPosts from "./pages/Profile/SavedPosts";
 import WritePost from "./pages/Post/WritePost";
 import "./index.css";
@@ -22,7 +21,6 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./store/AuthProvider";
 import Scrap from "./pages/Scrap";
 import EditPost from "./pages/Post/EditPost";
-import FriendSendAndReceive from "./pages/FriendSent.jsx";
 import FriendSent from "./pages/FriendSent.jsx";
 import FriendReceive from "./pages/FriendReceive.jsx";
 class ErrorBoundary extends React.Component {
@@ -36,10 +34,7 @@ class ErrorBoundary extends React.Component {
     return { hasError: true };
   }
 
-  componentDidCatch(error, info) {
-    // 오류 리포팅 서비스에 오류를 기록할 수 있습니다.
-    console.error("Error occurred:", error, info);
-  }
+  
 
   render() {
     if (this.state.hasError) {

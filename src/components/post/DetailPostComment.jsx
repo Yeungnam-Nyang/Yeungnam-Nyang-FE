@@ -19,12 +19,8 @@ export default function DetailPostComment({ commentData, postId }) {
   const safeCommentData = Array.isArray(comments) ? comments : [];
 
   const myComment = async () => {
-    try {
-      const response = await api.get("/api/me");
-      setUserId(response.data);
-    } catch (error) {
-      console.error("Failed to fetch user data:", error);
-    }
+    const response = await api.get("/api/me");
+    setUserId(response.data);
   };
 
   useEffect(() => {
@@ -50,9 +46,9 @@ export default function DetailPostComment({ commentData, postId }) {
               <img
                 src={
                   item?.profileUrl && item.profileUrl !== "null"
-                      ? item.profileUrl // 유효한 프로필 URL
-                      : `${
-                          import.meta.env.VITE_PUBLIC_URL
+                    ? item.profileUrl // 유효한 프로필 URL
+                    : `${
+                        import.meta.env.VITE_PUBLIC_URL
                       }/assets/images/profile_default.png`
                 }
                 alt={`${item.userId} 프로필`}
