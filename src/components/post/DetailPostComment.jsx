@@ -18,8 +18,6 @@ export default function DetailPostComment({ commentData, postId }) {
 
   const safeCommentData = Array.isArray(comments) ? comments : [];
 
-  const myOptions = ["삭제하기"];
-
   const myComment = async () => {
     try {
       const response = await api.get("/api/me");

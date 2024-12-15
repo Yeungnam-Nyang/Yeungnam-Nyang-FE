@@ -6,6 +6,7 @@ import Loading from "../common/Loading.jsx";
 import Error from "../common/Error.jsx";
 import {useEffect, useState} from "react";
 
+
 export default function PostPreview({ postData }) {
   //댓글 불러오기
   const {
@@ -15,6 +16,7 @@ export default function PostPreview({ postData }) {
   } = useFetch(`/api/comment/post/${postData?.postId}`);
 
   const nav = useNavigate();
+
   const userId=localStorage.getItem("userId");
     // 경로 판단
     const path =
@@ -22,6 +24,10 @@ export default function PostPreview({ postData }) {
             ? "/profile"
             : `/friend/profile?friendId=${postData?.userId}`;
 
+
+
+  if(commentError) return <Error/>
+  if(commentLoading) return <Loading/> 
 
   return (
     <div className="flex flex-start flex-col p-3">

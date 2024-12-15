@@ -1,4 +1,4 @@
-import { useState, useEffect, memo } from "react";
+import { useState, useEffect, memo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaw, faBowlFood } from "@fortawesome/free-solid-svg-icons";
 import "./StopWatch.css";
@@ -8,6 +8,7 @@ import api from "../../api/api";
 import useFetch from "../../hooks/useFetch";
 import useSound from "use-sound";
 import catSound from "../../../public/assets/sounds/cat.mp3";
+import { useMutation, useQueryClient } from "react-query";
 
 const Timer = memo(({ value, label }) => (
   <div className="timer w-16">
@@ -42,8 +43,61 @@ const FoodBowl = memo(({ count, isFeeding }) => (
   </div>
 ));
 
-export default function StopWatch({ postId }) {
+//현재 시간 밀리초까지
+function getCurrentFormattedDate() {
+  const now = new Date();
+  // ISO 문자열 생성
+  const isoString = now.toISOString(); // 예: "2024-12-08T11:54:54.500Z"
+
+  // 밀리초 부분 길이 조정 (6자리로 만들기)
+  const formattedMillis = isoString.split(".")[1]?.slice(0, 6); // 예: "500896"
+
+  // 밀리초와 나머지 문자열 결합
+  return `${isoString.split(".")[0]}.${formattedMillis}Z`;
+}
+
+export default function StopWatch({ postData }) {
   //TODO: 낙천적 업데이트 이용해서 밥준 횟수 업데이트
+  const [post, setPost] = useState(postData);
+
+  const queryClient = useQueryClient();
+  const { mutate: feedingCount } = useMutation({
+    //고양이 밥주기 요청
+    mutationFn: ({ postId }) => api.put(`/api/post/catfood/${postId}`),
+
+    //mutation 발생 시
+    onMutate: async ({ postId }) => {
+      await queryClient.cancelMutations(["post", postId]);
+      const previousPost = queryClient.getQueryData(["post", postId]);
+
+      setPost((prevPost) => ({
+        ...prevPost,
+        //고양이 밥주기 횟수 -> 4회 이상이면 값 유지
+        catFoodCnt:
+          prevPost?.catFoodCnt > 3
+            ? prevPost?.catFoodCnt
+            : prevPost?.catFoodCnt + 1,
+
+        //마지막 밥준 시간 - 날짜 형식(2024-12-08T11:54:54.500896)
+        //3회 이상 밥 줬으면 이전 날짜값 유지
+        catStopWatch:
+          prevPost?.catFoodCnt > 3
+            ? prevPost?.catStopWatch
+            : String(getCurrentFormattedDate()),
+      }));
+
+      return { previousPost };
+    },
+
+    onError: (error, newPost, context) => {
+      setPost(context.previousPost);
+    },
+
+    onSettled: () => {
+      queryClient.invalidateQueries(["post", post?.postId]);
+    },
+  });
+
   //고양이 소리 효과음
   const [play] = useSound(catSound);
   const [isFeeding, setIsFeeding] = useState(false);
@@ -58,16 +112,10 @@ export default function StopWatch({ postId }) {
   //버튼 클릭 활성
   const [isButtonActive, setIsButtonActive] = useState(true);
 
-  const { data: post, loading } = useFetch(`/api/post/${postId}`);
-
   // 버튼 활성화 상태를 useEffect로 관리
   useEffect(() => {
-    if (post && post.catFoodCnt >= 3) {
-      setIsButtonActive(false);
-    } else {
-      setIsButtonActive(true);
-    }
-  }, [post?.catFoodCnt]);
+    setIsButtonActive(!(postData?.catFoodCnt >= 3));
+  }, [postData?.catFoodCnt]);
 
   const calculateTimeDiff = (lastFeedingTime) => {
     const now = new Date();
@@ -82,9 +130,9 @@ export default function StopWatch({ postId }) {
   };
 
   useEffect(() => {
-    if (!post?.catStopWatch) return;
-    setLastFeedingTime(post.catStopWatch);
-  }, [post]);
+    if (!postData?.catStopWatch) return;
+    setLastFeedingTime(postData.catStopWatch);
+  }, [postData]);
 
   useEffect(() => {
     if (!lastFeedingTime) return;
@@ -92,24 +140,22 @@ export default function StopWatch({ postId }) {
     const updateTimer = () => {
       setTime(calculateTimeDiff(lastFeedingTime));
     };
-
-    if (intervalId) {
-      clearInterval(intervalId);
-    }
-
-    updateTimer();
     const interval = setInterval(updateTimer, 1000);
-    setIntervalId(interval);
+    updateTimer(); // 초기 실행
 
     return () => {
-      clearInterval(intervalId);
+      clearInterval(interval); // 컴포넌트 언마운트 시 정리
     };
   }, [lastFeedingTime]);
-  console.log(post);
+
   const handleFeedClick = async () => {
     try {
       setIsFeeding(true);
-      await api.put(`/api/post/catfood/${postId}`);
+      if (postData?.catFoodCnt > 2) {
+        alert("밥은 하루에 4회 이상 줄 수 없어요!");
+        return;
+      }
+      feedingCount({ postId: post?.postId });
 
       // 타이머 초기화
       if (intervalId) {
@@ -117,21 +163,17 @@ export default function StopWatch({ postId }) {
       }
       setTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       play();
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
     } catch (error) {
       console.error("급식 업데이트 실패:", error);
       setIsFeeding(false);
     }
   };
 
-  if (!post || loading) return <Loading />;
-
+  //TODO 에러 및 로딩 컨트롤
   return (
     <div className="py-10 w-auto">
       <div className="flex items-center justify-center w-auto gap-4 count-down-main">
-        <FoodBowl count={post.catFoodCnt} isFeeding={isFeeding} />
+        <FoodBowl count={post?.catFoodCnt} isFeeding={isFeeding} />
         <Timer value={time.days} label="일" />
         <h3 className="font-manrope font-semibold text-2xl text-gray-900">:</h3>
         <Timer value={time.hours} label="시간" />

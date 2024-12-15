@@ -133,7 +133,7 @@ export default function DetailPost() {
           <DetailPostImage postData={postData} />
           <hr className="bg-white h-1 w-[95%] mx-auto my-5" />
           <DetailPostContent postData={postData} />
-          <StopWatch postId={postData?.postId} />
+          <StopWatch postData={postData} />
           <div className="flex justify-between pb-8">
             <Title text={"COMMENT"} />
             <button
