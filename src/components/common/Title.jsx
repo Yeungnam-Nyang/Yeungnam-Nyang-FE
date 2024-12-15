@@ -7,7 +7,7 @@ export default function Title({ text, select = "paw" }) {
         src={
           select === "fire"
             ? `${import.meta.env.VITE_PUBLIC_URL}/assets/images/icon_fire.png`
-            : `${import.meta.env.VITE_PUBLIC_URL}/assets/images/icon_pow.png`
+            : `${import.meta.env.VITE_PUBLIC_URL}/assets/images/Icon_pow.png`
         }
         className="w-12 h-auto"
       />
