@@ -67,14 +67,13 @@ function App() {
               <Route path="/profile" element={<MyProfile />}></Route>
               <Route path="/profile/edit" element={<EditProfile />}></Route>
               <Route path="/profile/edit2" element={<EditProfile2 />}></Route>
-              <Route path="/profile/mycat" element={<MyCat />}></Route>
+              <Route path="/profile/mycat" element={<Scrap />}></Route>
               <Route path="/profile/posts" element={<SavedPosts />}></Route>
               <Route path="/post/write" element={<WritePost />}></Route>
               <Route path="/post/:id" element={<DetailPost />}></Route>
               <Route path="/friend" element={<Friend />}></Route>
               <Route path="/friend/profile" element={<FriendProfile />}></Route>
               <Route path="/*" element={<NotFound />}></Route>
-              <Route path="/scrap" element={<Scrap />} />
               <Route path="/post/edit/:id" element={<EditPost />} />
               <Route path="/friend/send" element={<FriendSent/>}/>
               <Route path="/friend/receive" element={<FriendReceive/>}/>
