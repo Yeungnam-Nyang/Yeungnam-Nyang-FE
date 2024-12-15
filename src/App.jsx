@@ -17,10 +17,14 @@ import NotFound from "./pages/NotFound";
 import DetailPost from "./pages/Post/DetailPost";
 import React from "react";
 import Friend from "./pages/Friend";
+import FriendProfile from "./pages/FriendProfile";
 import PrivateRoutes from "./utils/PrivateRoutes";
 import { AuthProvider } from "./store/AuthProvider";
 import Scrap from "./pages/Scrap";
 import EditPost from "./pages/Post/EditPost";
+import FriendSendAndReceive from "./pages/FriendSent.jsx";
+import FriendSent from "./pages/FriendSent.jsx";
+import FriendReceive from "./pages/FriendReceive.jsx";
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -68,9 +72,12 @@ function App() {
               <Route path="/post/write" element={<WritePost />}></Route>
               <Route path="/post/:id" element={<DetailPost />}></Route>
               <Route path="/friend" element={<Friend />}></Route>
+              <Route path="/friend/profile" element={<FriendProfile />}></Route>
               <Route path="/*" element={<NotFound />}></Route>
               <Route path="/scrap" element={<Scrap />} />
               <Route path="/post/edit/:id" element={<EditPost />} />
+              <Route path="/friend/send" element={<FriendSent/>}/>
+              <Route path="/friend/receive" element={<FriendReceive/>}/>
             </Route>
           </Routes>
         </div>

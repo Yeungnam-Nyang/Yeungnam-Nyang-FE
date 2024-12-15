@@ -111,7 +111,7 @@ export default function SignUp2() {
       axios.post(`${API_URL}/api/signup`, data)
         .then(response => {
           console.log('회원 가입 성공:', response.data);
-          router('/login');
+          router('/');
         })
         .catch(error => {
           console.error('회원 가입 중 오류 발생:', error.response);

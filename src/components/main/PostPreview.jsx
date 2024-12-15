@@ -2,10 +2,12 @@ import { BiSolidLike } from "react-icons/bi";
 import { FaCommentAlt } from "react-icons/fa";
 import useFetch from "../../hooks/useFetch";
 import { useNavigate } from "react-router-dom";
-import Loading from "../common/Loading";
-import Error from "../common/Error";
+import Loading from "../common/Loading.jsx";
+import Error from "../common/Error.jsx";
+import {useEffect, useState} from "react";
 
-export default function PostPreview({ postData, userData }) {
+
+export default function PostPreview({ postData }) {
   //댓글 불러오기
   const {
     data: commentData,
@@ -14,20 +16,31 @@ export default function PostPreview({ postData, userData }) {
   } = useFetch(`/api/comment/post/${postData?.postId}`);
 
   const nav = useNavigate();
+
+  const userId=localStorage.getItem("userId");
+    // 경로 판단
+    const path =
+        userId === postData?.userId
+            ? "/profile"
+            : `/friend/profile?friendId=${postData?.userId}`;
+
+
+
   if(commentError) return <Error/>
   if(commentLoading) return <Loading/> 
+
   return (
     <div className="flex flex-start flex-col p-3">
       {/* 프로필 */}
-      <section className="flex flex-row gap-4  items-center py-4 cursor-pointer">
+      <section className="flex flex-row gap-4  items-center py-4 cursor-pointer" onClick={()=>nav(path)}>
         <img
           alt="profile_img"
           src={
-            userData?.profileURL // 유저 프로필 이미지가 있으면 사용
-              ? userData.profileURL
-              : `${
-                  import.meta.env.VITE_PUBLIC_URL
-                }/assets/images/profile_default.png`
+              postData?.profileUrl && postData.profileUrl !== "null"
+                  ? postData.profileUrl // 유효한 프로필 URL
+                  : `${
+                      import.meta.env.VITE_PUBLIC_URL
+                  }/assets/images/profile_default.png`
           }
           className="rounded-full w-10 h-auto bg-white"
         />
@@ -46,18 +59,21 @@ export default function PostPreview({ postData, userData }) {
             className="rounded-3xl m-auto mt-5"
           />
           <div className="m-auto flex gap-3 p-4">
-            {commentData && commentData.length > 0 ? (
-              <>
-                <img
-                  src={`${
-                    import.meta.env.VITE_PUBLIC_URL
-                  }/assets/images/profile_default.png`}
-                  className="rounded-full w-6 bg-black"
-                />
-                <p>{commentData[0].userId}</p>
-                <p>{commentData[0].content}</p>
-              </>
-            ) : null}
+              {commentLoading?<Loading/>:commentError?<Error/>:(commentData && commentData.length > 0 ? (
+                  <>
+                      <img
+                          alt="comment-profile.img"
+                          src={commentData[0]?.profileUrl && commentData[0].profileUrl !== "null"
+                              ? commentData[0].profileUrl // 유효한 프로필 URL
+                              : `${
+                                  import.meta.env.VITE_PUBLIC_URL
+                              }/assets/images/profile_default.png`}
+                          className="rounded-full w-6 bg-black"
+                      />
+                      <p>{commentData[0].userId}</p>
+                      <p>{commentData[0].content}</p>
+                  </>
+              ) : null)}
           </div>
         </div>
       </section>

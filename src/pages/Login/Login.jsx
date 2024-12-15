@@ -27,7 +27,7 @@ export default function Login() {
         ////
         // 성공적인 로그인 응답 시
         localStorage.setItem("token", response.data.token); // JWT 토큰 저장
-
+        localStorage.setItem("userId",id);
         // 성공 후 홈 페이지로 이동
         nav("/main");
       } catch (error) {
