@@ -8,6 +8,11 @@
 
 ## 🚀 사이트 접속 : https://yeungnam-nyang.site
 
+## 릴리즈
+| version | description | date | author |
+| -- | -- | -- | -- |
+| V0.0.1 | 찻 데모 버젼 | 2024.12.15 | [#74](https://github.com/Yeungnam-Nyang/Yeungnam-Nyang-FE/releases/tag/v0.0.1) |
+
 ## 📖목차
 
 1. [개요](#개요)
