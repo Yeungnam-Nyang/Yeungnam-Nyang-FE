@@ -24,7 +24,7 @@ export default function CatMarker({ post, onClick }) {
         {/* 호버 시 나타나는 정보 */}
         <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white px-2 py-1 rounded shadow-md opacity-0 transition-opacity duration-300 group-hover:opacity-100">
           <p className="text-xs font-semibold whitespace-nowrap">
-            {post.catName}
+            {post?.catName}
           </p>
         </div>
       </div>

@@ -70,9 +70,7 @@ export default function KakoMap() {
     fetchMapData();
   }, [location, setPostsCount]);
 
-  if (locationError || error) {
-    return <Error />;
-  }
+
   if (loading) {
     return <Loading />;
   }
