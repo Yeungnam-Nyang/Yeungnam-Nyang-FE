@@ -11,7 +11,7 @@
 ## 릴리즈
 | version | description | date | author |
 | -- | -- | -- | -- |
-| V0.0.1 | 찻 데모 버젼 | 2024.12.15 | [#74](https://github.com/Yeungnam-Nyang/Yeungnam-Nyang-FE/releases/tag/v0.0.1) |
+| V0.0.1 | 첫 데모 버젼 | 2024.12.15 | [#74](https://github.com/Yeungnam-Nyang/Yeungnam-Nyang-FE/releases/tag/v0.0.1) |
 
 ## 📖목차
 
