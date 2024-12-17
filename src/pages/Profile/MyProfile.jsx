@@ -6,6 +6,7 @@ import Header from "../../components/common/Header";
 import NavBar from "../../components/common/NavBar";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Wrapper from "../../components/common/Wrapper";
 
 export default function MyProfile() {
   const API_URL = import.meta.env.VITE_SERVER_URL;
@@ -75,60 +76,62 @@ export default function MyProfile() {
     }
   };
   return (
-    <div className="my-profile-container">
-      <Header />
-      <div className="profile-header">
-        <img
-          src={`${PUBLIC_URL}/assets/images/icon_pow.png`}
-          alt="Icon"
-          className="profile-icon "
-        />
-        <h2 className="profile-title">MY PROFILE</h2>
+    <Wrapper>
+      <div className="my-profile-container">
+        <Header />
+        <div className="profile-header">
+          <img
+            src={`${PUBLIC_URL}/assets/images/icon_pow.png`}
+            alt="Icon"
+            className="profile-icon "
+          />
+          <h2 className="profile-title">MY PROFILE</h2>
+        </div>
+
+        <div className="profile-img profile-image-container">
+          {/* 프로필 이미지 */}
+          <img
+            src={profileURL}
+            alt="Profile"
+            className="profile-image"
+            key={profileURL}
+          />
+          <button
+            className="profile-change-button"
+            onClick={() => fileInputRef.current.click()} // 파일 입력창 열기
+          >
+            <FaCamera />
+          </button>
+          {/* 숨겨진 파일 입력창 */}
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={handleProfileChange}
+          />
+        </div>
+
+        {/* 오류 메시지 출력 */}
+        {error && <div className="error-message">{error}</div>}
+
+        <h3 className="info-title">학교명</h3>
+        <div className="profile-info">{schoolName || "정보 없음"}</div>
+        <h3 className="info-title">학과명</h3>
+        <div className="profile-info">{departmentName || "정보 없음"}</div>
+        <h3 className="info-title">이름</h3>
+        <div className="profile-info">{studentName || "정보 없음"}</div>
+
+        <div className="button-group">
+          <Button
+            text="내가 저장한 게시물"
+            isValid={true}
+            onClick={() => nav("/profile/mycat")}
+          />
+          <Button text="로그아웃" isValid={true} onClick={handleLogout} />
+        </div>
+        <NavBar />
       </div>
-
-      <div className="profile-img profile-image-container">
-        {/* 프로필 이미지 */}
-        <img
-          src={profileURL}
-          alt="Profile"
-          className="profile-image"
-          key={profileURL}
-        />
-        <button
-          className="profile-change-button"
-          onClick={() => fileInputRef.current.click()} // 파일 입력창 열기
-        >
-          <FaCamera />
-        </button>
-        {/* 숨겨진 파일 입력창 */}
-        <input
-          type="file"
-          accept="image/*"
-          ref={fileInputRef}
-          style={{ display: "none" }}
-          onChange={handleProfileChange}
-        />
-      </div>
-
-      {/* 오류 메시지 출력 */}
-      {error && <div className="error-message">{error}</div>}
-
-      <h3 className="info-title">학교명</h3>
-      <div className="profile-info">{schoolName || "정보 없음"}</div>
-      <h3 className="info-title">학과명</h3>
-      <div className="profile-info">{departmentName || "정보 없음"}</div>
-      <h3 className="info-title">이름</h3>
-      <div className="profile-info">{studentName || "정보 없음"}</div>
-
-      <div className="button-group">
-        <Button
-          text="내가 저장한 게시물"
-          isValid={true}
-          onClick={() => nav("/profile/mycat")}
-        />
-        <Button text="로그아웃" isValid={true} onClick={handleLogout} />
-      </div>
-      <NavBar />
-    </div>
+    </Wrapper>
   );
 }

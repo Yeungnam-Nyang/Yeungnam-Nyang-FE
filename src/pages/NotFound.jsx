@@ -1,9 +1,10 @@
 import Header from "../components/common/Header";
 import NavBar from "../components/common/NavBar";
+import Wrapper from "../components/common/Wrapper";
 
 export default function NotFound() {
   return (
-    <div>
+    <Wrapper>
       <Header />
       <section className="flex flex-col items-center  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <img
@@ -20,6 +21,6 @@ export default function NotFound() {
         </text>
       </section>
       <NavBar />
-    </div>
+    </Wrapper>
   );
 }

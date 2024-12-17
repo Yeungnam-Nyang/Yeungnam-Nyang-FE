@@ -5,13 +5,14 @@ import Loading from "../components/common/Loading";
 import NavBar from "../components/common/NavBar";
 import Title from "../components/common/Title";
 import useFetch from "../hooks/useFetch";
+import Wrapper from "../components/common/Wrapper";
 
 export default function Scrap() {
   //스크랩 게시글 가져오기
   const { arrData:data, isLoading, error } = useFetch("/api/post/myscrap");
   const nav = useNavigate();
   return (
-    <>
+    <Wrapper>
       <Header />
       <div className="h-20"></div>
       <Title text={"SCRAP"} padding={28} />
@@ -46,6 +47,6 @@ export default function Scrap() {
         </div>
       )}
       <NavBar />
-    </>
+    </Wrapper>
   );
 }

@@ -8,6 +8,7 @@ import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6"
 import Loading from "../components/common/Loading.jsx";
 import Error from "../components/common/Error.jsx";
 import {useNavigate} from "react-router-dom";
+import Wrapper from "../components/common/Wrapper.jsx";
 export default function FriendReceive(){
     const nav=useNavigate();
     //내가 받은 친구목록
@@ -83,7 +84,7 @@ export default function FriendReceive(){
     if(receiveLoading)return <Loading/>
     if(receiveError)return <Error/>
     return(
-        <>
+        <Wrapper>
             <Header/>
             <div className="h-20"></div>
             <Title text="FriendManager"/>
@@ -139,6 +140,6 @@ export default function FriendReceive(){
             </h1>}
 
             <NavBar/>
-        </>
+        </Wrapper>
     )
 }

@@ -35,7 +35,6 @@ export default function KakoMap() {
         await getLocation();
         setLoading(false);
       } catch (err) {
-      
         setError(true);
         setLoading(false);
       }
@@ -48,7 +47,6 @@ export default function KakoMap() {
     setLoading(true);
     await getLocation();
     setLoading(false);
-    // 위치가 null인지 확인
   };
 
   // useFetch 대신 useEffect 사용
@@ -73,7 +71,6 @@ export default function KakoMap() {
   }, [location, setPostsCount]);
 
   if (locationError || error) {
-   
     return <Error />;
   }
   if (loading) {
